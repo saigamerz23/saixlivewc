@@ -3,7 +3,7 @@ html
 <html>
 <head>
   <meta charset="UTF-8">
-  <title> CricketLIVE! Official</title>
+  <title>CricketLIVE! Official</title>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     body {
@@ -13,12 +13,24 @@ html
       text-align: center;
     }
     .title {
-      font-size: 36px;
+      font-size: 48px;
       font-weight: bold;
-      background: linear-gradient(to right, #00bfff, #ff1493); /* Blue to Pink */
+      background: linear-gradient(to right, #00bfff, #ff1493);
       -webkit-background-clip: text;
       color: transparent;
-      margin: 20px 0;
+      margin: 20px 0 10px 0;
+    }
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+      display: inline-block;
     }
     video {
       width: 100%;
@@ -30,6 +42,10 @@ html
 <body>
 
   <div class="title">CricketLIVE! Official</div>
+<a class="whatsapp-btn" href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank">
+    📲 Join WhatsApp Channel
+  </a>
+
   <video id="video" controls autoplay></video>
 
   <script>
@@ -41,7 +57,9 @@ html
       "SonySportsHD": "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
     };
 
-    const videoSrc = links[id];if (Hls.isSupported() && videoSrc) {
+    const videoSrc = links[id];
+
+    if (Hls.isSupported() && videoSrc) {
       const video = document.getElementById('video');
       const hls = new Hls();
       hls.loadSource(videoSrc);
