@@ -5,7 +5,7 @@ html
   <meta charset="UTF-8" />
   <title>CricketLIVE! Official</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@500;600;700&display=swap');
 
     * {
       margin: 0;
@@ -16,8 +16,7 @@ html
     html, body {
       height: 100%;
       background: #000;
-      font-family: 'Segoe UI', sans-serif;
-      color: #fff;
+      font-family: 'Poppins', sans-serif;
       overflow: hidden;
     }
 
@@ -29,22 +28,20 @@ html
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 30px;
-      font-weight: 800;
+      font-size: 28px;
+      font-weight: bold;
       letter-spacing: 1px;
       z-index: 9999;
-      flex-direction: row;
-      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
       color: transparent;
+      background-image: linear-gradient(90deg, #FFD700, #FF8C00);
       background-clip: text;
       -webkit-background-clip: text;
-      background-image: linear-gradient(90deg, gold, orange);
     }
 
     .dots::after {
       content: '';
-      display: inline-block;
-animation: dots 1.5s steps(3, end) infinite;
+display: inline-block;
+      animation: dots 1.5s steps(3, end) infinite;
     }
 
     @keyframes dots {
@@ -57,102 +54,81 @@ animation: dots 1.5s steps(3, end) infinite;
     .container {
       display: none;
       text-align: center;
-      padding: 50px 20px;
+      padding: 60px 20px;
     }
 
     .title {
       font-family: 'Orbitron', sans-serif;
-      font-size: 52px;
-      background: linear-gradient(90deg, #00ffff, #7b00ff);
+      font-size: 48px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
     }
 
     .title img {
-      width: 42px;
-      height: 42px;
-      filter: drop-shadow(0 0 4px #25D366);
+      width: 38px;
+      height: 38px;
     }
 
     .support-box {
-      background: #111;
-      border: 3px solid #25D366;
-      border-radius: 20px;
-      display: inline-block;
-      padding: 40px 30px;
-      max-width: 600px;
-      width: 90%;
-      box-shadow: 0 0 25px #25D366aa;
-      animation: fadeIn 1s ease-in;
+      background: linear-gradient(145deg, #111, #1a1a1a);
+      border: 2px solid #25D366;
+      border-radius: 25px;
+      padding: 50px 30px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 0 25px #25D36688;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .support-box h2 {
-      font-size: 30px;
-      color: #25D366;
-      margin-bottom: 15px;
+      font-size: 34px;
+      background: linear-gradient(90deg, #25D366, #128C7E);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .support-box p {
-      font-size: 18px;
+font-size: 18px;
+      color: #ddd;
       margin-bottom: 30px;
+      line-height: 1.6;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 20px;
-justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 14px 28px;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s ease;
-      text-decoration: none;
-    }
-
-    .joined {
-      background: #444;
-      color: #aaa;
-    }
-
-    .joined:hover {
-      background: #555;
-    }
-
-    .join-now {
+    .join-btn {
+      padding: 14px 34px;
+      font-size: 17px;
       background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      border-radius: 14px;
       color: #fff;
-      box-shadow: 0 0 12px #25D366aa;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 0 15px #25D366aa;
+      transition: 0.3s ease;
     }
 
-    .join-now:hover {
+    .join-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 18px #25D366cc;
+      box-shadow: 0 0 20px #25D366cc;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.95);}
-      to {opacity: 1; transform: scale(1);}
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Loader -->
   <div id="loader">LOADING<span class="dots"></span> PLEASE WAIT</div>
 
-  <!-- Main Content -->
   <div class="container" id="mainContent">
     <div class="title">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" />
@@ -160,12 +136,9 @@ justify-content: center;
     </div>
 
     <div class="support-box">
-      <h2>Support Us!</h2>
-      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> For Instant Update & Exclusive Links.</p>
-      <div class="btn-group">
-<div class="btn joined">Already Joined</div>
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn join-now">Join Now</a>
-      </div>
+      <h2>📢 Support Us!</h2>
+      <p>Join our <strong>WhatsApp channel - CricketLIVE! Official</strong> for instant match updates and exclusive live streaming links. Stay connected with real-time cricket action!</p>
+<a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">Join Now</a>
     </div>
   </div>
 
@@ -174,7 +147,7 @@ justify-content: center;
       setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
         document.getElementById('mainContent').style.display = 'block';
-      }, 3000); // Show loader only for 3 seconds
+      }, 3000);
     }
   </script>
 
