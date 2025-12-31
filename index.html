@@ -6,12 +6,32 @@ html
   <title>CricketLIVE! Official</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-    
-    body {
-      margin: 0;
+
+    body, html {
+      margin: 0; padding: 0; height: 100%;
       background: #000;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
+      overflow-x: hidden;
+    }
+
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      user-select: none;
+      z-index: 9999;
+    }
+
+    .container {
+      display: none;
       text-align: center;
       padding: 40px 0;
     }
@@ -19,38 +39,36 @@ html
     .title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 700;
-      font-size: 72px;
-      background: linear-gradient(90deg, #00ffff 0%, #7b00ff 100%);
+      font-size: 56px;
+background: linear-gradient(90deg, #00ffff 0%, #7b00ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
       text-transform: uppercase;
       margin-bottom: 60px;
+      white-space: nowrap;
     }
 
     .title img {
-      width: 56px;
-      height: 56px;
-      filter: drop-shadow(0 0 3px #25D366);
+      width: 48px;
+      height: 48px;
+      filter: drop-shadow(0 0 4px #25D366);
     }
 
     .support-box {
       background: #111;
       border: 3px solid #25D366;
-border-radius: 22px;
+      border-radius: 22px;
       display: inline-block;
       padding: 50px 60px;
-      width: 90%;
       max-width: 650px;
       box-shadow: 0 0 35px #25D366bb;
-      animation: slideIn 1.3s ease-out;
       font-size: 22px;
       line-height: 1.5;
       font-weight: 600;
       color: #e1e1e1;
-      position: relative;
       user-select: none;
     }
 
@@ -78,23 +96,19 @@ border-radius: 22px;
       font-size: 20px;
       font-weight: 700;
       border: none;
-      border-radius: 14px;
+border-radius: 14px;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
       transition: 0.4s ease;
       box-shadow: 0 0 15px #25D366aa;
       user-select: none;
+      margin-top: 20px;
     }
 
     .join-btn:hover {
       transform: scale(1.08);
       box-shadow: 0 0 25px #25D366ee;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(40px);}
-to { opacity: 1; transform: translateY(0);}
     }
 
     @keyframes rotate {
@@ -105,20 +119,32 @@ to { opacity: 1; transform: translateY(0);}
 </head>
 <body>
 
-  <div class="title">
-    CRICKETLIVE! OFFICIAL
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" />
-  </div>
+  <div id="loader">LOADING... PLEASE WAIT</div>
 
-  <div class="support-box">
-    <h2>
+  <div class="container" id="mainContent">
+    <div class="title">
+      CRICKETLIVE! OFFICIAL
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" />
-      Support Us!
-    </h2>
-    Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for Instant Updates, Exclusive Match Links & More.
-    <br /><br />
-    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn">Join Now</a>
+    </div>
+
+    <div class="support-box">
+      <h2>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" />
+        Support Us!
+      </h2>
+      Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for Instant Updates, Exclusive Match Links & More.
+      <br /><br />
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn">Join Now</a>
+    </div>
   </div>
 
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+document.getElementById('loader').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }, 3000); // 3 seconds loading screen
+    }
+  </script>
 </body>
 </html>
