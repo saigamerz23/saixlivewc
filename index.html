@@ -23,6 +23,7 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
+      position: relative; /* For audio element positioning */
     }
 
     /* Animated Loading Screen */
@@ -50,18 +51,34 @@
       50% { opacity: 0.5; transform: scale(1.1); }
     }
 
+    /* Header with Premium Box */
     header {
-      width: 100%;
+      width: 90%; /* Max width for mobile */
+      max-width: 400px; /* Limit for larger screens */
       text-align: center;
       font-family: 'Orbitron', sans-serif;
       font-size: 1.4rem;
+      margin-top: 25px;
+      white-space: nowrap;
+      padding: 10px 15px; /* Padding inside the box */
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08); /* Semi-transparent background */
+      backdrop-filter: blur(15px); /* Glassmorphism effect */
+      border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Deep shadow for luxury */
+      display: none; /* Initially hidden */
+      z-index: 100; /* Above other content */
+      position: relative; /* For internal text gradient */
+      overflow: hidden; /* For smooth text gradient */
+    }
+
+    /* Header text styling within the premium box */
+    .header-text-content {
       background: linear-gradient(90deg, #00ffff, #ff00ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-top: 25px;
-      white-space: nowrap;
-      padding: 0 10px;
-      display: none;
+      line-height: 1.2;
+      text-shadow: 0 0 10px rgba(0,255,255,0.4); /* Glow effect for text */
     }
 
     /* Support Box */
@@ -78,6 +95,7 @@
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       animation: slideUp 0.6s ease-out;
+      z-index: 101; /* Above header box */
     }
 
     @keyframes slideUp {
@@ -122,6 +140,7 @@
       text-transform: uppercase;
       animation: pulseGlow 2s infinite;
       display: block;
+      transition: all 0.3s ease;
     }
 
     @keyframes pulseGlow {
@@ -138,6 +157,11 @@
       border-radius: 12px;
       font-size: 0.9rem;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .already-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
     }
 
     /* Thank You Message */
@@ -147,11 +171,17 @@
       color: #00ffff;
       margin-top: 20px;
       animation: fadeIn 0.5s ease;
+      font-family: 'Orbitron', sans-serif; /* Premium font for thank you */
     }
 
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+
+    /* Hidden audio element */
+    #commentaryAudio {
+        display: none;
     }
   </style>
 </head>
@@ -161,7 +191,9 @@
     <div class="loader-text">LOADING...</div>
   </div>
 
-  <header id="headerText">CRICKETLIVE! OFFICIAL</header>
+  <header id="headerBox">
+    <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
+  </header>
 
   <div id="supportBox">
     <div id="boxContent">
@@ -183,12 +215,31 @@
     <div id="thankYouMsg">❤️ Thank You for your Support!</div>
   </div>
 
+  <audio id="commentaryAudio" preload="auto">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARJxAAABJAAgAZGF0YQAAAAA=" type="audio/wav">
+  </audio>
+
 <script>
+  const loadingScreen = document.getElementById('loadingScreen');
+  const headerBox = document.getElementById('headerBox');
+  const supportBox = document.getElementById('supportBox');
+  const commentaryAudio = document.getElementById('commentaryAudio');
+
+  // Load and play commentary after loading screen (if supported by browser)
+  // Auto-play might be blocked by browsers, a user interaction might be needed.
+  // For this example, we'll try to play it after loading.
+  function playCommentary() {
+      if (commentaryAudio && commentaryAudio.paused) {
+          commentaryAudio.play().catch(e => console.log("Audio play blocked:", e));
+      }
+  }
+
   // Loading for exactly 3 seconds
   setTimeout(() => {
-    document.getElementById('loadingScreen').style.display = 'none';
-    document.getElementById('headerText').style.display = 'block';
-    document.getElementById('supportBox').style.display = 'block';
+    loadingScreen.style.display = 'none';
+    headerBox.style.display = 'block';
+    supportBox.style.display = 'block';
+    playCommentary(); // Attempt to play commentary after loading
   }, 3000);
 
   function handleAlreadyJoined() {
@@ -198,12 +249,11 @@
 
     // Hide the whole box after 2 seconds of showing Thank You
     setTimeout(() => {
-      const box = document.getElementById('supportBox');
-      box.style.transition = "0.5s";
-      box.style.opacity = "0";
-      box.style.transform = "scale(0.9)";
+      supportBox.style.transition = "0.5s";
+      supportBox.style.opacity = "0";
+      supportBox.style.transform = "scale(0.9)";
       setTimeout(() => {
-        box.style.display = 'none';
+        supportBox.style.display = 'none';
       }, 500);
     }, 2000);
   }
@@ -211,3 +261,4 @@
 
 </body>
 </html>
+<source src="https://example.com/your-amazing-commentary.mp3" type="audio/mpeg">
