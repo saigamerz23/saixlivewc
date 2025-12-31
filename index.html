@@ -1,16 +1,12 @@
-
-
 html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>CricketLIVE! Official</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html, body {
       height: 100%;
       background: #000;
@@ -28,112 +24,28 @@ html
       justify-content: center;
       align-items: center;
       font-size: 28px;
-      font-weight: bold;
       z-index: 9999;
     }
 
     #loader h2 {
       color: #25D366;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
       margin-bottom: 20px;
-      font-size: 24px;
     }
 
     .loading-text {
       color: transparent;
       background-image: linear-gradient(90deg, #FFD700, #FF8C00);
       background-clip: text;
-      -webkit-background-clip: text;
+-webkit-background-clip: text;
     }
 
     .dots::after {
       content: '';
       display: inline-block;
       animation: dots 1.5s steps(3, end) infinite;
-background: linear-gradient(to right, #25D366, #128C7E);
-      color: #fff;
-      border: none;
     }
-
-    .btn-joined {
-      background: #222;
-      color: #bbb;
-      border: 1px solid #555;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="loader">
-    <h2>Welcome</h2>
-    <div class="loading-text">LOADING<span class="dots"></span> PLEASE WAIT</div>
-  </div>
-
-  <div class="container" id="mainContent">
-    <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
-      CRICKETLIVE! OFFICIAL
-    </div>
-
-    <div class="support-box" id="supportBox">
-      <div class="support-title">Support Us!</div>
-      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates and exclusive links.</p>
-      <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
-    </div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 3000);
-    }
-
-    function hideSupport() {
-background: linear-gradient(to right, #25D366, #128C7E);
-      color: #fff;
-      border: none;
-    }
-
-    .btn-joined {
-      background: #222;
-      color: #bbb;
-      border: 1px solid #555;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="loader">
-    <h2>Welcome</h2>
-    <div class="loading-text">LOADING<span class="dots"></span> PLEASE WAIT</div>
-  </div>
-
-  <div class="container" id="mainContent">
-    <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
-      CRICKETLIVE! OFFICIAL
-    </div>
-
-    <div class="support-box" id="supportBox">
-      <div class="support-title">Support Us!</div>
-      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates and exclusive links.</p>
-      <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
-    </div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 3000);
-    }
-
-    function hideSupport() {
-}
 
     @keyframes dots {
       0% { content: ''; }
@@ -182,6 +94,14 @@ background: linear-gradient(to right, #25D366, #128C7E);
       font-size: 26px;
       color: #25D366;
       margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+.support-title img {
+      width: 26px;
+      animation: pulse 1s infinite;
     }
 
     .support-box p {
@@ -198,7 +118,64 @@ background: linear-gradient(to right, #25D366, #128C7E);
     }
 
     .btn-join {
-document.getElementById('supportBox').style.display = 'none';
+      background: linear-gradient(to right, #25D366, #128C7E);
+      color: #fff;
+      border: none;
+      animation: glow 1.2s ease-in-out infinite alternate;
+    }
+
+    .btn-joined {
+      background: #222;
+      color: #bbb;
+      border: 1px solid #555;
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px #25D366; }
+      100% { box-shadow: 0 0 20px #25D366, 0 0 30px #25D366; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <h2>Welcome</h2>
+    <div class="loading-text">LOADING<span class="dots"></span> PLEASE WAIT</div>
+  </div>
+
+  <div class="container" id="mainContent">
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
+      CRICKETLIVE! OFFICIAL
+    </div>
+
+    <div class="support-box" id="supportBox">
+<div class="support-title">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
+        Support Us!
+      </div>
+      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates and exclusive links.</p>
+      <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }, 3000);
+    }
+
+    function hideSupport() {
+      document.getElementById('supportBox').style.display = 'none';
     }
   </script>
 
