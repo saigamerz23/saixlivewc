@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CricketLIVE! Official</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&family=Playfair+Display:ital,wght@1,700&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #0a1e40;
-      background-image: linear-gradient(rgba(10, 30, 64, 0.9), rgba(10, 30, 64, 0.9)), 
+      background: #050a18;
+      background-image: linear-gradient(rgba(5, 10, 24, 0.9), rgba(5, 10, 24, 0.9)), 
                         url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
@@ -23,14 +23,13 @@
       flex-direction: column;
       align-items: center;
       overflow: hidden;
-      position: relative; /* For audio element positioning */
     }
 
-    /* Animated Loading Screen */
+    /* Premium Loading Screen */
     #loadingScreen {
       position: fixed;
       inset: 0;
-      background: #0a1e40;
+      background: #050a18;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -38,69 +37,84 @@
       z-index: 2000;
     }
 
-    .loader-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
-      color: #00ffff;
-      letter-spacing: 5px;
-      animation: pulseText 1.5s infinite;
-    }
-
-    @keyframes pulseText {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.1); }
-    }
-
-    /* Header with Premium Box */
-    header {
-      width: 90%; /* Max width for mobile */
-      max-width: 400px; /* Limit for larger screens */
-      text-align: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4rem;
-      margin-top: 25px;
-      white-space: nowrap;
-      padding: 10px 15px; /* Padding inside the box */
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.08); /* Semi-transparent background */
-      backdrop-filter: blur(15px); /* Glassmorphism effect */
-      border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Deep shadow for luxury */
-      display: none; /* Initially hidden */
-      z-index: 100; /* Above other content */
-      position: relative; /* For internal text gradient */
-      overflow: hidden; /* For smooth text gradient */
-    }
-
-    /* Header text styling within the premium box */
-    .header-text-content {
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
+    .welcome-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      line-height: 1.2;
-      text-shadow: 0 0 10px rgba(0,255,255,0.4); /* Glow effect for text */
+      margin-bottom: 10px;
+      font-style: italic;
+      animation: fadeInOut 2s infinite ease-in-out;
     }
 
-    /* Support Box */
+    .loader-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      color: #00ffff;
+      letter-spacing: 8px;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.6; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-5px); }
+    }
+
+    /* Luxury Header Box */
+    header {
+      width: 92%;
+      max-width: 420px;
+      text-align: center;
+      margin-top: 35px;
+      padding: 15px;
+      position: relative;
+      display: none;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border-radius: 15px;
+      /* Luxury Border */
+      border: 1px solid rgba(191, 149, 63, 0.4); 
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 15px rgba(191, 149, 63, 0.1);
+    }
+
+    .header-text-content {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      background: linear-gradient(90deg, #fff, #00ffff, #fff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+    }
+
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    /* Support Box Premium */
     #supportBox {
       display: none;
       width: 90%;
       max-width: 380px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      padding: 30px 20px;
-      margin-top: 50px;
+      background: rgba(10, 20, 40, 0.8);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 35px 25px;
+      margin-top: 40px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      animation: slideUp 0.6s ease-out;
-      z-index: 101; /* Above header box */
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+      animation: luxuryPop 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
     }
 
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes luxuryPop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .box-title {
@@ -111,14 +125,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .box-title img { width: 30px; height: 30px; }
+    .box-title img { width: 32px; }
 
     .box-desc {
-      font-size: 0.95rem;
-      color: #efefef;
+      font-size: 0.9rem;
+      color: #d1d1d1;
       line-height: 1.6;
       margin-bottom: 25px;
     }
@@ -126,68 +140,47 @@
     .button-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 15px;
     }
 
     .join-btn {
-      background: #25D366;
+      background: linear-gradient(45deg, #25D366, #128C7E);
       color: white;
       text-decoration: none;
-      padding: 14px;
-      border-radius: 12px;
+      padding: 16px;
+      border-radius: 15px;
       font-weight: 700;
       font-size: 1.1rem;
       text-transform: uppercase;
-      animation: pulseGlow 2s infinite;
-      display: block;
-      transition: all 0.3s ease;
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-      70% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+      transition: 0.3s;
     }
 
     .already-btn {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ccc;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      color: #888;
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 12px;
       border-radius: 12px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
-    .already-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Thank You Message */
     #thankYouMsg {
       display: none;
-      font-size: 1.2rem;
-      color: #00ffff;
-      margin-top: 20px;
+      font-size: 1.3rem;
+      font-family: 'Playfair Display', serif;
+      color: #fcf6ba;
       animation: fadeIn 0.5s ease;
-      font-family: 'Orbitron', sans-serif; /* Premium font for thank you */
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Hidden audio element */
-    #commentaryAudio {
-        display: none;
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
 
   <div id="loadingScreen">
+    <div class="welcome-text">Welcome</div>
     <div class="loader-text">LOADING...</div>
   </div>
 
@@ -212,53 +205,35 @@
       </div>
     </div>
     
-    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
+    <div id="thankYouMsg">✨ Thank You for your Support!</div>
   </div>
 
-  <audio id="commentaryAudio" preload="auto">
-    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARJxAAABJAAgAZGF0YQAAAAA=" type="audio/wav">
-  </audio>
-
 <script>
-  const loadingScreen = document.getElementById('loadingScreen');
-  const headerBox = document.getElementById('headerBox');
-  const supportBox = document.getElementById('supportBox');
-  const commentaryAudio = document.getElementById('commentaryAudio');
-
-  // Load and play commentary after loading screen (if supported by browser)
-  // Auto-play might be blocked by browsers, a user interaction might be needed.
-  // For this example, we'll try to play it after loading.
-  function playCommentary() {
-      if (commentaryAudio && commentaryAudio.paused) {
-          commentaryAudio.play().catch(e => console.log("Audio play blocked:", e));
-      }
-  }
-
-  // Loading for exactly 3 seconds
+  // Loading timer: 3 Seconds
   setTimeout(() => {
-    loadingScreen.style.display = 'none';
-    headerBox.style.display = 'block';
-    supportBox.style.display = 'block';
-    playCommentary(); // Attempt to play commentary after loading
+    document.getElementById('loadingScreen').style.transition = "0.8s";
+    document.getElementById('loadingScreen').style.opacity = "0";
+    
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('headerBox').style.display = 'block';
+      document.getElementById('supportBox').style.display = 'block';
+    }, 800);
   }, 3000);
 
   function handleAlreadyJoined() {
-    // Hide content and show Thank You
     document.getElementById('boxContent').style.display = 'none';
     document.getElementById('thankYouMsg').style.display = 'block';
 
-    // Hide the whole box after 2 seconds of showing Thank You
     setTimeout(() => {
-      supportBox.style.transition = "0.5s";
-      supportBox.style.opacity = "0";
-      supportBox.style.transform = "scale(0.9)";
-      setTimeout(() => {
-        supportBox.style.display = 'none';
-      }, 500);
+      const box = document.getElementById('supportBox');
+      box.style.transition = "0.6s";
+      box.style.opacity = "0";
+      box.style.transform = "translateY(20px)";
+      setTimeout(() => { box.style.display = 'none'; }, 600);
     }, 2000);
   }
 </script>
 
 </body>
 </html>
-<source src="https://example.com/your-amazing-commentary.mp3" type="audio/mpeg">
