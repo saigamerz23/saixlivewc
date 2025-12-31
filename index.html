@@ -20,15 +20,14 @@ html
       color: white;
       height: 100vh;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      position: relative;
 }
 
     #loadingScreen {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 2.5rem;
       text-align: center;
       color: #00f0ff;
@@ -53,25 +52,29 @@ html
       background: linear-gradient(90deg, #00f0ff, #ff00f0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-top: 20px;
-      display: none;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
+      display: none;
+      z-index: 10;
 }
 
     #supportBox {
       display: none;
       position: absolute;
-      top: 50%;
+      top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 95%;
-      max-width: 700px;
+      width: 96%;
+      max-width: 900px;
       background: #1c1c3c;
       border: 2px solid #25D366;
-      padding: 30px;
-      border-radius: 16px;
+      padding: 50px;
+      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(0, 255, 150, 0.4);
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
       animation: pop 0.5s ease;
 }
 
@@ -88,7 +91,7 @@ html
 
     #supportBox h2 {
       margin-bottom: 10px;
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       color: #25D366;
 }
 
@@ -132,7 +135,7 @@ html
   <header id="title">CRICKETLIVE! OFFICIAL</header>
 
   <div id="supportBox">
-    <h2>📱 Support Us!</h2>
+    <h2> Support Us!</h2>
     <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
     <div class="support-buttons">
       <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">Join</button>
@@ -149,19 +152,3 @@ html
   </script>
 </body>
 </html>
-#supportBox {
-  display: none;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 98%;
-  max-width: 900px;
-  background: #1c1c3c;
-  border: 2px solid #25D366;
-  padding: 50px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 0 30px rgba(0, 255, 150, 0.5);
-  animation: pop 0.5s ease;
-}
