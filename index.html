@@ -5,7 +5,7 @@ html
   <meta charset="UTF-8" />
   <title>CricketLIVE! Official</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -26,7 +26,6 @@ html
       align-items: center;
       font-size: 28px;
       font-weight: bold;
-      letter-spacing: 1px;
       z-index: 9999;
       color: transparent;
       background-image: linear-gradient(90deg, #FFD700, #FF8C00);
@@ -43,111 +42,74 @@ html
     @keyframes dots {
       0% { content: ''; }
       33% { content: '.'; }
-66% { content: '..'; }
-      100% { content: '...'; }
+      66% { content: '..'; }
+100% { content: '...'; }
     }
 
     .container {
       display: none;
-      text-align: center;
-      padding: 80px 20px;
-      height: 100vh;
+      padding: 20px;
       background: #080808;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      height: 100vh;
+      color: #fff;
     }
 
-    .title {
+    .header {
       font-family: 'Orbitron', sans-serif;
-      font-size: 48px;
+      font-size: 32px;
       background: linear-gradient(90deg, #00ffff, #ff00ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 50px;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .whatsapp-logo {
-      width: 48px;
-      height: 48px;
-      animation: pulse 1.8s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 #25D366); }
-      50% { transform: scale(1.1); filter: drop-shadow(0 0 10px #25D366); }
+    .header img {
+      width: 32px;
     }
 
     .support-box {
-      background: linear-gradient(145deg, #111, #1a1a1a);
-      border: 3px solid #25D366;
-      border-radius: 30px;
-      padding: 60px 50px;
-      max-width: 800px;
-      width: 90%;
-      box-shadow: 0 0 40px #25D366cc;
-      animation: fadeIn 1s ease-in-out;
-      color: #eee;
+      background: #111;
+      border: 2px solid #25D366;
+      border-radius: 20px;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: 60px auto;
+      text-align: center;
+      box-shadow: 0 0 20px #25D36688;
     }
 
     .support-title {
-      display: flex;
-align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      background: linear-gradient(90deg, #25D366, #128C7E);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      gap: 12px;
-      margin-bottom: 25px;
+      font-size: 26px;
+      color: #25D366;
+      margin-bottom: 15px;
     }
 
     .support-box p {
-      font-size: 20px;
-      margin-bottom: 40px;
-      line-height: 1.5;
-    }
-
-    .btn-group {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
+      font-size: 18px;
+      margin-bottom: 25px;
     }
 
     .btn {
-      padding: 18px 60px;
-      font-size: 20px;
-      font-weight: 700;
-      border-radius: 35px;
+      padding: 14px 30px;
+      margin: 0 10px;
+      border-radius: 25px;
+      font-size: 16px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 20px #25D366aa;
     }
 
     .btn-join {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: white;
+      background: linear-gradient(to right, #25D366, #128C7E);
+      color: #fff;
       border: none;
-    }
-
-    .btn-join:hover {
-      box-shadow: 0 0 30px #25D366cc;
-      transform: scale(1.05);
     }
 
     .btn-joined {
       background: #222;
       color: #bbb;
-      border: 2px solid #666;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95);}
-      to { opacity: 1; transform: scale(1);}
+border: 1px solid #555;
     }
   </style>
 </head>
@@ -156,21 +118,16 @@ align-items: center;
   <div id="loader">LOADING<span class="dots"></span> PLEASE WAIT</div>
 
   <div class="container" id="mainContent">
-    <div class="title">
-<img class="whatsapp-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA" />
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
       CRICKETLIVE! OFFICIAL
     </div>
 
     <div class="support-box" id="supportBox">
-      <div class="support-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="32" />
-        Support Us!
-      </div>
-      <p>Join our <strong>WhatsApp channel - CricketLIVE! Official</strong> for instant updates and exclusive match links.</p>
-      <div class="btn-group">
-        <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
-      </div>
+      <div class="support-title">Support Us!</div>
+      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates and exclusive links.</p>
+      <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
     </div>
   </div>
 
@@ -178,7 +135,7 @@ align-items: center;
     window.onload = function() {
       setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'block';
       }, 3000);
     }
 
