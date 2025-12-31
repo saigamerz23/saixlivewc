@@ -11,7 +11,7 @@
 
     body {
       background: #0a1e40;
-      background-image: linear-gradient(rgba(10, 30, 64, 0.85), rgba(10, 30, 64, 0.85)), 
+      background-image: linear-gradient(rgba(10, 30, 64, 0.9), rgba(10, 30, 64, 0.9)), 
                         url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
@@ -25,14 +25,29 @@
       overflow: hidden;
     }
 
+    /* Animated Loading Screen */
     #loadingScreen {
       position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
+      inset: 0;
+      background: #0a1e40;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .loader-text {
       font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
       color: #00ffff;
-      z-index: 1000;
+      letter-spacing: 5px;
+      animation: pulseText 1.5s infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.1); }
     }
 
     header {
@@ -46,8 +61,10 @@
       margin-top: 25px;
       white-space: nowrap;
       padding: 0 10px;
+      display: none;
     }
 
+    /* Support Box */
     #supportBox {
       display: none;
       width: 90%;
@@ -79,10 +96,7 @@
       gap: 10px;
     }
 
-    .box-title img {
-      width: 30px;
-      height: 30px;
-    }
+    .box-title img { width: 30px; height: 30px; }
 
     .box-desc {
       font-size: 0.95rem;
@@ -97,7 +111,6 @@
       gap: 12px;
     }
 
-    /* Animated Join Button */
     .join-btn {
       background: #25D366;
       color: white;
@@ -107,16 +120,14 @@
       font-weight: 700;
       font-size: 1.1rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
       animation: pulseGlow 2s infinite;
-      border: none;
       display: block;
     }
 
     @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); transform: scale(1); }
-      50% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); transform: scale(1.03); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); transform: scale(1); }
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
     .already-btn {
@@ -127,52 +138,74 @@
       border-radius: 12px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    .already-btn:active {
-      background: rgba(255, 255, 255, 0.2);
+    /* Thank You Message */
+    #thankYouMsg {
+      display: none;
+      font-size: 1.2rem;
+      color: #00ffff;
+      margin-top: 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <div id="loadingScreen">LOADING...</div>
+  <div id="loadingScreen">
+    <div class="loader-text">LOADING...</div>
+  </div>
 
   <header id="headerText">CRICKETLIVE! OFFICIAL</header>
 
   <div id="supportBox">
-    <div class="box-title">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-      Support Us!
+    <div id="boxContent">
+      <div class="box-title">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+        Support Us!
+      </div>
+      <p class="box-desc">
+        Join our WhatsApp channel <strong>CricketLIVE! Official</strong> 
+        For Instant Update & Exclusive Links.
+      </p>
+      
+      <div class="button-group">
+        <a href="https://whatsapp.com/channel/your-link" class="join-btn" target="_blank">JOIN</a>
+        <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
+      </div>
     </div>
-    <p class="box-desc">
-      Join our WhatsApp channel <strong>CricketLIVE! Official</strong> 
-      For Instant Update & Exclusive Links.
-    </p>
     
-    <div class="button-group">
-      <a href="https://whatsapp.com/channel/your-link" class="join-btn" target="_blank">JOIN</a>
-      <button class="already-btn" onclick="hideBox()">Already Joined</button>
-    </div>
+    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
   </div>
 
 <script>
-  // Show content after loading
+  // Loading for exactly 3 seconds
   setTimeout(() => {
     document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('headerText').style.display = 'block';
     document.getElementById('supportBox').style.display = 'block';
-  }, 2500);
+  }, 3000);
 
-  // Function to hide the box
-  function hideBox() {
-    const box = document.getElementById('supportBox');
-    box.style.transition = "0.4s";
-    box.style.opacity = "0";
-    box.style.transform = "translateY(20px)";
+  function handleAlreadyJoined() {
+    // Hide content and show Thank You
+    document.getElementById('boxContent').style.display = 'none';
+    document.getElementById('thankYouMsg').style.display = 'block';
+
+    // Hide the whole box after 2 seconds of showing Thank You
     setTimeout(() => {
-      box.style.display = 'none';
-    }, 400;
+      const box = document.getElementById('supportBox');
+      box.style.transition = "0.5s";
+      box.style.opacity = "0";
+      box.style.transform = "scale(0.9)";
+      setTimeout(() => {
+        box.style.display = 'none';
+      }, 500);
+    }, 2000);
   }
 </script>
 
