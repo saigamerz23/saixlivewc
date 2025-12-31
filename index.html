@@ -172,22 +172,75 @@ margin: 10px;
 
 </body>
 html
-<!-- Footer Fixed Button Start -->
-<div style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 10000; width: 90%; max-width: 400px;">
-  <div style="background: #0f4c81; border-radius: 15px; box-shadow: 0 8px 20px rgba(15, 76, 129, 0.6); padding: 20px; text-align: center; font-family: 'Poppins', sans-serif; color: #fff;">
-    <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px;">
-      Follow Us For Update
-    </div>
-    <a href="https://chat.whatsapp.com/your-channel-link" target="_blank" 
-       style="display: inline-block; background: linear-gradient(90deg, #25D366, #128C7E); padding: 14px 28px; color: white; font-weight: 800; font-size: 1.15rem; border-radius: 50px; text-decoration: none; box-shadow: 0 6px 18px rgba(37, 211, 102, 0.7); transition: background 0.4s ease;">
-      Join WhatsApp Channel
-    </a>
-  </div>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CricketLIVE! Official</title>
 <style>
-  a:hover {
-    background: linear-gradient(90deg, #128C7E, #25D366);
-box-shadow: 0 8px 25px rgba(18, 140, 126, 0.9);
+  body, html {
+    margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; background: #0a1e40;
+    display: flex; justify-content: center; align-items: center; flex-direction: column;
+    color: white;
+  }
+  #loadingScreen {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #00ffff;
+    animation: blinkDots 1s steps(3, end) infinite;
+  }
+  @keyframes blinkDots {
+    0%, 20% { content: "Loading"; }
+    40% { content: "Loading."; }
+    60% { content: "Loading.."; }
+    80%, 100% { content: "Loading..."; }
+  }
+
+  #followButtonContainer {
+    display: none;
+    width: 100vw;
+    height: 70px;
+    background: linear-gradient(90deg, #25D366, #128C7E);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #followButton {
+    background: #075e54;
+    color: white;
+font-size: 2rem;
+    font-weight: 700;
+    padding: 15px 50px;
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #followButton:hover {
+    background: #128C7E;
   }
 </style>
+</head>
+<body>
+
+<div id="loadingScreen">Loading<span id="dots">...</span></div>
+
+<div id="followButtonContainer">
+  <button id="followButton" onclick="window.open('https://chat.whatsapp.com/your-channel-link', '_blank')">
+    Follow Us For Update - Join WhatsApp Channel
+  </button>
+</div>
+
+<script>
+  // Show loading for 3 seconds then hide loading & show button
+  setTimeout(() => {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('followButtonContainer').style.display = 'flex';
+  }, 3000);
+</script>
+
+</body>
+</html>
