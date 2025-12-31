@@ -239,33 +239,117 @@
 </script>
 
 </body>
-<div style="width: 100%; background: rgba(5, 10, 24, 0.95); backdrop-filter: blur(15px); padding: 12px 0; border-top: 2px solid #00ffff; position: fixed; bottom: 0; left: 0; z-index: 1000; box-shadow: 0 -10px 25px rgba(0, 255, 255, 0.3);">
-    <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" style="cursor: pointer;">
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" style="text-decoration: none; display: flex; align-items: center; gap: 20px;">
+<div class="bottom-ticker-container">
+    <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="ticker-link">
             
-            <span class="blink-text" style="color: #ff0000; font-family: 'Orbitron', sans-serif; font-weight: bold; font-size: 1rem; margin-right: 10px;">🔴 LIVE NOW:</span>
-            
-            <span style="color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 0.95rem; letter-spacing: 1px; font-weight: 600;">
-                "Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join CricketLIVE! Official WhatsApp channel for live updates, scores, and more! 🏏 CLICK HERE TO JOIN! 😊"
+            <span class="live-indicator">
+                <span class="dot"></span> LIVE UPDATES
             </span>
             
-            <span style="color: #00ffff; font-family: 'Orbitron', sans-serif; font-size: 0.9rem; margin-left: 60px; text-shadow: 0 0 10px #00ffff;">[ JOIN WHATSAPP ]</span>
+            <span class="ticker-text">
+                Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join 
+                <span class="highlight-gold">CricketLIVE! Official</span> 
+                WhatsApp channel for live updates, scores, and more! 🏏
+            </span>
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon-mini" alt="WA">
+            
+            <span class="join-action">[ CLICK HERE TO JOIN NOW ]</span>
         </a>
     </marquee>
 </div>
 
 <style>
-/* Blinking Animation Logic */
-.blink-text {
-    animation: blinker 1.2s linear infinite;
+/* 1. Container Styling with Neon Pulse */
+.bottom-ticker-container {
+    width: 100%;
+    background: rgba(5, 10, 24, 0.98);
+    backdrop-filter: blur(20px);
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    border-top: 2px solid #00ffff;
+    box-shadow: 0 -10px 30px rgba(0, 255, 255, 0.2);
+    animation: borderPulse 2s infinite;
 }
 
+/* 2. Link & Text Styling */
+.ticker-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.ticker-text {
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* 3. Gold Highlight for Brand */
+.highlight-gold {
+    background: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* 4. Animated Live Dot Indicator */
+.live-indicator {
+    color: #ff0000;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 10px;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 50px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    display: inline-block;
+    animation: blinker 0.8s infinite;
+}
+
+/* 5. WhatsApp Icon Styling */
+.wa-icon-mini {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 0 5px #25D366);
+}
+
+/* 6. Join Button Styling */
+.join-action {
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #00ffff;
+    margin-left: 40px;
+}
+
+/* Animations */
 @keyframes blinker {
     50% { opacity: 0; }
 }
 
-/* Ticker par hover karne par glow badhane ke liye */
-marquee a:hover {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+@keyframes borderPulse {
+    0% { border-color: #00ffff; box-shadow: 0 -10px 20px rgba(0, 255, 255, 0.2); }
+    50% { border-color: #0088ff; box-shadow: 0 -10px 40px rgba(0, 136, 255, 0.4); }
+    100% { border-color: #00ffff; box-shadow: 0 -10px 20px rgba(0, 255, 255, 0.2); }
 }
 </style>
