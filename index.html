@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CricketLIVE! Official</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&family=Playfair+Display:ital,wght@1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: #050a18;
-      background-image: linear-gradient(rgba(5, 10, 24, 0.9), rgba(5, 10, 24, 0.9)), 
+      background-image: linear-gradient(rgba(5, 10, 24, 0.92), rgba(5, 10, 24, 0.92)), 
                         url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
@@ -38,27 +38,26 @@
     }
 
     .welcome-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-      font-style: italic;
-      animation: fadeInOut 2s infinite ease-in-out;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem; /* Chhota size */
+      font-weight: 600;
+      color: #bf953f; /* Luxury Gold */
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
     }
 
     .loader-text {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
+      font-size: 1.8rem; /* Bada font size */
       color: #00ffff;
-      letter-spacing: 8px;
-      opacity: 0.8;
+      letter-spacing: 5px;
+      animation: pulseText 1.5s infinite;
     }
 
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.6; transform: translateY(0); }
-      50% { opacity: 1; transform: translateY(-5px); }
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
     }
 
     /* Luxury Header Box */
@@ -67,23 +66,21 @@
       max-width: 420px;
       text-align: center;
       margin-top: 35px;
-      padding: 15px;
+      padding: 18px 10px;
       position: relative;
       display: none;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(20px);
       border-radius: 15px;
-      /* Luxury Border */
-      border: 1px solid rgba(191, 149, 63, 0.4); 
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 15px rgba(191, 149, 63, 0.1);
+      border: 1px solid rgba(191, 149, 63, 0.5); 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(191, 149, 63, 0.1);
     }
 
     .header-text-content {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      letter-spacing: 1px;
       white-space: nowrap;
       background: linear-gradient(90deg, #fff, #00ffff, #fff);
       background-size: 200% auto;
@@ -92,29 +89,27 @@
       animation: shine 3s linear infinite;
     }
 
-    @keyframes shine {
-      to { background-position: 200% center; }
-    }
+    @keyframes shine { to { background-position: 200% center; } }
 
-    /* Support Box Premium */
+    /* Support Box */
     #supportBox {
       display: none;
       width: 90%;
       max-width: 380px;
-      background: rgba(10, 20, 40, 0.8);
+      background: rgba(10, 20, 40, 0.85);
       backdrop-filter: blur(25px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 30px;
+      border-radius: 25px;
       padding: 35px 25px;
-      margin-top: 40px;
+      margin-top: 45px;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-      animation: luxuryPop 0.8s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      animation: slideIn 0.7s ease-out;
     }
 
-    @keyframes luxuryPop {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .box-title {
@@ -131,8 +126,8 @@
     .box-title img { width: 32px; }
 
     .box-desc {
-      font-size: 0.9rem;
-      color: #d1d1d1;
+      font-size: 0.95rem;
+      color: #efefef;
       line-height: 1.6;
       margin-bottom: 25px;
     }
@@ -140,37 +135,45 @@
     .button-group {
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 12px;
     }
 
     .join-btn {
-      background: linear-gradient(45deg, #25D366, #128C7E);
+      background: #25D366;
       color: white;
       text-decoration: none;
-      padding: 16px;
-      border-radius: 15px;
+      padding: 15px;
+      border-radius: 12px;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       text-transform: uppercase;
-      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-      transition: 0.3s;
+      animation: pulseGlow 2s infinite;
+      display: block;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
     .already-btn {
-      background: transparent;
-      color: #888;
+      background: rgba(255, 255, 255, 0.05);
+      color: #aaa;
       border: 1px solid rgba(255,255,255,0.1);
       padding: 12px;
       border-radius: 12px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       cursor: pointer;
     }
 
+    /* Simple Thank You Message */
     #thankYouMsg {
       display: none;
-      font-size: 1.3rem;
-      font-family: 'Playfair Display', serif;
-      color: #fcf6ba;
+      font-size: 1.2rem;
+      color: #00ffff;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
       animation: fadeIn 0.5s ease;
     }
 
@@ -200,25 +203,25 @@
       </p>
       
       <div class="button-group">
-        <a href="https://whatsapp.com/channel/your-link" class="join-btn" target="_blank">JOIN</a>
+        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN</a>
         <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
       </div>
     </div>
     
-    <div id="thankYouMsg">✨ Thank You for your Support!</div>
+    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
   </div>
 
 <script>
-  // Loading timer: 3 Seconds
+  // 3 Seconds Loading
   setTimeout(() => {
-    document.getElementById('loadingScreen').style.transition = "0.8s";
+    document.getElementById('loadingScreen').style.transition = "0.6s";
     document.getElementById('loadingScreen').style.opacity = "0";
     
     setTimeout(() => {
       document.getElementById('loadingScreen').style.display = 'none';
       document.getElementById('headerBox').style.display = 'block';
       document.getElementById('supportBox').style.display = 'block';
-    }, 800);
+    }, 600);
   }, 3000);
 
   function handleAlreadyJoined() {
@@ -227,10 +230,10 @@
 
     setTimeout(() => {
       const box = document.getElementById('supportBox');
-      box.style.transition = "0.6s";
+      box.style.transition = "0.5s";
       box.style.opacity = "0";
       box.style.transform = "translateY(20px)";
-      setTimeout(() => { box.style.display = 'none'; }, 600);
+      setTimeout(() => { box.style.display = 'none'; }, 500);
     }, 2000);
   }
 </script>
