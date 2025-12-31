@@ -1,117 +1,128 @@
+html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CricketLIVE! Official</title>
-    <style>
-        @import url('https:                                                                    
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            background:         
-            color: white;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-                        
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2.5rem;
-            text-align: center;
-            color:         
-            font-family: 'Orbitron', sans-serif;
-        }
-                               
-            content: '...';
-            animation: dots 1.5s infinite steps(3);
-        }
-        @keyframes dots {
-            0% { content: ''; }
-            33% { content: '.'; }
-            66% { content: '..'; }
-            100% { content: '...'; }
-        }
-        header {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            background: linear-gradient(90deg,                   
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-        }
-                     
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 600px;
-            background:         
-            border: 2px solid         
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0,255,150,0.3);
-            animation: pop 0.5s ease;
-        }
-        @keyframes pop {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-                        
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-            color:         
-        }
-                       
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-                            
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            background:         
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-            margin: 5px;
-        }
-                                  
-            background:         
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CricketLIVE! Official</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #0b132b;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #loadingScreen {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      text-align: center;
+      color: #00f0ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    #loadingScreen::after {
+      content: '...';
+      animation: dots 1.5s infinite steps(3);
+    }
+
+    @keyframes dots {
+0% { content: ''; }
+      33% { content: '.'; }
+      66% { content: '..'; }
+      100% { content: '...'; }
+    }
+
+    header {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      background: linear-gradient(90deg, #00f0ff, #ff00f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+    }
+
+    #supportBox {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      width: 90%;
+      max-width: 600px;
+      background: #1c1c3c;
+      border: 2px solid #25D366;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,255,150,0.3);
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #supportBox h2 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #25D366;
+    }
+
+    #supportBox p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    #supportBox button {
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+transition: background 0.3s;
+    }
+
+    #supportBox button:hover {
+      background: #128c7e;
+    }
+
+  </style>
 </head>
 <body>
-    <div id="loadingScreen">Loading Please Wait</div>
-    <header id="title">CRICKETLIVE! OFFICIAL</header>
-    <div id="supportBox">
-        <h2>📢 Support Us!</h2>
-        <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
-        <button onclick="window.open('"window.open('https:                                                                            
-        <button onclick="window.open('https:                                                                     
-    </div>
-    <script>
-                                                    
-        setTimeout(() => {
-            document.getElementById('loadingScreen').style.display = 'none';
-            document.getElementById('title').style.display = 'block';
-            document.getElementById('supportBox').style.display = 'block';
-        }, 3000);
-    </script>
+
+  <div id="loadingScreen">Loading Please Wait</div>
+
+  <header id="title">CRICKETLIVE! OFFICIAL</header>
+
+  <div id="supportBox">
+    <h2>📢 Support Us!</h2>
+    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
+    <button onclick="window.open('https://whatsapp.com/channel/your-link', '_blank')">Join WhatsApp Channel</button>
+  </div>
+
+  <script>
+    // Hide loading after 3 sec and show content
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('title').style.display = 'block';
+      document.getElementById('supportBox').style.display = 'block';
+    }, 3000);
+  </script>
+
 </body>
 </html>
