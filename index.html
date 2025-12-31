@@ -3,27 +3,45 @@ html
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>CricketLIVE! Official</title>
-  <title>CricketLIVE! Stream</title>
+  <title> CricketLIVE! Official</title>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .title {
+      font-size: 36px;
+      font-weight: bold;
+      background: linear-gradient(to right, #00bfff, #ff1493); /* Blue to Pink */
+      -webkit-background-clip: text;
+      color: transparent;
+      margin: 20px 0;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      background: #000;
+    }
+  </style>
 </head>
-<body style="margin:0; background:#000; text-align:center;">
+<body>
 
-  <h2 style="color:white; padding:10px;">🔴 Live Streaming</h2>
-  <video id="video" controls autoplay width="100%" height="auto" style="background:#000;"></video>
+  <div class="title">CricketLIVE! Official</div>
+  <video id="video" controls autoplay></video>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
     const links = {
-      "Star1HindiHD": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8id=Star1HindiHD",
-      "SonySportsHD": "https://yourusername.github.io/yourrepo/sports.html?id=Star1HindiHD"
+      "Star1HindiHD": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      "SonySportsHD": "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
     };
 
-    const videoSrc = links[id];
-
-    if (Hls.isSupported() && videoSrc) {
+    const videoSrc = links[id];if (Hls.isSupported() && videoSrc) {
       const video = document.getElementById('video');
       const hls = new Hls();
       hls.loadSource(videoSrc);
@@ -31,3 +49,7 @@ html
     } else {
       document.body.innerHTML += "<p style='color:white;'>Channel not found or not supported.</p>";
     }
+  </script>
+
+</body>
+</html>
