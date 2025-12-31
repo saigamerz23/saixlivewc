@@ -15,7 +15,12 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background: #0b132b;
+      /* Premium Stadium Background with Dark Overlay */
+      background: linear-gradient(rgba(11, 19, 43, 0.8), rgba(11, 19, 43, 0.8)), 
+                  url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: white;
       height: 100vh;
       width: 100vw;
@@ -32,6 +37,7 @@
       text-align: center;
       color: #00f0ff;
       font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
     }
 
     #loadingScreen::after {
@@ -46,40 +52,39 @@
       100% { content: '...';}
     }
 
-    /* Header ko ek line mein rakhne ke liye fix */
     header {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       background: linear-gradient(90deg, #00f0ff, #ff00f0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       position: absolute;
-      top: 20px;
+      top: 40px;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
       display: none;
       z-index: 10;
-      white-space: nowrap; /* Force one line */
+      white-space: nowrap;
       width: max-content;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
-    /* Support Box Settings */
     #supportBox {
       display: none;
       position: absolute;
-      /* Aapke coordinates ke hisaab se settings */
       top: 351px; 
       left: 29px;
-      width: 90%; /* Responsive width */
-      max-width: 720px; /* Max size based on your request */
-      background: #1c1c3c;
+      width: 90%;
+      max-width: 720px;
+      background: rgba(28, 28, 60, 0.9); /* Slight transparency for premium look */
       border: 3px solid #25D366;
-      padding: 40px 20px;
+      padding: 40px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 0 40px rgba(0, 255, 150, 0.6);
-      animation: pop 0.5s ease;
+      box-shadow: 0 0 50px rgba(0, 255, 150, 0.4);
+      animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(10px); /* Blurs the background behind the box */
     }
 
     @keyframes pop {
@@ -88,25 +93,28 @@
     }
 
     #supportBox h2 {
-      margin-bottom: 10px;
-      font-size: 1.8rem;
+      margin-bottom: 15px;
+      font-size: 2rem;
       color: #25D366;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     #supportBox p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.5;
     }
 
     .support-buttons {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
     .support-buttons button {
-      padding: 12px 28px;
+      padding: 15px 35px;
       font-size: 1.1rem;
       background: #25D366;
       color: white;
@@ -114,16 +122,21 @@
       border-radius: 50px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
     }
 
     .support-buttons button:hover {
       background: #128c7e;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
     }
 
     .support-buttons button:disabled {
-      background: #555;
+      background: #444;
       cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
   </style>
 </head>
@@ -134,11 +147,11 @@
   <header id="title">CRICKETLIVE! OFFICIAL</header>
 
   <div id="supportBox">
-    <h2>📱 Support Us!</h2>
-    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
+    <h2> Support Us!</h2>
+    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong><br>for instant updates & exclusive links.</p>
     <div class="support-buttons">
-      <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">Join</button>
-      <button disabled>Already Joined</button>
+      <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">JOIN NOW</button>
+      <button disabled>ALREADY JOINED</button>
     </div>
   </div>
 
