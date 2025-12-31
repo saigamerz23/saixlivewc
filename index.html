@@ -25,21 +25,26 @@ html
       position: fixed;
       width: 100%;
       height: 100%;
-      background: #111;
+      background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 1px;
       z-index: 9999;
       flex-direction: row;
+      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      background-image: linear-gradient(90deg, gold, orange);
     }
 
     .dots::after {
       content: '';
       display: inline-block;
-      animation: dots 1.5s steps(3, end) infinite;
+animation: dots 1.5s steps(3, end) infinite;
     }
 
     @keyframes dots {
@@ -48,7 +53,8 @@ html
       66% { content: '..'; }
       100% { content: '...'; }
     }
-.container {
+
+    .container {
       display: none;
       text-align: center;
       padding: 50px 20px;
@@ -100,7 +106,7 @@ html
     .btn-group {
       display: flex;
       gap: 20px;
-      justify-content: center;
+justify-content: center;
       flex-wrap: wrap;
     }
 
@@ -110,21 +116,7 @@ html
       border: none;
       border-radius: 12px;
       cursor: pointer;
-</div>
-  </div>
-
-  <script>
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 3000);
-    }
-  </script>
-
-</body>
-</html>
-font-weight: 600;
+      font-weight: 600;
       transition: 0.3s ease;
       text-decoration: none;
     }
@@ -171,6 +163,20 @@ font-weight: 600;
       <h2>Support Us!</h2>
       <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> For Instant Update & Exclusive Links.</p>
       <div class="btn-group">
-        <div class="btn joined">Already Joined</div>
+<div class="btn joined">Already Joined</div>
         <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn join-now">Join Now</a>
       </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      }, 3000); // Show loader only for 3 seconds
+    }
+  </script>
+
+</body>
+</html>
