@@ -1,90 +1,13 @@
 html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CricketLIVE! Official</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-    }
-
-    .title {
-      font-size: 60px;
-      font-weight: 800;
-      font-style: italic;
-      background: linear-gradient(to right, #00bfff, #ff00cc);
-      -webkit-background-clip: text;
-      color: transparent;
-      margin: 30px 0 20px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .join-btn {
-      display: inline-block;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: white;
-      padding: 12px 25px;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-bottom: 20px;
-      transition: 0.3s ease;
-}
-
-    .join-btn:hover {
-      opacity: 0.9;
-      transform: scale(1.03);
-    }
-
-    .join-btn::before {
-      content: '📲 ';
-    }
-
-    video {
-      width: 100%;
-      height: auto;
-      background: #000;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=https://whatsapp.com/channel/invite/0029Vb9sfuABA1eqJmiFc91q" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting to WhatsApp Channel...</title>
 </head>
 <body>
-
-  <div class="title">CRICKETLIVE! OFFICIAL</div>
-
-  <a class="join-btn" href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank">
-    Join WhatsApp Channel
-  </a>
-
-  <video id="video" controls autoplay muted></video>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-
-    const links = {
-      "Star1HindiHD": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-    };
-
-    const videoSrc = links[id];
-
-    if (Hls.isSupported() && videoSrc) {
-      const video = document.getElementById('video');
-      const hls = new Hls();
-      hls.loadSource(videoSrc);
-      hls.attachMedia(video);
-    } else {
-      document.body.innerHTML += "<p style='color:white;'>Channel not found or not supported.</p>";
-    }
-  </script>
-
+  <p>Redirecting to WhatsApp Join Page...</p>
 </body>
 </html>
