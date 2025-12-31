@@ -26,50 +26,61 @@ html
     .support-box {
       position: relative;
       background: #111;
-      border: 2px solid #25D366;
-      border-radius: 12px;
-display: inline-block;
-      padding: 30px;
-      margin-top: 30px;
+      border: 3px solid #25D366;
+      border-radius: 16px;
+      display: inline-block;
+      padding: 35px 30px;
+      margin-top: 40px;
       width: 90%;
-      max-width: 400px;
+      max-width: 500px;
+      box-shadow: 0 0 20px #25D36655;
       animation: fadeIn 1.5s ease;
     }
 
     .support-box h2 {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 26px;
+      margin-bottom: 15px;
       color: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .support-box h2 img {
+width: 26px;
+      height: 26px;
     }
 
     .support-box p {
-      font-size: 16px;
+      font-size: 17px;
       margin-bottom: 25px;
+      line-height: 1.5;
     }
 
     .join-btn {
       background: linear-gradient(135deg, #25D366, #128C7E);
       color: white;
-      padding: 14px 30px;
-      font-size: 17px;
+      padding: 14px 35px;
+      font-size: 18px;
       font-weight: bold;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       text-decoration: none;
       transition: 0.3s ease;
     }
 
     .join-btn:hover {
-      opacity: 0.9;
+      opacity: 0.92;
       transform: scale(1.05);
     }
 
     .close-btn {
       position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 22px;
+      top: 12px;
+      right: 18px;
+      font-size: 24px;
       color: #aaa;
       cursor: pointer;
     }
@@ -79,7 +90,7 @@ display: inline-block;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -89,8 +100,9 @@ display: inline-block;
   <div class="title">CRICKETLIVE! OFFICIAL</div>
 
   <div class="support-box" id="supportBox">
-    <div class="close-btn" onclick="document.getElementById('supportBox').style.display='none';">×</div><h2>📣 Support Us!</h2>
-    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong><br>for Instant Updates & Exclusive Links.</p>
+    <div class="close-btn" onclick="document.getElementById('supportBox').style.display='none';">�</div>
+    <h2><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">Support Us!</h2>
+<p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong><br>for Instant Updates & Exclusive Links.</p>
     <a class="join-btn" href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank">Join Now</a>
   </div>
 
