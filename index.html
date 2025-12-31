@@ -2,13 +2,17 @@ html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CricketLIVE! Official</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+}
 
     body {
       font-family: 'Arial', sans-serif;
@@ -19,7 +23,7 @@ html
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
+}
 
     #loadingScreen {
       position: absolute;
@@ -29,19 +33,19 @@ html
       text-align: center;
       color: #00f0ff;
       font-family: 'Orbitron', sans-serif;
-    }
+}
 
     #loadingScreen::after {
       content: '...';
       animation: dots 1.5s infinite steps(3);
-    }
+}
 
     @keyframes dots {
-0% { content: ''; }
-      33% { content: '.'; }
-      66% { content: '..'; }
-      100% { content: '...'; }
-    }
+      0% { content: '';}
+      33% { content: '.';}
+      66% { content: '..';}
+      100% { content: '...';}
+}
 
     header {
       font-family: 'Orbitron', sans-serif;
@@ -52,12 +56,14 @@ html
       margin-top: 20px;
       display: none;
       text-align: center;
-    }
+}
 
     #supportBox {
       display: none;
-      position: fixed;
-      bottom: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 90%;
       max-width: 600px;
       background: #1c1c3c;
@@ -65,27 +71,40 @@ html
       padding: 20px;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 0 15px rgba(0,255,150,0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 150, 0.3);
       animation: pop 0.5s ease;
-    }
+}
 
     @keyframes pop {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+}
+      100% {
+        transform: scale(1);
+        opacity: 1;
+}
+}
 
     #supportBox h2 {
       margin-bottom: 10px;
       font-size: 1.5rem;
       color: #25D366;
-    }
+}
 
     #supportBox p {
       font-size: 1rem;
       margin-bottom: 15px;
-    }
+}
 
-    #supportBox button {
+.support-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+}
+
+.support-buttons button {
       padding: 12px 24px;
       font-size: 1.1rem;
       background: #25D366;
@@ -94,35 +113,39 @@ html
       border-radius: 50px;
       cursor: pointer;
       font-weight: bold;
-transition: background 0.3s;
-    }
+      transition: background 0.3s;
+}
 
-    #supportBox button:hover {
+.support-buttons button:hover {
       background: #128c7e;
-    }
+}
 
+.support-buttons button:disabled {
+      background: #555;
+      cursor: not-allowed;
+}
   </style>
 </head>
 <body>
-
   <div id="loadingScreen">Loading Please Wait</div>
 
   <header id="title">CRICKETLIVE! OFFICIAL</header>
 
   <div id="supportBox">
-    <h2>📢 Support Us!</h2>
+    <h2> Support Us!</h2>
     <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
-    <button onclick="window.open('https://whatsapp.com/channel/your-link', '_blank')">Join WhatsApp Channel</button>
+    <div class="support-buttons">
+      <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">Join WhatsApp Channel</button>
+      <button disabled>Already Joined</button>
+    </div>
   </div>
 
   <script>
-    // Hide loading after 3 sec and show content
     setTimeout(() => {
       document.getElementById('loadingScreen').style.display = 'none';
       document.getElementById('title').style.display = 'block';
       document.getElementById('supportBox').style.display = 'block';
-    }, 3000);
+}, 3000);
   </script>
-
 </body>
 </html>
