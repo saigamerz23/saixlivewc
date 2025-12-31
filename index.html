@@ -1,183 +1,153 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CricketLIVE! Official</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      background: #000;
-      font-family: 'Poppins', sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #0b132b;
+      color: white;
+      height: 100vh;
+      width: 100vw;
       overflow: hidden;
+      position: relative;
     }
 
-    #loader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-      z-index: 9999;
+    #loadingScreen {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      text-align: center;
+      color: #00f0ff;
+      font-family: 'Orbitron', sans-serif;
     }
 
-    #loader h2 {
-      color: #25D366;
-      font-family: 'Playfair Display', serif;
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    .loading-text {
-      color: transparent;
-      background-image: linear-gradient(90deg, #FFD700, #FF8C00);
-      background-clip: text;
--webkit-background-clip: text;
-    }
-
-    .dots::after {
-      content: '';
-      display: inline-block;
-      animation: dots 1.5s steps(3, end) infinite;
+    #loadingScreen::after {
+      content: '...';
+      animation: dots 1.5s infinite steps(3);
     }
 
     @keyframes dots {
-      0% { content: ''; }
-      33% { content: '.'; }
-      66% { content: '..'; }
-      100% { content: '...'; }
+      0% { content: '';}
+      33% { content: '.';}
+      66% { content: '..';}
+      100% { content: '...';}
     }
 
-    .container {
-      display: none;
-      padding: 20px;
-      background: #080808;
-      height: 100vh;
-      color: #fff;
-    }
-
-    .header {
+    /* Header ko ek line mein rakhne ke liye fix */
+    header {
       font-family: 'Orbitron', sans-serif;
-      font-size: 32px;
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #00f0ff, #ff00f0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-      gap: 10px;
-    }
-
-    .header img {
-      width: 30px;
-    }
-
-    .support-box {
-      background: #111;
-      border: 2px solid #25D366;
-      border-radius: 20px;
-      padding: 40px 20px;
-      max-width: 600px;
-      margin: 80px auto;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
-      box-shadow: 0 0 20px #25D36688;
+      display: none;
+      z-index: 10;
+      white-space: nowrap; /* Force one line */
+      width: max-content;
     }
 
-    .support-title {
-      font-size: 26px;
+    /* Support Box Settings */
+    #supportBox {
+      display: none;
+      position: absolute;
+      /* Aapke coordinates ke hisaab se settings */
+      top: 351px; 
+      left: 29px;
+      width: 90%; /* Responsive width */
+      max-width: 720px; /* Max size based on your request */
+      background: #1c1c3c;
+      border: 3px solid #25D366;
+      padding: 40px 20px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 255, 150, 0.6);
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #supportBox h2 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
       color: #25D366;
-      margin-bottom: 15px;
+    }
+
+    #supportBox p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .support-buttons {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-.support-title img {
-      width: 26px;
-      animation: pulse 1s infinite;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
-    .support-box p {
-      font-size: 18px;
-      margin-bottom: 25px;
-    }
-
-    .btn {
-      padding: 14px 30px;
-      margin: 0 10px;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .btn-join {
-      background: linear-gradient(to right, #25D366, #128C7E);
-      color: #fff;
+    .support-buttons button {
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      background: #25D366;
+      color: white;
       border: none;
-      animation: glow 1.2s ease-in-out infinite alternate;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
-    .btn-joined {
-      background: #222;
-      color: #bbb;
-      border: 1px solid #555;
+    .support-buttons button:hover {
+      background: #128c7e;
     }
 
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #25D366; }
-      100% { box-shadow: 0 0 20px #25D366, 0 0 30px #25D366; }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 1; }
+    .support-buttons button:disabled {
+      background: #555;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
 
-  <div id="loader">
-    <h2>Welcome</h2>
-    <div class="loading-text">LOADING<span class="dots"></span> PLEASE WAIT</div>
-  </div>
+  <div id="loadingScreen">Loading Please Wait</div>
 
-  <div class="container" id="mainContent">
-    <div class="header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
-      CRICKETLIVE! OFFICIAL
-    </div>
+  <header id="title">CRICKETLIVE! OFFICIAL</header>
 
-    <div class="support-box" id="supportBox">
-<div class="support-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" />
-        Support Us!
-      </div>
-      <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates and exclusive links.</p>
-      <button class="btn btn-joined" onclick="hideSupport()">Already Joined</button>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn btn-join">Join Now</a>
+  <div id="supportBox">
+    <h2>📱 Support Us!</h2>
+    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
+    <div class="support-buttons">
+      <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">Join</button>
+      <button disabled>Already Joined</button>
     </div>
   </div>
 
   <script>
-    window.onload = function () {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('mainContent').style.display = 'block';
-      }, 3000);
-    }
-
-    function hideSupport() {
-      document.getElementById('supportBox').style.display = 'none';
-    }
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('title').style.display = 'block';
+      document.getElementById('supportBox').style.display = 'block';
+    }, 3000);
   </script>
-
 </body>
 </html>
