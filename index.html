@@ -1,168 +1,47 @@
-
-
 html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CricketLIVE! Official</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+<header id="title">CRICKETLIVE! OFFICIAL</header>
+```
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+```css
+body {
+  font-family: 'Arial', sans-serif;
+  background: #0b132b;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Top align */
+  padding-top: 30px; /* Space from top */
 }
 
-    body {
-      font-family: 'Arial', sans-serif;
-      background: #0b132b;
-      color: white;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.5rem;
+  background: linear-gradient(90deg, #00f0ff, #ff00f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: none;
+  text-align: center;
+  width: 100%;
 }
+```
 
-    #loadingScreen {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2.5rem;
-      text-align: center;
-      color: #00f0ff;
-      font-family: 'Orbitron', sans-serif;
+```css
+#supportBox {
+  display: none;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96%;
+  max-width: 800px;
+  background: #1c1c3c;
+  border: 2px solid #25D366;
+  padding: 50px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 255, 150, 0.4);
+  animation: pop 0.5s ease;
 }
-
-    #loadingScreen::after {
-      content: '...';
-      animation: dots 1.5s infinite steps(3);
-}
-
-    @keyframes dots {
-      0% { content: '';}
-      33% { content: '.';}
-      66% { content: '..';}
-      100% { content: '...';}
-}
-
-    header {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      background: linear-gradient(90deg, #00f0ff, #ff00f0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-top: 20px;
-      display: none;
-      text-align: center;
-}
-
-    #supportBox {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 95%;
-      max-width: 720px;
-      background: #1c1c3c;
-      border: 2px solid #25D366;
-      padding: 40px;
-      border-radius: 16px;
-      text-align: center;
-      box-shadow: 0 0 25px rgba(0, 255, 150, 0.4);
-      animation: pop 0.5s ease;
-}
-
-    @keyframes pop {
-      0% {
-        transform: scale(0.8);
-        opacity: 0;
-}
-      100% {
-        transform: scale(1);
-        opacity: 1;
-}
-}
-
-    #supportBox h2 {
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-      color: #25D366;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-}
-
-    #supportBox h2 svg {
-      width: 28px;
-      height: 28px;
-      fill: #25D366;
-}
-
-    #supportBox p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-}
-
-.support-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-}
-
-.support-buttons button {
-      padding: 12px 28px;
-      font-size: 1.1rem;
-      background: #25D366;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-}
-
-.support-buttons button:hover {
-      background: #128c7e;
-}
-
-.support-buttons button:disabled {
-      background: #555;
-      cursor: not-allowed;
-}
-  </style>
-</head>
-<body>
-  <div id="loadingScreen">Loading Please Wait</div>
-
-  <header id="title">CRICKETLIVE! OFFICIAL</header>
-
-  <div id="supportBox">
-    <h2>
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.003 3.2c-7.065 0-12.8 5.735-12.8 12.8 0 2.256.592 4.462 1.712 6.4l-1.792 6.4 6.592-1.728c1.856 1.024 3.968 1.568 6.288 1.568 7.065 0 12.8-5.735 12.8-12.8s-5.735-12.8-12.8-12.8zM16.003 26.4c-2.016 0-3.968-0.544-5.664-1.6l-0.4-0.256-3.904 1.024 1.056-3.84-0.256-0.416c-1.056-1.728-1.6-3.712-1.6-5.712 0-6.016 4.896-10.912 10.912-10.912s10.912 4.896 10.912 10.912c0 6.016-4.896 10.912-10.912 10.912zM22.003 19.2c-0.32-0.16-1.888-0.928-2.176-1.056s-0.512-0.16-0.736 0.16c-0.224 0.32-0.864 1.056-1.056 1.28-0.192 0.224-0.352 0.256-0.672 0.096-1.792-0.896-2.944-1.6-4.096-3.52-0.32-0.544 0.32-0.512 0.896-1.696 0.096-0.192 0.048-0.352-0.016-0.512s-0.512-1.28-0.704-1.76c-0.192-0.48-0.384-0.416-0.672-0.416s-0.384 0-0.576 0c-0.192 0-0.48 0.064-0.736 0.352s-0.96 0.96-0.96 2.336 0.992 2.72 1.12 2.912c0.128 0.192 1.92 3.072 4.672 4.288 0.656 0.288 1.168 0.448 1.568 0.576 0.656 0.208 1.248 0.176 1.728 0.096 0.528-0.08 1.6-0.656 1.824-1.296s0.224-1.184 0.16-1.296c-0.064-0.112-0.288-0.192-0.608-0.352z"/>
-      </svg>
-      Support Us!
-    </h2>
-    <p>Join our WhatsApp channel <strong>CricketLIVE! Official</strong> for instant updates & exclusive links.</p>
-    <div class="support-buttons">
-      <button onclick="window.open('https://whatsapp.com/channel/0029VaD6Yzj9yZfZf9rYkU3u', '_blank')">Join</button>
-      <button disabled>Already Joined</button>
-    </div>
-  </div>
-
-  <script>
-    setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('title').style.display = 'block';
-      document.getElementById('supportBox').style.display = 'block';
-}, 3000);
-  </script>
-</body>
-</html>
