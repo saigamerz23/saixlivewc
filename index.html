@@ -188,7 +188,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CricketLIVE! Official</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -196,96 +196,85 @@
         body { 
             background-color: #05080f; 
             display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            overflow: hidden;
-        }
-
-        /* Bahar ka Main Box */
-        .video-box {
-            position: relative;
-            width: 95%; /* Mobile par side se thoda gap */
-            max-width: 500px;
-            height: 80vh;
-            border: 2px solid #00d4ff;
-            border-radius: 15px;
-            overflow: hidden; /* Ye sabse zaroori hai cropping ke liye */
-            background: #0c101b;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-        }
-
-        /* Naya Header jo purane ko dhak dega */
-        .my-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 55px;
-            background: linear-gradient(180deg, #0c101b, #05080f);
-            z-index: 10;
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #1e2a3a;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
         }
 
-        .my-header h2 {
-            color: #00d4ff;
-            font-family: 'Arial', sans-serif;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* Iframe settings - Isko humne crop kiya hai */
-        .iframe-wrapper {
+        /* Top Header Brand */
+        .brand-header {
             width: 100%;
-            height: calc(100% + 150px); /* Height badhayi taaki footer niche kat jaye */
-            margin-top: -50px; /* Purane header ko upar dhakel kar chupa diya */
+            background: #0c101b;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid #00d4ff;
+            z-index: 100;
+        }
+
+        .brand-header h1 {
+            color: #00d4ff;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Container jo video ko hold karega */
+        .video-container {
+            position: relative;
+            width: 95%; /* Screen se thoda gap */
+            height: 70vh; /* Mobile screen ke hisaab se height */
+            margin-top: 20px;
+            border-radius: 12px;
+            border: 1px solid #1e2a3a;
+            overflow: hidden; /* Bahar ka kachra katne ke liye */
+            background: #000;
+        }
+
+        /* Iframe settings: Yahan hum dusri site ko CHHOTA kar rahe hain */
+        .iframe-wrapper {
+            width: 125%; /* Scale 0.8 hai isliye width badhani padegi (100/0.8) */
+            height: 125%;
+            transform: scale(0.85); /* Site ko 15% chota kiya taaki fit aaye */
+            transform-origin: 0 0;
+            margin-top: -45px; /* Purana header chupa diya */
+            margin-left: -5px;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            /* Zoom setting taaki content box mein fit baithe */
-            transform: scale(1); 
-            transform-origin: 0 0;
         }
 
-        /* Naya Footer */
-        .my-footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40px;
+        /* Bottom Join Button */
+        .join-btn {
+            margin-top: 20px;
             background: #00d4ff;
             color: #000;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 12px 30px;
+            border-radius: 25px;
             font-weight: bold;
-            font-size: 13px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <div class="video-box">
-        <div class="my-header">
-            <h2>CricketLIVE! Official</h2>
-        </div>
+    <div class="brand-header">
+        <h1>CRICKETLIVE! OFFICIAL</h1>
+    </div>
 
+    <div class="video-container">
         <div class="iframe-wrapper">
             <iframe src="https://crickcast-fancode.vercel.app/" scrolling="no"></iframe>
         </div>
-
-        <div class="my-footer">
-            JOIN TELEGRAM @CRICKETLIVE_OFFICIAL
-        </div>
     </div>
+
+    <a href="#" class="join-btn">JOIN TELEGRAM CHANNEL</a>
 
 </body>
 </html>
