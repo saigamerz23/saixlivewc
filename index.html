@@ -157,110 +157,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Premium Live</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>Cricket Premium Luxury Live</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Syncopate:wght@700&family=Inter:wght@900&display=swap" rel="stylesheet">
     <style>
         body { 
-            background-color: #020617; 
+            background: radial-gradient(circle, #0f172a 0%, #020617 100%);
             margin: 0; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            font-family: 'Inter', sans-serif;
+            overflow: hidden;
         }
 
-        /* Container */
-        .player-container {
+        /* Luxury Player Box */
+        .luxury-box {
             position: relative;
             width: 95%;
-            max-width: 800px;
+            max-width: 850px;
             background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 8px; /* Inner Border Effect */
+            background: linear-gradient(145deg, #1e293b, #000000);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 107, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Compact & Cool Logo */
-        .live-tag-box {
+        .inner-container {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* Amazing Luxury Logo */
+        .brand-tag {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 4px 10px;
-            border-radius: 6px;
-            backdrop-filter: blur(8px);
-            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 5px 12px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.3); /* Goldish Border */
             pointer-events: none;
         }
 
+        /* Blinking Red Dot */
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 10px #ff0000;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
         .logo-text {
-            font-size: 13px; /* Pehle se chhota */
+            font-family: 'Syncopate', sans-serif;
+            font-size: 12px;
             color: #fff;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
         .logo-text span {
-            color: #ff4d4d; /* Reddish-Orange for LIVE */
-            font-family: 'Montserrat', sans-serif;
+            color: #ffbc00; /* Luxury Gold/Orange */
+            font-family: 'Cinzel', serif; /* Amazing Font */
+            font-size: 14px;
         }
 
-        .divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-            margin: 0 5px;
-        }
-
-        .official-text {
-            font-size: 10px;
-            color: #cbd5e1;
+        .official-label {
+            margin-left: 8px;
+            padding-left: 8px;
+            border-left: 1px solid rgba(255,255,255,0.3);
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            color: #aaa;
             text-transform: uppercase;
-            font-weight: 600;
+            letter-spacing: 2px;
         }
 
-        /* Video Setup */
+        /* Video Styling */
         video {
             width: 100%;
             display: block;
             aspect-ratio: 16 / 9;
+            object-fit: contain;
         }
 
-        /* Rotation & Fullscreen Settings */
+        /* Rotation & Fullscreen Logic */
         @media (orientation: landscape) {
-            .live-tag-box {
-                top: 8px;
-                left: 8px;
-                padding: 3px 8px;
-                opacity: 0.8; /* Landscape mein thoda transparent taaki match dikhe */
+            .brand-tag {
+                top: 10px;
+                left: 10px;
+                transform: scale(0.8);
             }
-            .logo-text { font-size: 11px; }
-            .official-text { font-size: 8px; }
-        }
-
-        /* Fullscreen hidden controls fix */
-        video::-webkit-media-controls-panel {
-            z-index: 5;
         }
     </style>
 </head>
 <body>
 
-    <div class="player-container" id="mainPlayer">
-        <div class="live-tag-box">
-            <div class="logo-text">
-                Cricket<span>LIVE!</span>
+    <div class="luxury-box" id="playerWrap">
+        <div class="inner-container">
+            <div class="brand-tag">
+                <div class="live-dot"></div>
+                <div class="logo-text">CRICKET<span>LIVE!</span></div>
+                <div class="official-label">Official</div>
             </div>
-            <div class="divider"></div>
-            <div class="official-text">Official</div>
-        </div>
 
-        <video id="videoSource" controls playsinline poster="https://img.freepik.com/free-photo/cricket-stadium-lights-night_1150-18451.jpg">
-            <source src="https://www.w3schools.com/html/mov_bbb.
+            <video id="mainVideo" controls playsinline poster="https://wallpaperaccess.com/full/1152733.jpg">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-stadium-lights-shining-at-night-4481-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        const wrap = document.getElementById('playerWrap');
+        const vid = document.getElementById('mainVideo');
+
+        // Double tap/click for Luxury Fullscreen
+        vid.addEventListener('dblclick', () => {
+            if (!document.fullscreenElement) {
+                if (wrap.requestFullscreen) { wrap.requestFullscreen(); }
+                else if (wrap.webkitRequestFullscreen) { wrap.webkitRequestFullscreen(); }
+            } else {
+                document.exitFullscreen();
+            }
+        });
+    </script>
+
+</body>
+</html>
