@@ -158,80 +158,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Cricket Live</title>
+    <title>Cricket Premium Live</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #050a14; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        body { background-color: #050a14; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
 
-        /* Premium Wrapper */
-        .main-wrapper {
+        /* Premium Box Container */
+        .premium-player-box {
             position: relative;
-            width: 90%;
-            max-width: 700px;
-            border: 3px solid #1e293b; /* Premium Border */
+            width: 95%;
+            max-width: 850px;
+            background: #000;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+            border: 2px solid #1e293b;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.2); /* Soft WhatsApp Green Glow */
         }
 
         /* Video Styling */
         video {
             width: 100%;
+            height: auto;
             display: block;
-            background: #000;
+            cursor: pointer;
         }
 
-        /* Chota Premium Name Tag */
-        .live-tag {
+        /* High Quality Premium Tag */
+        .premium-tag {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px; /* Chota size */
-            font-family: sans-serif;
-            font-weight: bold;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.75); /* Dark Glass Effect */
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 5px;
-            border: 0.5px solid rgba(37, 211, 102, 0.5);
-            z-index: 2147483647; /* Sabse upar dikhne ke liye */
-            pointer-events: none; /* Video click mein rukawat na bane */
+            gap: 6px;
+            border-left: 3px solid #25D366; /* WhatsApp Green Accent */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 2147483647; /* Hamesha Sabse Upar */
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            pointer-events: none;
         }
 
         .fa-whatsapp {
             color: #25D366;
-            font-size: 11px;
+            font-size: 14px;
+            filter: drop-shadow(0 0 2px rgba(37, 211, 102, 0.8));
+        }
+
+        /* Full Screen fix for mobile */
+        :fullscreen .premium-tag {
+            top: 20px;
+            right: 20px;
+            font-size: 14px;
+        }
+        :-webkit-full-screen .premium-tag {
+            top: 20px;
+            right: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper" id="videoArea">
-        <div class="live-tag">
+    <div class="premium-player-box" id="fullPlayer">
+        <div class="premium-tag">
             <i class="fab fa-whatsapp"></i> CricketLIVE! Official!
         </div>
 
-        <video id="myVideo" controls>
+        <video id="videoElement" controls playsinline poster="https://img.freepik.com/free-photo/cricket-stadium-lights-night_1150-18451.jpg">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-            Your browser does not support video.
+            Your browser does not support the video tag.
         </video>
     </div>
 
     <script>
-        // Full screen par bhi text dikhane ki koshish ke liye logic
-        const videoArea = document.getElementById('videoArea');
-        const video = document.getElementById('myVideo');
+        const player = document.getElementById('fullPlayer');
+        const video = document.getElementById('videoElement');
 
-        // Note: Browser security ki wajah se default controls mein 
-        // full screen par overlay hide ho sakta hai. 
-        // Isliye hum pooray 'videoArea' ko full screen karne ka option dete hain.
-        videoArea.addEventListener('dblclick', () => {
-            if (videoArea.requestFullscreen) {
-                videoArea.requestFullscreen();
+        // Logic: Jab aap video ko fullscreen karoge, toh poora 'Box' fullscreen hoga
+        // Is wajah se wo 'CricketLIVE!' tag video ke upar hi rahega, phone rotate karne par bhi.
+        video.addEventListener('play', function() {
+            console.log("Video Started Playing");
+        });
+
+        // Click on video to trigger custom fullscreen on mobile/web
+        video.addEventListener('dblclick', () => {
+            if (player.requestFullscreen) {
+                player.requestFullscreen();
+            } else if (player.webkitRequestFullscreen) { /* Safari/iOS */
+                player.webkitRequestFullscreen();
             }
         });
     </script>
