@@ -380,19 +380,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <title>Live Cricket Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        video { width: 100%; max-width: 800px; border: 2px solid #333; }
+    </style>
 </head>
 <body>
-    <div id="player"></div>
+
+    <video id="video" controls></video>
+
     <script>
-        var player = new Clappr.Player({
-            source: "https://cricloungelive.short.gy/ashes25/fox.m3u8",
-            parentId: "#player",
-            width: "100%",
-            height: "400px",
-            autoPlay: true,
-            mimeType: "application/x-mpegURL"
+      var video = document.getElementById('video');
+      // Aapka Link yahan hai
+      var videoSrc = 'https://cricloungelive.short.gy/ashes25/fox.m3u8';
+
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play();
         });
+        
+        // Error handling agar link block ho
+        hls.on(Hls.Events.ERROR, function (event, data) {
+          if (data.fatal) {
+            console.log("Link is blocked or expired");
+          }
+        });
+      }
+      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function() {
+          video.play();
+        });
+      }
     </script>
 </body>
 </html>
