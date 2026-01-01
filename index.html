@@ -19,7 +19,6 @@
       display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
     }
 
-    /* Loading Screen */
     #loadingScreen {
       position: fixed; inset: 0; background: #050a18;
       display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
@@ -29,7 +28,7 @@
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
     @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
-    /* Header & Menu Button */
+    /* Header & Menu FIX */
     header {
       width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
       background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
@@ -38,9 +37,10 @@
     }
     .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
     
+    /* 3 LINE BUTTON FIX */
     .menu-btn {
-      position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: #00ffff; font-size: 24px; cursor: pointer;
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: #00ffff; font-size: 28px; cursor: pointer; z-index: 100;
     }
 
     /* Side Drawer */
@@ -52,11 +52,11 @@
     }
     .side-drawer.open { right: 0; }
     .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(0,255,242,0.2); padding-bottom: 10px; }
-    .close-btn { background: none; border: none; color: #ff4d4d; font-size: 30px; cursor: pointer; }
+    .close-btn { background: none; border: none; color: #ff4d4d; font-size: 35px; cursor: pointer; }
     
     .update-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; margin-bottom: 12px; border-left: 3px solid #00ffff; }
-    .update-item h4 { font-size: 14px; color: #00ffff; }
-    .update-item p { font-size: 12px; color: #eee; }
+    .update-item h4 { font-size: 14px; color: #00ffff; margin-bottom: 4px; }
+    .update-item p { font-size: 12px; color: #eee; line-height: 1.4; }
 
     /* Video Player */
     #playerContainer {
@@ -75,16 +75,18 @@
     video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
     .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
 
-    /* --- ORIGINAL SUPPORT BOX LOOK --- */
+    /* Support Box ORIGINAL */
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
       backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideIn 0.7s ease-out;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     }
     .box-title { font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
     .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; animation: pulseGlow 2s infinite; }
     .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
+    
+    /* HEART ICON FIX */
     #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
 
     /* Ticker */
@@ -111,11 +113,11 @@
 
   <div id="sideDrawer" class="side-drawer">
     <div class="drawer-header">
-      <div style="font-family:'Orbitron'; color:#00ffff;">LATEST UPDATES</div>
+      <div style="font-family:'Orbitron'; color:#00ffff; font-size: 1.1rem;">UPDATES</div>
       <button class="close-btn" onclick="toggleMenu()">×</button>
     </div>
     <div id="dynamicUpdates">
-      <p style="text-align:center; font-size:12px; color:#aaa;">Fetching news...</p>
+      <p style="text-align:center; font-size:12px; color:#aaa;">Fetching latest news...</p>
     </div>
   </div>
 
@@ -149,7 +151,8 @@
   </div>
 
 <script>
-  const SHEET_CSV_URL = 'YOUR_CSV_LINK_HERE'; // Apna Google Sheet link yahan daalein
+  // GOOGLE SHEET CSV LINK YAHAN DALEIN
+  const SHEET_CSV_URL = 'APNA_CSV_LINK_YAHAN_PASTE_KAREIN';
 
   window.onload = function() {
     setTimeout(() => {
@@ -177,19 +180,24 @@
           html += `<div class="update-item"><h4>${cols[0]}</h4><p>${cols[1]}</p></div>`;
         }
       });
-      document.getElementById('dynamicUpdates').innerHTML = html || '<p>No updates yet.</p>';
-    } catch(e) { document.getElementById('dynamicUpdates').innerHTML = '<p>Error loading updates.</p>'; }
+      document.getElementById('dynamicUpdates').innerHTML = html || '<p style="text-align:center;font-size:12px;">No new updates.</p>';
+    } catch(e) { 
+      document.getElementById('dynamicUpdates').innerHTML = '<p style="text-align:center;font-size:12px;color:red;">Could not load updates.</p>'; 
+    }
   }
 
-  function toggleMenu() { document.getElementById('sideDrawer').classList.toggle('open'); }
+  function toggleMenu() { 
+    document.getElementById('sideDrawer').classList.toggle('open'); 
+  }
 
   function handleAlreadyJoined() {
     document.getElementById('boxContent').style.display = 'none';
     document.getElementById('thankYouMsg').style.display = 'block';
     setTimeout(() => {
-      document.getElementById('supportBox').style.transition = "0.5s";
-      document.getElementById('supportBox').style.opacity = "0";
-      setTimeout(() => { document.getElementById('supportBox').style.display = 'none'; }, 500);
+      const box = document.getElementById('supportBox');
+      box.style.transition = "0.5s";
+      box.style.opacity = "0";
+      setTimeout(() => { box.style.display = 'none'; }, 500);
     }, 2000);
   }
 
