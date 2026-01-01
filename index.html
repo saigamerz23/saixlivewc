@@ -385,40 +385,51 @@
     <title>Cricket Live Official</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { margin: 0; background: #000; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; }
-        .header { width: 100%; padding: 15px; background: linear-gradient(to bottom, #1a1a1a, #000); color: #00fff2; font-weight: bold; font-size: 1.2rem; border-bottom: 2px solid #333; margin-bottom: 10px; }
-        video { width: 100%; max-width: 100%; aspect-ratio: 16/9; box-shadow: 0px 0px 20px rgba(0,255,242,0.2); }
+        body { margin: 0; background: #000; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
+        .header { width: 100%; padding: 15px; background: #111; color: #00fff2; text-align: center; font-weight: bold; border-bottom: 2px solid #333; }
+        video { width: 100%; aspect-ratio: 16/9; background: #000; }
+        .status { color: #888; font-size: 12px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="header">CRICKETLIVE! OFFICIAL</div>
-    <video id="video" controls autoplay playsinline></video>
+    
+    <video id="video" controls autoplay playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
+    
+    <p class="status">Connecting to secure stream...</p>
 
     <script>
         var video = document.getElementById('video');
         
-        // Step A: Naya link dhoond kar yahan paste karein
+        // 👇 1. YAHAN APNA NAYA M3U8 LINK DALEIN
         var rawUrl = 'https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8';
 
-        // Step B: Proxy setup jo security bypass karega
+        // 👇 2. PROXY SETUP (Ye CORS errors ko bypass karta hai)
         var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl);
 
         if (Hls.isSupported()) {
             var hls = new Hls({
                 xhrSetup: function(xhr, url) {
-                    // Ye headers website ko FanCode ke server se link hone mein madad karte hain
                     xhr.withCredentials = false;
                 }
             });
             hls.loadSource(proxyUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play().catch(e => console.log("Auto-play blocked, please click play"));
+                video.play();
+                document.querySelector('.status').innerText = "Streaming Live...";
+            });
+            
+            hls.on(Hls.Events.ERROR, function(event, data) {
+                if (data.fatal) {
+                    document.querySelector('.status').innerText = "Link Expired. Please get new link!";
+                    document.querySelector('.status').style.color = "red";
+                }
             });
         } 
         else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            // iOS/Safari ke liye direct source
+            // Apple/iOS devices ke liye
             video.src = rawUrl;
         }
     </script>
