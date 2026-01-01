@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CricketLIVE! Official</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
@@ -36,7 +35,7 @@
     }
     .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
 
-    /* Poster/Player Container */
+    /* Poster Container */
     #playerContainer {
       position: relative;
       width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
@@ -52,10 +51,15 @@
     .mini-badge img { width: 14px; height: 14px; }
     .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #00ffff; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
 
-    /* Match Poster Styling */
     .match-poster { width: 100%; aspect-ratio: 16/9; display: block; object-fit: cover; background: #000; }
     
     .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
+
+    /* Iframe Section */
+    #liveFrame {
+      width: 95%; max-width: 800px; margin-top: 20px; border-radius: 12px;
+      border: none; display: none; height: 600px;
+    }
 
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
@@ -70,12 +74,12 @@
     .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
     #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
 
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5); }
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; }
     .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; font-weight: 500; }
+    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; }
     .live-pill { background: rgba(255, 0, 0, 0.15); color: #ff4d4d; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; border: 1px solid rgba(255, 0, 0, 0.3); margin-right: 20px; display: flex; align-items: center; gap: 6px; }
-    .red-dot { height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: pulse-dot 1s infinite; }
+    .red-dot { height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; animation: pulse-dot 1s infinite; }
     @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
   </style>
 </head>
@@ -95,11 +99,11 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
       <span>CricketLIVE! Official</span>
     </div>
-    
     <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067" alt="Cricket Poster" class="match-poster">
-    
-    <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
+    <div class="status-bar">SECURE CONNECTION ESTABLISHED</div>
   </div>
+
+  <iframe id="liveFrame" src="https://insiderlive3.netlify.app/fancodee/" title="Live Cricket"></iframe>
 
   <div id="supportBox">
     <div id="boxContent">
@@ -116,8 +120,7 @@
 
   <div class="premium-ticker-wrap">
     <div class="ticker-content">
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! Stay ahead of the game! Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel!</div>
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! Stay ahead of the game! Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel!</div>
+      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! Stay ahead of the game! Join CricketLIVE! Official WhatsApp channel!</div>
     </div>
   </div>
 
@@ -129,6 +132,7 @@
         document.getElementById('loadingScreen').style.display = 'none';
         document.getElementById('headerBox').style.display = 'block';
         document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('liveFrame').style.display = 'block';
         document.getElementById('supportBox').style.display = 'block';
       }, 600);
     }, 3000);
@@ -138,9 +142,7 @@
     document.getElementById('boxContent').style.display = 'none';
     document.getElementById('thankYouMsg').style.display = 'block';
     setTimeout(() => {
-      const box = document.getElementById('supportBox');
-      box.style.transition = "0.5s"; box.style.opacity = "0";
-      setTimeout(() => { box.style.display = 'none'; }, 500);
+      document.getElementById('supportBox').style.display = 'none';
     }, 2000);
   }
 </script>
