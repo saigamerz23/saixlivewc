@@ -380,21 +380,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
 </head>
 <body>
-
-  <video
-    id="my-video"
-    class="video-js vjs-default-skin vjs-big-play-centered"
-    controls
-    preload="auto"
-    width="640"
-    height="360"
-    data-setup='{}'>
-    <source src="https://cricloungelive.short.gy/ashes25/fox.m3u8" type="application/x-mpegURL">
-  </video>
-
-  <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <div id="player"></div>
+    <script>
+        var player = new Clappr.Player({
+            source: "https://cricloungelive.short.gy/ashes25/fox.m3u8",
+            parentId: "#player",
+            width: "100%",
+            height: "400px",
+            autoPlay: true,
+            mimeType: "application/x-mpegURL"
+        });
+    </script>
 </body>
 </html>
