@@ -19,6 +19,7 @@
       display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
     }
 
+    /* Loading Screen */
     #loadingScreen {
       position: fixed; inset: 0; background: #050a18;
       display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
@@ -28,69 +29,75 @@
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
     @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
+    /* Header Styling */
     header {
       width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
       background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
       border-radius: 15px; border: 1px solid rgba(191, 149, 63, 0.5); 
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); display: none;
+      position: relative; /* For Menu Button */
     }
     .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
 
-    /* Video Player Container */
+    /* --- MENU BUTTON --- */
+    .menu-btn {
+      position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: #00ffff; font-size: 24px; cursor: pointer;
+    }
+
+    /* --- SIDE DRAWER --- */
+    .side-drawer {
+      position: fixed; top: 0; right: -300px; width: 280px; height: 100%;
+      background: rgba(5, 10, 24, 0.98); backdrop-filter: blur(20px);
+      border-left: 2px solid #00ffff; z-index: 3000; transition: 0.4s ease;
+      padding: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+    }
+    .side-drawer.open { right: 0; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(0,255,242,0.2); padding-bottom: 10px; }
+    .drawer-title { font-family: 'Orbitron'; font-size: 1.1rem; color: #00ffff; }
+    .close-btn { background: none; border: none; color: #ff4d4d; font-size: 30px; cursor: pointer; }
+    
+    .update-item {
+      background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;
+      margin-bottom: 15px; border-left: 3px solid #00ffff;
+    }
+    .update-item p { font-size: 0.9rem; line-height: 1.4; }
+    .update-item small { color: #00ffff; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+
+    /* Video Player */
     #playerContainer {
-      position: relative; /* Badge ko align karne ke liye */
-      width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
+      position: relative; width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
       border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
     }
 
-    /* --- CHHOTA BADGE CODE --- */
     .mini-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      padding: 4px 8px;
-      border-radius: 50px;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      pointer-events: none; /* Video control me rukawat na bane */
+      position: absolute; top: 10px; left: 10px; z-index: 10;
+      display: flex; align-items: center; gap: 5px; background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px); padding: 4px 8px; border-radius: 50px;
+      border: 1px solid rgba(0, 255, 255, 0.3); pointer-events: none;
     }
     .mini-badge img { width: 14px; height: 14px; }
-    .mini-badge span {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 10px; /* Bahut chhota size */
-      color: #00ffff;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
+    .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #00ffff; font-weight: 700; }
 
     video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
     .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
 
+    /* Support Box */
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
       backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
       box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideIn 0.7s ease-out;
     }
-    @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .box-title { font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; animation: pulseGlow 2s infinite; }
-    .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
-    #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
+    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; margin-top: 15px; }
 
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5); }
+    /* Ticker */
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; }
     .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; font-weight: 500; }
-    .live-pill { background: rgba(255, 0, 0, 0.15); color: #ff4d4d; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; border: 1px solid rgba(255, 0, 0, 0.3); margin-right: 20px; display: flex; align-items: center; gap: 6px; }
-    .red-dot { height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: pulse-dot 1s infinite; }
-    @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; }
+    
+    @keyframes shine { from { background-position: 0% center; } to { background-position: 200% center; } }
   </style>
 </head>
 <body>
@@ -102,39 +109,59 @@
 
   <header id="headerBox">
     <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
   </header>
+
+  <div id="sideDrawer" class="side-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">LATEST UPDATES</div>
+      <button class="close-btn" onclick="toggleMenu()">×</button>
+    </div>
+    <div class="drawer-content">
+      <div class="update-item">
+        <small>News • Just Now</small>
+        <p>IPL 2026 Live Streaming ke liye naye server add kar diye gaye hain. 🚀</p>
+      </div>
+      <div class="update-item">
+        <small>Alert • 2h ago</small>
+        <p>Video quality ko improve karke ab Full HD support diya gaya hai. ✨</p>
+      </div>
+      <div class="update-item">
+        <small>Feature • New</small>
+        <p>Ab aap direct side menu se saare match schedule dekh sakte hain.</p>
+      </div>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" style="font-size: 0.9rem; padding: 10px;">JOIN WHATSAPP</a>
+    </div>
+  </div>
 
   <div id="playerContainer">
     <div class="mini-badge">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
       <span>CricketLIVE! Official</span>
     </div>
-    
     <video id="video" controls autoplay muted playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
     <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
   </div>
 
   <div id="supportBox">
     <div id="boxContent">
-      <div class="box-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30">
-        Support Us!
-      </div>
-      <p style="margin-bottom: 20px; font-size: 0.95rem;">Join <strong>CricketLIVE! Official</strong> For Instant Updates & Links.</p>
+      <div style="font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px;">Support Us!</div>
+      <p style="margin-bottom: 20px;">Join <strong>CricketLIVE! Official</strong> For Instant Updates & Links.</p>
       <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
-      <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
+      <button onclick="handleAlreadyJoined()" style="background:none; border:none; color:#aaa; margin-top:15px; cursor:pointer;">Already Joined</button>
     </div>
-    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
+    <div id="thankYouMsg" style="display:none; color:#00ffff;">❤️ Thank You for your Support!</div>
   </div>
 
   <div class="premium-ticker-wrap">
     <div class="ticker-content">
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! 🏏</div>
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! 🏏</div>
+      <div class="ticker-item">📢 Stay ahead of the game! ⚡ Join CricketLIVE! Official WhatsApp channel! 🏏</div>
+      <div class="ticker-item">📢 Stay ahead of the game! ⚡ Join CricketLIVE! Official WhatsApp channel! 🏏</div>
     </div>
   </div>
 
 <script>
+  // Loading Script
   window.onload = function() {
     setTimeout(() => {
       document.getElementById('loadingScreen').style.opacity = "0";
@@ -148,52 +175,28 @@
     }, 3000);
   };
 
+  // Toggle Side Menu
+  function toggleMenu() {
+    const drawer = document.getElementById('sideDrawer');
+    drawer.classList.toggle('open');
+  }
+
   function handleAlreadyJoined() {
     document.getElementById('boxContent').style.display = 'none';
     document.getElementById('thankYouMsg').style.display = 'block';
     setTimeout(() => {
-      const box = document.getElementById('supportBox');
-      box.style.transition = "0.5s"; box.style.opacity = "0";
-      setTimeout(() => { box.style.display = 'none'; }, 500);
+      document.getElementById('supportBox').style.opacity = "0";
+      setTimeout(() => { document.getElementById('supportBox').style.display = 'none'; }, 500);
     }, 2000);
   }
 
   function startPlayer() {
     var video = document.getElementById('video');
     var status = document.getElementById('streamStatus');
-    var videoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4';
-    
-    video.src = videoUrl;
-    video.play().then(() => {
-        status.innerText = "STREAMING LIVE - PREMIUM QUALITY";
-    }).catch(e => {
-        status.innerText = "CLICK PLAY TO START STREAM";
-    });
+    video.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+    video.play().catch(e => { status.innerText = "CLICK PLAY TO START STREAM"; });
   }
 </script>
 
 </body>
-import { useState } from 'react';
-import { MoreVertical } from 'lucide-react'; // Ek icon library
-
-export default function UpdateMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="relative">
-      {/* 3 Dots Button */}
-      <button onClick={() => setIsOpen(!isOpen)}>
-        <MoreVertical />
-      </button>
-
-      {/* Dropdown Content */}
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border rounded-md p-4">
-          <h4 className="font-bold">Latest Updates</h4>
-          <p className="text-sm">1. Naya feature launch hua!</p>
-          <p className="text-sm">2. UI me badlav kiya gaya.</p>
-        </div>
-      )}
-    </div>
-  );
-}
+</html>
