@@ -153,73 +153,88 @@
 
 </body>
 </html>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Cricket Player</title>
+    <title>Premium Cricket Live</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #0f172a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #050a14; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
 
-        /* Premium Box Container */
-        .video-container {
+        /* Premium Wrapper */
+        .main-wrapper {
             position: relative;
-            width: 80%;
-            max-width: 800px;
-            padding: 8px;
-            background: linear-gradient(145deg, #1e293b, #334155);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 191, 255, 0.2); /* Soft Glow */
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 700px;
+            border: 3px solid #1e293b; /* Premium Border */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
         }
 
         /* Video Styling */
         video {
             width: 100%;
-            border-radius: 10px;
             display: block;
+            background: #000;
         }
 
-        /* Premium Badge/Name Tag */
-        .premium-tag {
+        /* Chota Premium Name Tag */
+        .live-tag {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
             color: #fff;
-            padding: 6px 12px;
-            border-radius: 50px;
-            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px; /* Chota size */
+            font-family: sans-serif;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border: 1px solid #25D366;
-            backdrop-filter: blur(5px);
-            z-index: 10;
+            gap: 5px;
+            border: 0.5px solid rgba(37, 211, 102, 0.5);
+            z-index: 2147483647; /* Sabse upar dikhne ke liye */
+            pointer-events: none; /* Video click mein rukawat na bane */
         }
 
         .fa-whatsapp {
             color: #25D366;
-            font-size: 16px;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
-        <div class="premium-tag">
+    <div class="main-wrapper" id="videoArea">
+        <div class="live-tag">
             <i class="fab fa-whatsapp"></i> CricketLIVE! Official!
         </div>
 
-        <video controls poster="https://images.pexels.com/photos/3658482/pexels-photo-3658482.jpeg?auto=compress&cs=tinysrgb&w=800">
-            <source src="https://player.vimeo.com/external/453139362.sd.mp4?s=99a7791836f3c959711675a3f3a8f572c69e8b7d&profile_id=164" type="video/mp4">
-            Your browser does not support the video tag.
+        <video id="myVideo" controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+            Your browser does not support video.
         </video>
     </div>
+
+    <script>
+        // Full screen par bhi text dikhane ki koshish ke liye logic
+        const videoArea = document.getElementById('videoArea');
+        const video = document.getElementById('myVideo');
+
+        // Note: Browser security ki wajah se default controls mein 
+        // full screen par overlay hide ho sakta hai. 
+        // Isliye hum pooray 'videoArea' ko full screen karne ka option dete hain.
+        videoArea.addEventListener('dblclick', () => {
+            if (videoArea.requestFullscreen) {
+                videoArea.requestFullscreen();
+            }
+        });
+    </script>
 
 </body>
 </html>
