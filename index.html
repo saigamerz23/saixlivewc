@@ -377,19 +377,44 @@
     100% { opacity: 1; transform: scale(1); }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<video id="video" controls style="width:100%; max-width:800px;"></video>
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body style="background:#000; margin:0; display:flex; justify-content:center; align-items:center; height:100vh;">
 
-<script>
-  var video = document.getElementById('video');
-  var videoSrc = 'https://in-mc-fdlive.fancode.com/mumbai/138737_english_hls_bb09d5de5079575_1ta-di_h264/index.m3u8';
+    <video id="video" controls autoplay style="width:100%; max-width:800px; border:2px solid #00f0ff;"></video>
 
-  if (Hls.isSupported()) {
-    var hls = new Hls();
-    hls.loadSource(videoSrc);
-    hls.attachMedia(video);
-  }
-  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = videoSrc;
-  }
-</script>
+    <script>
+        var video = document.getElementById('video');
+        // Aapka original link
+        var videoSrc = 'https://in-mc-fdlive.fancode.com/mumbai/138737_english_hls_bb09d5de5079575_1ta-di_h264/index.m3u8';
+
+        if (Hls.isSupported()) {
+            var hls = new Hls({
+                // Yeh part security bypass karne mein madad kar sakta hai
+                xhrSetup: function (xhr, url) {
+                    xhr.withCredentials = false; // Credentials ko false rakhein
+                }
+            });
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+
+            // Agar error aaye toh console mein dikhayega
+            hls.on(Hls.Events.ERROR, function (event, data) {
+                console.log("Error type:", data.type, "Details:", data.details);
+            });
+        }
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
+</body>
+</html>
