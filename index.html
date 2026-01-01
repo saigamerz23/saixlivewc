@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CricketLIVE! Official</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
@@ -18,420 +19,95 @@
       background-attachment: fixed;
       font-family: 'Poppins', sans-serif;
       color: white;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: hidden;
     }
 
-    /* Premium Loading Screen */
-    #loadingScreen {
-      position: fixed;
-      inset: 0;
-      background: #050a18;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .welcome-text {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.2rem; /* Chhota size */
-      font-weight: 600;
-      color: #bf953f; /* Luxury Gold */
-      letter-spacing: 2px;
-      margin-bottom: 5px;
-      text-transform: uppercase;
-    }
-
-    .loader-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem; /* Bada font size */
-      color: #00ffff;
-      letter-spacing: 5px;
-      animation: pulseText 1.5s infinite;
-    }
-
-    @keyframes pulseText {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.7; transform: scale(1.05); }
-    }
-
-    /* Luxury Header Box */
     header {
-      width: 92%;
-      max-width: 420px;
-      text-align: center;
-      margin-top: 35px;
-      padding: 18px 10px;
-      position: relative;
-      display: none;
-      z-index: 100;
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(20px);
-      border-radius: 15px;
-      border: 1px solid rgba(191, 149, 63, 0.5); 
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(191, 149, 63, 0.1);
+      width: 92%; max-width: 420px; text-align: center; margin-top: 20px; padding: 15px;
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
+      border-radius: 15px; border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .header-text-content {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      white-space: nowrap;
+    .header-text {
+      font-family: 'Orbitron', sans-serif; font-size: 1.2rem;
       background: linear-gradient(90deg, #fff, #00ffff, #fff);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 3s linear infinite;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
-    @keyframes shine { to { background-position: 200% center; } }
+    /* Video Player Container */
+    .player-box {
+      width: 95%; max-width: 800px; margin-top: 20px;
+      background: #000; border-radius: 10px; overflow: hidden;
+      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+
+    video { width: 100%; aspect-ratio: 16/9; display: block; }
+
+    .status-bar {
+      padding: 10px; font-size: 12px; text-align: center; color: #00ffff;
+      background: rgba(0,0,0,0.5); font-weight: bold;
+    }
 
     /* Support Box */
     #supportBox {
-      display: none;
-      width: 90%;
-      max-width: 380px;
-      background: rgba(10, 20, 40, 0.85);
-      backdrop-filter: blur(25px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 25px;
-      padding: 35px 25px;
-      margin-top: 45px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      animation: slideIn 0.7s ease-out;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .box-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #25D366;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .box-title img { width: 32px; }
-
-    .box-desc {
-      font-size: 0.95rem;
-      color: #efefef;
-      line-height: 1.6;
-      margin-bottom: 25px;
-    }
-
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
+      backdrop-filter: blur(25px); border-radius: 20px; padding: 20px;
+      margin: 20px 0 100px 0; text-align: center; border: 1px solid rgba(255,255,255,0.1);
     }
 
     .join-btn {
-      background: #25D366;
-      color: white;
-      text-decoration: none;
-      padding: 15px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      animation: pulseGlow 2s infinite;
-      display: block;
+      background: #25D366; color: white; text-decoration: none;
+      padding: 12px; border-radius: 10px; display: block; font-weight: bold;
+      margin-top: 15px;
     }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-      70% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-
-    .already-btn {
-      background: rgba(255, 255, 255, 0.05);
-      color: #aaa;
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 12px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    /* Simple Thank You Message */
-    #thankYouMsg {
-      display: none;
-      font-size: 1.2rem;
-      color: #00ffff;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
 
-  <div id="loadingScreen">
-    <div class="welcome-text">Welcome</div>
-    <div class="loader-text">LOADING...</div>
-  </div>
-
-  <header id="headerBox">
-    <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
+  <header>
+    <div class="header-text">CRICKETLIVE! OFFICIAL</div>
   </header>
 
+  <div class="player-box">
+    <video id="video" controls autoplay playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
+    <div id="status" class="status-bar">Connecting to secure stream...</div>
+  </div>
+
   <div id="supportBox">
-    <div id="boxContent">
-      <div class="box-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-        Support Us!
-      </div>
-      <p class="box-desc">
-        Join our WhatsApp channel <strong>CricketLIVE! Official</strong> 
-        For Instant Update & Exclusive Links.
-      </p>
-      
-      <div class="button-group">
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN</a>
-        <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
-      </div>
-    </div>
-    
-    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
+    <p>Join our WhatsApp channel for Instant Updates!</p>
+    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN WHATSAPP</a>
   </div>
 
 <script>
-  // 3 Seconds Loading
-  setTimeout(() => {
-    document.getElementById('loadingScreen').style.transition = "0.6s";
-    document.getElementById('loadingScreen').style.opacity = "0";
-    
-    setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('headerBox').style.display = 'block';
-      document.getElementById('supportBox').style.display = 'block';
-    }, 600);
-  }, 3000);
+  var video = document.getElementById('video');
+  var status = document.getElementById('status');
+  
+  // 👇 YAHAN NAYA LINK DALEIN (Kiwi Browser se nikal kar)
+  var rawUrl = 'https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8';
 
-  function handleAlreadyJoined() {
-    document.getElementById('boxContent').style.display = 'none';
-    document.getElementById('thankYouMsg').style.display = 'block';
+  // Proxy to bypass CORS
+  var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl);
 
-    setTimeout(() => {
-      const box = document.getElementById('supportBox');
-      box.style.transition = "0.5s";
-      box.style.opacity = "0";
-      box.style.transform = "translateY(20px)";
-      setTimeout(() => { box.style.display = 'none'; }, 500);
-    }, 2000);
+  if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(proxyUrl);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+      video.play();
+      status.innerText = "LIVE STREAMING...";
+    });
+    hls.on(Hls.Events.ERROR, function(event, data) {
+      if (data.fatal) {
+        status.innerText = "LINK EXPIRED! Get new link from Kiwi Browser.";
+        status.style.color = "red";
+      }
+    });
   }
 </script>
 
-</body>
-<div class="premium-ticker-wrap">
-    <div class="ticker-content">
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="premium-link">
-            <div class="ticker-item">
-                <span class="live-pill"><span class="dot"></span> LIVE UPDATES</span>
-                <span class="main-text">Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span class="gold-text">CricketLIVE! Official</span> WhatsApp channel! 🏏</span>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WA">
-                <span class="cta-text">JOIN NOW</span>
-            </div>
-            <div class="ticker-item">
-                <span class="live-pill"><span class="dot"></span> LIVE UPDATES</span>
-                <span class="main-text">Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span class="gold-text">CricketLIVE! Official</span> WhatsApp channel! 🏏</span>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon" alt="WA">
-                <span class="cta-text">JOIN NOW</span>
-            </div>
-        </a>
-    </div>
-</div>
-
-<style>
-/* 1. Base Container Styling */
-.premium-ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    background: rgba(3, 7, 18, 0.95); /* Deep dark background */
-    backdrop-filter: blur(15px);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    border-top: 1px solid rgba(0, 255, 255, 0.3);
-    padding: 12px 0;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-}
-
-/* 2. Seamless Animation Logic */
-.ticker-content {
-    display: flex;
-    white-space: nowrap;
-    width: max-content;
-    animation: scroll 30s linear infinite;
-}
-
-.premium-ticker-wrap:hover .ticker-content {
-    animation-play-state: paused;
-}
-
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* 3. Item & Link Styling */
-.premium-link {
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-}
-
-.ticker-item {
-    display: flex;
-    align-items: center;
-    padding-right: 50px; /* Space between segments */
-}
-
-/* 4. Live Pill Design */
-.live-pill {
-    background: rgba(255, 0, 0, 0.15);
-    color: #ff4d4d;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    font-weight: 800;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    border: 1px solid rgba(255, 0, 0, 0.3);
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.dot {
-    height: 8px;
-    width: 8px;
-    background-color: #ff0000;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #ff0000;
-    animation: pulse-dot 1s infinite;
-}
-
-/* 5. Typography */
-.main-text {
-    color: #e2e8f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-}
-
-.gold-text {
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-}
-
-/* 6. WA Icon & CTA */
-.wa-icon {
-    width: 20px;
-    height: 20px;
-    margin: 0 15px;
-    filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.5));
-}
-
-.cta-text {
-    color: #00ffff;
-    font-weight: 800;
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    border: 1px dashed rgba(0, 255, 255, 0.5);
-    border-radius: 4px;
-    transition: 0.3s;
-}
-
-.premium-link:hover .cta-text {
-    background: #00ffff;
-    color: #000;
-    box-shadow: 0 0 15px #00ffff;
-}
-
-/* Animations */
-@keyframes pulse-dot {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
-}
-</style>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Live Official</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <style>
-        body { margin: 0; background: #000; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; }
-        .header { width: 100%; padding: 15px; background: #111; color: #00fff2; text-align: center; font-weight: bold; border-bottom: 2px solid #333; }
-        video { width: 100%; aspect-ratio: 16/9; background: #000; }
-        .status { color: #888; font-size: 12px; margin-top: 10px; }
-    </style>
-</head>
-<body>
-
-    <div class="header">CRICKETLIVE! OFFICIAL</div>
-    
-    <video id="video" controls autoplay playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
-    
-    <p class="status">Connecting to secure stream...</p>
-
-    <script>
-        var video = document.getElementById('video');
-        
-        // 👇 1. YAHAN APNA NAYA M3U8 LINK DALEIN
-        var rawUrl = 'https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/540p.m3u8';
-
-        // 👇 2. PROXY SETUP (Ye CORS errors ko bypass karta hai)
-        var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl);
-
-        if (Hls.isSupported()) {
-            var hls = new Hls({
-                xhrSetup: function(xhr, url) {
-                    xhr.withCredentials = false;
-                }
-            });
-            hls.loadSource(proxyUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-                document.querySelector('.status').innerText = "Streaming Live...";
-            });
-            
-            hls.on(Hls.Events.ERROR, function(event, data) {
-                if (data.fatal) {
-                    document.querySelector('.status').innerText = "Link Expired. Please get new link!";
-                    document.querySelector('.status').style.color = "red";
-                }
-            });
-        } 
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            // Apple/iOS devices ke liye
-            video.src = rawUrl;
-        }
-    </script>
 </body>
 </html>
