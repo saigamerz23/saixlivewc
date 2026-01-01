@@ -175,54 +175,103 @@
 </body>
 </html>
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-    <title>Gemini DASH Player</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Live Sports Stream</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.debug.js"></script>
+
     <style>
-        body { margin: 0; background: #000; color: white; font-family: sans-serif; text-align: center; }
-        #video-container { width: 100%; max-width: 800px; margin: 20px auto; }
-        video { width: 100%; border: 2px solid #333; }
-        .info { padding: 10px; color: #ccc; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .video-container {
+            width: 95%;
+            max-width: 900px;
+            box-shadow: 0 0 20px rgba(0,255,255,0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        .status-bar {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
 
-    <h2>My Stream Player</h2>
-    
-    <div id="video-container">
-        <video id="video" controls autoplay></video>
-    </div>
-
-    <div class="info">
-        <p>Agar video nahi chal rahi, toh iska matlab link ko <strong>DRM License Key</strong> ki zaroorat hai.</p>
+    <div class="video-container">
+        <video id="video" controls autoplay playsinline></video>
+        <div class="status-bar" id="status">Stream Loading...</div>
     </div>
 
     <script>
-        async function initApp() {
+        async function initPlayer() {
+            // Install built-in polyfills to patch browser incompatibilities
             shaka.polyfill.installAll();
-            if (shaka.Player.isBrowserSupported()) {
-                const video = document.getElementById('video');
-                const player = new shaka.Player(video);
 
-                // Error handling
-                player.addEventListener('error', (event) => {
-                    console.error('Error code', event.detail.code, 'object', event.detail);
-                });
+            // Check if the browser supports Shaka Player
+            if (!shaka.Player.isBrowserSupported()) {
+                document.getElementById('status').innerText = 'Aapka browser support nahi karta!';
+                return;
+            }
 
-                try {
-                    // AAPKA MPD LINK YAHAN HAI
-                    await player.load('https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd');
-                    console.log('Video load ho gayi!');
-                } catch (e) {
-                    console.error('Load failed!', e);
+            const video = document.getElementById('video');
+            const player = new shaka.Player(video);
+            const status = document.getElementById('status');
+
+            // --- DRM / ClearKey Configuration ---
+            // Yahan humne wahi KID aur KEY dali hai jo aapne dhoondi thi
+            player.configure({
+                drm: {
+                    clearKeys: {
+                        'a435ed7a00f947deb4369b46d8f2fb70': 'f0535928d9759d774e173e46777926e2'
+                    }
                 }
-            } else {
-                alert('Aapka browser DASH support nahi karta.');
+            });
+
+            // Error handling
+            player.addEventListener('error', (event) => {
+                console.error('Error code', event.detail.code, 'object', event.detail);
+                status.innerText = 'Error: Link expire ho gaya ya Key galat hai.';
+            });
+
+            try {
+                // Aapka MPD Stream Link
+                const manifestUri = 'https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd';
+                
+                await player.load(manifestUri);
+                status.innerText = 'Live Streaming Active ✅';
+                console.log('The video has now been loaded!');
+            } catch (e) {
+                status.innerText = 'Load Failed: DRM protection ya Network issue.';
             }
         }
 
-        document.addEventListener('DOMContentLoaded', initApp);
+        // Player shuru karein
+        document.addEventListener('DOMContentLoaded', initPlayer);
     </script>
+
 </body>
 </html>
