@@ -380,47 +380,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cricket Live Official</title>
+    <title>Cricket Live Proxy Player</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { margin: 0; background: #000; color: white; font-family: sans-serif; text-align: center; }
-        .header { padding: 20px; background: #1a1a1a; font-weight: bold; font-size: 20px; color: #00fff2; }
-        video { width: 100%; max-width: 100%; aspect-ratio: 16/9; margin-top: 10px; }
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        video { width: 100%; max-width: 900px; border: 2px solid #00fff2; }
     </style>
 </head>
 <body>
 
-    <div class="header">CRICKETLIVE! OFFICIAL</div>
     <video id="video" controls autoplay playsinline></video>
 
     <script>
         var video = document.getElementById('video');
-        // 👇 YAHAN NAYA LINK PASTE KAREIN
-        var videoSrc = 'APKA_NAYA_M3U8_LINK_YAHAN_DALEIN';
+        
+        // 1. APNA NAYA M3U8 LINK YAHAN DALEIN
+        var originalUrl = 'https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8';
 
-        if (Hls.isSupported()) {
-            var hls = new Hls({
-                // Ye setting security ko bypass karne mein madad karti hai
-                xhrSetup: function(xhr, url) {
-                    xhr.withCredentials = false;
-                }
-            });
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
-            });
-            
-            // Error handling agar link na chale
-            hls.on(Hls.Events.ERROR, function (event, data) {
-                if (data.fatal) {
-                    console.log("Video Load Error: Naya Link Try Karein");
-                }
-            });
-        }
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = videoSrc;
-        }
-    </script>
-</body>
-</html>
+        // 2. PROXY URL (Ye CORS errors ko bypass karega)
+        // Hum 'cors-anywhere' ya 'all
