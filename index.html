@@ -377,50 +377,11 @@
     100% { opacity: 1; transform: scale(1); }
 }
 </style>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hotstar DASH Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.4/dash.all.min.js"></script>
-    <style>
-        video { width: 100%; max-width: 800px; background: #000; }
-    </style>
-</head>
-<body>
-    <div align="center">
-        <h2>DRM Protected Stream</h2>
-        <video id="videoPlayer" controls></video>
-    </div>
+<div id="player-container" style="width: 100%; max-width: 800px; margin: auto;">
+    <video id="fancode-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="360" data-setup='{}'>
+        <source src="https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8" type="application/x-mpegURL">
+    </video>
+</div>
 
-    <script>
-        (function(){
-            var url = "https://livetv-push.hotstar.com/dash/live/2002465/sshd2livetvwv/master.mpd";
-            
-            // DRM Keys setup (Aapne jo key di hai)
-            var protData = {
-                "org.w3.clearkey": {
-                    "clearkeys": {
-                        "fe7718fbb3fb4ba78c07cc0f578744e6": "624e24b1843b459fab0a949609416f0d"
-                    }
-                }
-            };
-
-            var player = dashjs.MediaPlayer().create();
-            var videoElement = document.querySelector("#videoPlayer");
-
-            player.initialize(videoElement, url, true);
-            player.setProtectionData(protData);
-
-            // Headers Setup
-            player.extend("RequestModifier", function () {
-                return {
-                    modifyRequestHeader: function (xhr) {
-                        xhr.setRequestHeader('Cookie', 'hdntl=exp=1767325390~acl=*sshd2livetv*~id=3e8fd0684e584f72b1581602cddd218f~data=hdntl~hmac=9ffdcd3e8db800a09b236fa2be42a95224d9243033ad14d99f1177945095e066');
-                        return xhr;
-                    }
-                };
-            });
-        })();
-    </script>
-</body>
-</html>
+<link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
