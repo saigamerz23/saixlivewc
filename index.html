@@ -175,6 +175,7 @@
       transition: opacity 0.6s ease;
     }
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
+    @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
     header {
       width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
@@ -182,25 +183,32 @@
       border-radius: 15px; border: 1px solid rgba(191, 149, 63, 0.5); display: none;
     }
 
-    /* Poster Section */
     #playerContainer {
       position: relative;
       width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
       border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
     }
     .match-poster { width: 100%; aspect-ratio: 16/9; display: block; object-fit: cover; }
+    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; width: 100%; }
 
-    /* Iframe Styling - Isko humne block karne ki koshish ki hai */
-    .iframe-wrapper {
+    /* Iframe Wrapper Fix */
+    .iframe-container {
       position: relative;
       width: 95%; max-width: 800px; margin-top: 20px; border-radius: 12px;
-      overflow: hidden; height: 600px; display: none;
+      overflow: hidden; height: 600px; display: none; background: #000;
+      border: 1px solid rgba(0, 255, 255, 0.2);
     }
+    
     #liveFrame {
       width: 100%; height: 100%; border: none;
     }
 
-    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; width: 100%; }
+    /* Popup Block Layer (Overlay) */
+    .block-layer {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100px; /* Sirf upar ka hissa block karega jahan alert aata hai */
+      z-index: 10; background: transparent;
+    }
 
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
@@ -209,7 +217,7 @@
     }
     .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; display: block; }
 
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; padding: 12px 0; }
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; padding: 12px 0; border-top: 1px solid rgba(0, 255, 255, 0.3); }
     .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   </style>
@@ -221,7 +229,7 @@
   </div>
 
   <header id="headerBox">
-    <div style="font-family: 'Orbitron'; color: #00ffff;">CRICKETLIVE! OFFICIAL</div>
+    <div style="font-family: 'Orbitron'; color: #00ffff; font-weight: 700;">CRICKETLIVE! OFFICIAL</div>
   </header>
 
   <div id="playerContainer">
@@ -229,33 +237,36 @@
     <div class="status-bar">SECURE CONNECTION ESTABLISHED</div>
   </div>
 
-  <div class="iframe-wrapper" id="frameWrapper">
-    <iframe id="liveFrame" 
-            src="https://insiderlive3.netlify.app/fancodee/" 
-            sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts"
-            title="Live Cricket">
-    </iframe>
+  <div class="iframe-container" id="frameWrapper">
+    <div class="block-layer"></div> <iframe id="liveFrame" src="https://insiderlive3.netlify.app/fancodee/" title="Live Cricket"></iframe>
   </div>
 
   <div id="supportBox">
-      <h2 style="color: #25D366;">Support Us!</h2>
-      <p>Join WhatsApp for Premium Links</p><br>
+      <h2 style="color: #25D366; margin-bottom: 10px;">Support Us!</h2>
+      <p style="font-size: 0.9rem; margin-bottom: 20px;">Join WhatsApp for Premium Links</p>
       <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
+  </div>
+
+  <div class="premium-ticker-wrap">
+    <div class="ticker-content">
+      <div style="padding-right: 50px;">🏏 WELCOME TO CRICKETLIVE! OFFICIAL - JOIN WHATSAPP FOR LIVE MATCH LINKS! 🏏</div>
+      <div style="padding-right: 50px;">🏏 WELCOME TO CRICKETLIVE! OFFICIAL - JOIN WHATSAPP FOR LIVE MATCH LINKS! 🏏</div>
+    </div>
   </div>
 
 <script>
   window.onload = function() {
     setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('headerBox').style.display = 'block';
-      document.getElementById('playerContainer').style.display = 'block';
-      document.getElementById('frameWrapper').style.display = 'block';
-      document.getElementById('supportBox').style.display = 'block';
+      document.getElementById('loadingScreen').style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('headerBox').style.display = 'block';
+        document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('frameWrapper').style.display = 'block';
+        document.getElementById('supportBox').style.display = 'block';
+      }, 600);
     }, 2000);
   };
-
-  // Alert block karne ki ek choti koshish (lekin cross-domain par 100% work nahi karti)
-  window.alert = function() { return true; };
 </script>
 
 </body>
