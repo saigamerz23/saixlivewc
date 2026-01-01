@@ -1,24 +1,134 @@
-<div id="playerContainer" style="position: relative; width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden; border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;">
-  
-  <div class="mini-badge" style="
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 2147483647; /* Sabse upar rakhne ke liye extreme value */
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    padding: 3px 8px;
-    border-radius: 50px;
-    border: 1px solid rgba(0, 255, 255, 0.4);
-    pointer-events: none;
-  ">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width: 12px; height: 12px;">
-    <span style="font-family: 'Orbitron', sans-serif; font-size: 9px; color: #00ffff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">CricketLIVE! Official</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>CricketLIVE! Official</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #050a18;
+      background-image: linear-gradient(rgba(5, 10, 24, 0.92), rgba(5, 10, 24, 0.92)), 
+                        url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
+      background-size: cover; background-position: center; background-attachment: fixed;
+      font-family: 'Poppins', sans-serif; color: white; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
+    }
+
+    /* 1. Loading Screen */
+    #loadingScreen {
+      position: fixed; inset: 0; background: #050a18;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 3000;
+      transition: opacity 0.6s ease;
+    }
+    .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
+    @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
+
+    /* 2. Header */
+    header {
+      width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
+      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
+      border-radius: 15px; border: 1px solid rgba(191, 149, 63, 0.5); 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); display: none;
+    }
+    .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
+
+    /* 3. Player Container */
+    #playerContainer {
+      position: relative;
+      width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
+      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
+    }
+
+    /* Video Badge - Jo aapne maanga tha */
+    .mini-badge {
+      position: absolute; top: 10px; left: 10px; z-index: 10;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
+      padding: 4px 8px; border-radius: 50px; border: 1px solid rgba(0, 255, 255, 0.3);
+      pointer-events: none;
+    }
+    .mini-badge img { width: 14px; height: 14px; }
+    .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #00ffff; font-weight: 700; text-transform: uppercase; }
+
+    video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
+    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
+
+    /* 4. Support Box */
+    #supportBox {
+      display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
+      backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
+    }
+    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; display: block; }
+
+    /* 5. Ticker */
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; }
+    .ticker-content { display: flex; white-space: nowrap; animation: scroll 30s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <div id="loadingScreen">
+    <div class="loader-text">LOADING...</div>
   </div>
-  
-  <video id="video" controls autoplay muted playsinline poster="https://fancode.com/images/fancode-logo.png" style="width: 100%; height: auto; display: block; background: #000;"></video>
-  <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
-</div>
+
+  <header id="headerBox">
+    <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
+  </header>
+
+  <div id="playerContainer">
+    <div class="mini-badge">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+      <span>CricketLIVE! Official</span>
+    </div>
+    <video id="video" controls autoplay muted playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
+    <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
+  </div>
+
+  <div id="supportBox">
+    <h2 style="color:#25D366; margin-bottom:15px;">Support Us!</h2>
+    <p style="margin-bottom:20px;">Join CricketLIVE! Official WhatsApp channel!</p>
+    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
+  </div>
+
+  <div class="premium-ticker-wrap">
+    <div class="ticker-content">
+      <div class="ticker-item">🏏 Welcome to CricketLIVE! Official - Enjoy Live Action! 🏏</div>
+      <div class="ticker-item">🏏 Welcome to CricketLIVE! Official - Enjoy Live Action! 🏏</div>
+    </div>
+  </div>
+
+<script>
+  window.onload = function() {
+    setTimeout(() => {
+      document.getElementById('loadingScreen').style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('headerBox').style.display = 'block';
+        document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('supportBox').style.display = 'block';
+        startPlayer();
+      }, 600);
+    }, 3000);
+  };
+
+  function startPlayer() {
+    var video = document.getElementById('video');
+    var status = document.getElementById('streamStatus');
+    // Testing Link
+    video.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
+    video.play().catch(function(e) {
+      status.innerText = "TAP TO PLAY VIDEO";
+    });
+  }
+</script>
+
+</body>
+</html>
