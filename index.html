@@ -377,11 +377,45 @@
     100% { opacity: 1; transform: scale(1); }
 }
 </style>
-<div id="player-container" style="width: 100%; max-width: 800px; margin: auto;">
-    <video id="fancode-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="640" height="360" data-setup='{}'>
-        <source src="https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8" type="application/x-mpegURL">
-    </video>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Stream Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { margin: 0; background: #000; }
+        #video { width: 100%; height: auto; max-width: 100%; }
+    </style>
+</head>
+<body>
 
-<link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+    <video id="video" controls autoplay playsinline></video>
+
+    <script>
+        var video = document.getElementById('video');
+        // Aapka FanCode wala link
+        var videoSrc = 'https://in-mc-fdlive.fancode.com/mumbai/138924_english_hls_6196cf49e75704_1ta-di_h264/1080p.m3u8';
+
+        if (Hls.isSupported()) {
+            var hls = new Hls({
+                xhrSetup: function (xhr, url) {
+                    // Ye headers website ko lagta hai ki aap FanCode se hi dekh rahe hain
+                    xhr.setRequestHeader('Origin', 'https://www.fancode.com');
+                    xhr.setRequestHeader('Referer', 'https://www.fancode.com/');
+                }
+            });
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        }
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = videoSrc;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
+</body>
+</html>
