@@ -377,46 +377,18 @@
     100% { opacity: 1; transform: scale(1); }
 }
 </style>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Live Cricket Player</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <style>
-        body { background: #000; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        video { width: 100%; max-width: 800px; border: 2px solid #333; }
-    </style>
-</head>
-<body>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<video id="video" controls style="width:100%; max-width:600px;"></video>
 
-    <video id="video" controls></video>
+<script>
+  var video = document.getElementById('video');
+  var videoSrc = 'http://205.237.104.172:8080/live/4246651711/5171558944/247166.m3u8?token=TmJsSlRzUWtNSkh5WFhq';
 
-    <script>
-      var video = document.getElementById('video');
-      // Aapka Link yahan hai
-      var videoSrc = 'https://cricloungelive.short.gy/ashes25/fox.m3u8';
-
-      if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(videoSrc);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-          video.play();
-        });
-        
-        // Error handling agar link block ho
-        hls.on(Hls.Events.ERROR, function (event, data) {
-          if (data.fatal) {
-            console.log("Link is blocked or expired");
-          }
-        });
-      }
-      else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = videoSrc;
-        video.addEventListener('loadedmetadata', function() {
-          video.play();
-        });
-      }
-    </script>
-</body>
-</html>
+  if (Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource(videoSrc);
+    hls.attachMedia(video);
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = videoSrc;
+  }
+</script>
