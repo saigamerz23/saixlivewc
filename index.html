@@ -158,125 +158,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Premium Live</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600&display=swap');
-
         body { 
-            background-color: #050a14; 
+            background-color: #020617; 
             margin: 0; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             min-height: 100vh; 
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Main Container */
-        .premium-player-box {
+        /* Container */
+        .player-container {
             position: relative;
             width: 95%;
-            max-width: 900px;
+            max-width: 800px;
             background: #000;
-            border-radius: 15px;
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Cool Logo Overlay */
-        .premium-tag {
+        /* Compact & Cool Logo */
+        .live-tag-box {
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 10px;
+            left: 10px;
             z-index: 10;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.4); /* Glass effect */
-            padding: 6px 12px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 10px;
+            border-radius: 6px;
+            backdrop-filter: blur(8px);
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
             pointer-events: none;
-            transition: 0.3s;
         }
 
-        .brand-name {
-            font-family: 'Orbitron', sans-serif; /* Modern Tech Font */
+        .logo-text {
+            font-size: 13px; /* Pehle se chhota */
             color: #fff;
-            font-size: 16px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .brand-name span {
-            color: #ff6b00;
-            text-shadow: 0 0 10px rgba(255, 107, 0, 0.6);
-        }
-
-        .official-badge {
-            background: linear-gradient(45deg, #ff6b00, #ff9e00);
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
             font-weight: 800;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* Video Styling */
+        .logo-text span {
+            color: #ff4d4d; /* Reddish-Orange for LIVE */
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .divider {
+            width: 1px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+        }
+
+        .official-text {
+            font-size: 10px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Video Setup */
         video {
             width: 100%;
-            aspect-ratio: 16 / 9;
             display: block;
-            object-fit: cover;
-            cursor: pointer;
+            aspect-ratio: 16 / 9;
         }
 
-        /* Hover Effect: Logo thoda bright ho jayega */
-        .premium-player-box:hover .premium-tag {
-            background: rgba(0, 0, 0, 0.7);
-            transform: translateY(-2px);
+        /* Rotation & Fullscreen Settings */
+        @media (orientation: landscape) {
+            .live-tag-box {
+                top: 8px;
+                left: 8px;
+                padding: 3px 8px;
+                opacity: 0.8; /* Landscape mein thoda transparent taaki match dikhe */
+            }
+            .logo-text { font-size: 11px; }
+            .official-text { font-size: 8px; }
         }
 
-        /* Full Screen styling */
-        :fullscreen .premium-tag { top: 30px; left: 30px; transform: scale(1.3); }
+        /* Fullscreen hidden controls fix */
+        video::-webkit-media-controls-panel {
+            z-index: 5;
+        }
     </style>
 </head>
 <body>
 
-    <div class="premium-player-box" id="fullPlayer">
-        <div class="premium-tag">
-            <div class="brand-name">Cricket<span>LIVE!</span></div>
-            <div class="official-badge">OFFICIAL</div>
+    <div class="player-container" id="mainPlayer">
+        <div class="live-tag-box">
+            <div class="logo-text">
+                Cricket<span>LIVE!</span>
+            </div>
+            <div class="divider"></div>
+            <div class="official-text">Official</div>
         </div>
 
-        <video id="videoElement" controls playsinline poster="https://img.freepik.com/free-photo/cricket-stadium-lights-night_1150-18451.jpg">
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <script>
-        const player = document.getElementById('fullPlayer');
-        const video = document.getElementById('videoElement');
-
-        // Double click for Fullscreen
-        video.addEventListener('dblclick', () => {
-            if (!document.fullscreenElement) {
-                if (player.requestFullscreen) {
-                    player.requestFullscreen();
-                } else if (player.webkitRequestFullscreen) { 
-                    player.webkitRequestFullscreen();
-                }
-            } else {
-                document.exitFullscreen();
-            }
-        });
-    </script>
-
-</body>
-</html>
+        <video id="videoSource" controls playsinline poster="https://img.freepik.com/free-photo/cricket-stadium-lights-night_1150-18451.jpg">
+            <source src="https://www.w3schools.com/html/mov_bbb.
