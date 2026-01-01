@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CricketLIVE! Official</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
@@ -24,7 +23,6 @@
       display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
       transition: opacity 0.6s ease;
     }
-    .welcome-text { font-size: 1.2rem; color: #bf953f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
     @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
@@ -36,101 +34,86 @@
     }
     .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
 
-    /* Video Player Container */
-    #playerContainer {
-      position: relative; /* Badge ko align karne ke liye */
+    /* Poster Container */
+    #posterContainer {
+      position: relative;
       width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
-      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
+      border: 2px solid #00ffff; box-shadow: 0 0 25px rgba(0,255,242,0.4); display: none;
     }
 
-    /* --- CHHOTA BADGE CODE --- */
     .mini-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      padding: 4px 8px;
-      border-radius: 50px;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      pointer-events: none; /* Video control me rukawat na bane */
+      position: absolute; top: 15px; left: 15px; z-index: 10;
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+      padding: 6px 12px; border-radius: 50px; border: 1px solid rgba(0, 255, 255, 0.5);
     }
-    .mini-badge img { width: 14px; height: 14px; }
-    .mini-badge span {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 10px; /* Bahut chhota size */
-      color: #00ffff;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+    .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 11px; color: #00ffff; font-weight: 700; text-transform: uppercase; }
+
+    /* Match Poster Image */
+    .match-poster {
+      width: 100%; height: auto; display: block;
+      filter: brightness(0.9) contrast(1.1);
     }
 
-    video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
-    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
+    .status-bar { 
+      padding: 12px; font-size: 14px; text-align: center; 
+      background: #111; color: #00ffff; font-weight: 600; 
+      font-family: 'Orbitron', sans-serif; letter-spacing: 1px;
+    }
 
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
       backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideIn 0.7s ease-out;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     }
-    @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .box-title { font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
     .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; animation: pulseGlow 2s infinite; }
-    .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
-    #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
-
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5); }
+    
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; }
     .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; font-weight: 500; }
-    .live-pill { background: rgba(255, 0, 0, 0.15); color: #ff4d4d; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; border: 1px solid rgba(255, 0, 0, 0.3); margin-right: 20px; display: flex; align-items: center; gap: 6px; }
-    .red-dot { height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: pulse-dot 1s infinite; }
-    @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+    
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
   </style>
 </head>
 <body>
 
   <div id="loadingScreen">
-    <div class="welcome-text">Welcome</div>
-    <div class="loader-text">LOADING...</div>
+    <div class="loader-text">CRICKETLIVE!</div>
   </div>
 
   <header id="headerBox">
-    <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
+    <div class="header-text-content">MATCH DAY LIVE</div>
   </header>
 
-  <div id="playerContainer">
+  <div id="posterContainer">
     <div class="mini-badge">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-      <span>CricketLIVE! Official</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="16">
+      <span>LIVE NOW</span>
     </div>
     
-    <video id="video" controls autoplay muted playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
-    <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
+    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1973&auto=format&fit=crop" alt="Cricket Match" class="match-poster">
+    
+    <div class="status-bar">NEXT MATCH: INDIA vs PAKISTAN - STARTS SOON</div>
   </div>
 
   <div id="supportBox">
     <div id="boxContent">
-      <div class="box-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30">
-        Support Us!
-      </div>
-      <p style="margin-bottom: 20px; font-size: 0.95rem;">Join <strong>CricketLIVE! Official</strong> For Instant Updates & Links.</p>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
-      <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
+      <h2 style="color: #25D366; margin-bottom: 15px;">Support Us!</h2>
+      <p style="margin-bottom: 20px;">Join our WhatsApp for Direct Links & Updates!</p>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN CHANNEL</a>
+      <button style="background:none; border:none; color:#aaa; margin-top:15px; cursor:pointer;" onclick="hideBox()">Close</button>
     </div>
-    <div id="thankYouMsg"> Thank You for your Support!</div>
   </div>
 
   <div class="premium-ticker-wrap">
     <div class="ticker-content">
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans!  Stay ahead of the game!  Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! </div>
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans!  Stay ahead of the game!  Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! </div>
+      <div style="padding-right: 50px;">🏏 STAY TUNED FOR LIVE UPDATES! JOIN WHATSAPP FOR PREMIUM LINKS! 🏏</div>
+      <div style="padding-right: 50px;">🏏 STAY TUNED FOR LIVE UPDATES! JOIN WHATSAPP FOR PREMIUM LINKS! 🏏</div>
     </div>
   </div>
 
@@ -141,40 +124,16 @@
       setTimeout(() => {
         document.getElementById('loadingScreen').style.display = 'none';
         document.getElementById('headerBox').style.display = 'block';
-        document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('posterContainer').style.display = 'block';
         document.getElementById('supportBox').style.display = 'block';
-        startPlayer();
       }, 600);
-    }, 3000);
+    }, 2000);
   };
 
-  function handleAlreadyJoined() {
-    document.getElementById('boxContent').style.display = 'none';
-    document.getElementById('thankYouMsg').style.display = 'block';
-    setTimeout(() => {
-      const box = document.getElementById('supportBox');
-      box.style.transition = "0.5s"; box.style.opacity = "0";
-      setTimeout(() => { box.style.display = 'none'; }, 500);
-    }, 2000);
-  }
-
-  function startPlayer() {
-    var video = document.getElementById('video');
-    var status = document.getElementById('streamStatus');
-    var videoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4';
-    
-    video.src = videoUrl;
-    video.play().then(() => {
-        status.innerText = "STREAMING LIVE - PREMIUM QUALITY";
-    }).catch(e => {
-        status.innerText = "CLICK PLAY TO START STREAM";
-    });
+  function hideBox() {
+    document.getElementById('supportBox').style.display = 'none';
   }
 </script>
 
 </body>
-<iframe src="https://crickcast-fancode.vercel.app/" 
-        width="100%" 
-        height="600px" 
-        style="border:none;" 
-        title="Live Cricket">
+</html>
