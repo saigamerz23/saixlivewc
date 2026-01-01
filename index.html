@@ -152,7 +152,6 @@
 </script>
 
 </body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,67 +160,90 @@
     <title>Cricket Premium Live</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { background-color: #050a14; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@600&display=swap');
 
-        /* Premium Box Container */
+        body { 
+            background-color: #050a14; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Main Container */
         .premium-player-box {
             position: relative;
             width: 95%;
-            max-width: 850px;
+            max-width: 900px;
             background: #000;
-            border-radius: 12px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 2px solid #1e293b;
-            box-shadow: 0 0 30px rgba(37, 211, 102, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 107, 0, 0.1);
+        }
+
+        /* Cool Logo Overlay */
+        .premium-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.4); /* Glass effect */
+            padding: 6px 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .brand-name {
+            font-family: 'Orbitron', sans-serif; /* Modern Tech Font */
+            color: #fff;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-name span {
+            color: #ff6b00;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.6);
+        }
+
+        .official-badge {
+            background: linear-gradient(45deg, #ff6b00, #ff9e00);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
         }
 
         /* Video Styling */
         video {
             width: 100%;
-            height: auto;
+            aspect-ratio: 16 / 9;
             display: block;
+            object-fit: cover;
             cursor: pointer;
         }
 
-        /* CricketLIVE! Logo Style (Top Left) */
-        .premium-tag {
-            position: absolute;
-            top: 15px;
-            left: 15px; /* Right se Left kar diya */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 9999; /* Loading aur Video ke upar dikhne ke liye */
-            pointer-events: none;
-            font-family: 'Arial', sans-serif;
+        /* Hover Effect: Logo thoda bright ho jayega */
+        .premium-player-box:hover .premium-tag {
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-2px);
         }
 
-        .brand-name {
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: 900;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            letter-spacing: -0.5px;
-        }
-
-        .brand-name span {
-            color: #ff6b00; /* LIVE! ko Orange color diya */
-        }
-
-        .official-badge {
-            background: #1a3352; /* Dark Blue/Blackish background */
-            color: #ffffff;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: bold;
-            margin-top: -2px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        /* Full Screen fix */
-        :fullscreen .premium-tag { top: 20px; left: 20px; scale: 1.2; }
-        :-webkit-full-screen .premium-tag { top: 20px; left: 20px; }
+        /* Full Screen styling */
+        :fullscreen .premium-tag { top: 30px; left: 30px; transform: scale(1.3); }
     </style>
 </head>
 <body>
@@ -229,8 +251,9 @@
     <div class="premium-player-box" id="fullPlayer">
         <div class="premium-tag">
             <div class="brand-name">Cricket<span>LIVE!</span></div>
-            <div class="official-badge">Official Wale</div>
+            <div class="official-badge">OFFICIAL</div>
         </div>
+
         <video id="videoElement" controls playsinline poster="https://img.freepik.com/free-photo/cricket-stadium-lights-night_1150-18451.jpg">
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
             Your browser does not support the video tag.
@@ -241,11 +264,16 @@
         const player = document.getElementById('fullPlayer');
         const video = document.getElementById('videoElement');
 
+        // Double click for Fullscreen
         video.addEventListener('dblclick', () => {
-            if (player.requestFullscreen) {
-                player.requestFullscreen();
-            } else if (player.webkitRequestFullscreen) { 
-                player.webkitRequestFullscreen();
+            if (!document.fullscreenElement) {
+                if (player.requestFullscreen) {
+                    player.requestFullscreen();
+                } else if (player.webkitRequestFullscreen) { 
+                    player.webkitRequestFullscreen();
+                }
+            } else {
+                document.exitFullscreen();
             }
         });
     </script>
