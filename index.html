@@ -1,110 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>CricketLIVE! Official</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: #050a18;
-      background-image: linear-gradient(rgba(5, 10, 24, 0.92), rgba(5, 10, 24, 0.92)), 
-                        url('https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop');
-      background-size: cover; background-position: center; background-attachment: fixed;
-      font-family: 'Poppins', sans-serif; color: white; min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
-    }
-
-    /* 1. Premium Loading Screen */
-    #loadingScreen {
-      position: fixed; inset: 0; background: #050a18;
-      display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
-    }
-    .welcome-text { font-size: 1.2rem; color: #bf953f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
-    .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
-    @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
-
-    /* 2. Luxury Header */
-    header {
-      width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
-      background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px);
-      border-radius: 15px; border: 1px solid rgba(191, 149, 63, 0.5); 
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); display: none;
-    }
-    .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
-
-    /* 3. Video Player */
-    #playerContainer {
-      width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
-      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
-    }
-    video { width: 100%; aspect-ratio: 16/9; display: block; background: #000; }
-    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; }
-
-    /* 4. Support Box (Premium Style) */
-    #supportBox {
-      display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
-      backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8); animation: slideIn 0.7s ease-out;
-    }
-    @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .box-title { font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; animation: pulseGlow 2s infinite; }
-    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 20px 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-    .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
-    #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
-
-    /* 5. Animated Ticker (Premium with Red Glowing Dot) */
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5); }
-    .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
-    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .ticker-item { display: flex; align-items: center; padding-right: 50px; color: #e2e8f0; font-size: 0.95rem; font-weight: 500; }
-    .live-pill { background: rgba(255, 0, 0, 0.15); color: #ff4d4d; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.75rem; border: 1px solid rgba(255, 0, 0, 0.3); margin-right: 20px; display: flex; align-items: center; gap: 6px; }
-    .red-dot { height: 8px; width: 8px; background-color: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: pulse-dot 1s infinite; }
-    @keyframes pulse-dot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
-  </style>
-</head>
-<body>
-
-  <div id="loadingScreen">
-    <div class="welcome-text">Welcome</div>
-    <div class="loader-text">LOADING...</div>
-  </div>
-
-  <header id="headerBox">
-    <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
-  </header>
-
-  <div id="playerContainer">
-    <video id="video" controls autoplay playsinline poster="https://fancode.com/images/fancode-logo.png"></video>
-    <div id="streamStatus" class="status-bar">SECURE CONNECTION ESTABLISHED</div>
-  </div>
-
-  <div id="supportBox">
-    <div id="boxContent">
-      <div class="box-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30">
-        Support Us!
-      </div>
-      <p style="margin-bottom: 20px; font-size: 0.95rem;">Join <strong>CricketLIVE! Official</strong> For Instant Updates & Links.</p>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
-      <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
-    </div>
-    <div id="thankYouMsg">❤️ Thank You for your Support!</div>
-  </div>
-
-  <div class="premium-ticker-wrap">
-    <div class="ticker-content">
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! 🏏</div>
-      <div class="ticker-item"><span class="live-pill"><span class="red-dot"></span> LIVE UPDATES</span> Hey Cricket fans! 📢 Stay ahead of the game! ⚡ Join <span style="color:#f6d365; font-weight:700;">CricketLIVE! Official</span> WhatsApp channel! 🏏</div>
-    </div>
-  </div>
-
 <script>
   // 1. Loading & Show Content
   setTimeout(() => {
@@ -129,73 +22,30 @@
     }, 2000);
   }
 
-  // 3. Player Logic
+  // 3. Fixed Player Logic
   function startPlayer() {
     var video = document.getElementById('video');
     var status = document.getElementById('streamStatus');
     
-    // Yahan Naya Link Dalein
-    var rawUrl = 'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4';
+    // Testing ke liye MP4 link (Bina Proxy ke)
+    var videoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4';
     
-    var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl);
-
-    if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.loadSource(proxyUrl);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, function() {
-        video.play();
-        status.innerText = "STREAMING LIVE - PREMIUM QUALITY";
-      });
+    // Check if it's HLS (.m3u8) or Normal Video (.mp4)
+    if (videoUrl.includes('.m3u8')) {
+        if (Hls.isSupported()) {
+          var hls = new Hls();
+          hls.loadSource(videoUrl);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+            status.innerText = "STREAMING LIVE - HLS MODE";
+          });
+        }
+    } else {
+        // Normal MP4 play karne ke liye
+        video.src = videoUrl;
+        video.play().catch(e => console.log("Autoplay blocked, user interaction needed"));
+        status.innerText = "STREAMING LIVE - MP4 MODE";
     }
   }
 </script>
-
-</body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Premium Live</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            background-color: #050a14; 
-            margin: 0; 
-            padding: 20px 0;
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            min-height: 100vh;
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
-
-        /* Top Header Box */
-        .header-box {
-            width: 90%;
-            max-width: 800px;
-            padding: 15px;
-            text-align: center;
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            margin-bottom: 25px; /* Space niche wale box se */
-        }
-
-        .header-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
-            color: #00f2ff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Luxury Player Container */
-        .player-card {
-            position
-            <video width="640" height="360" controls>
-  <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-  Aapka browser video tag support nahi karta.
-</video>
