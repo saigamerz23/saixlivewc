@@ -169,12 +169,14 @@
       display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
     }
 
+    /* Loading Screen */
     #loadingScreen {
       position: fixed; inset: 0; background: #050a18;
       display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
       transition: opacity 0.6s ease;
     }
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
+    @keyframes pulseText { 0%, 100% { transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
     header {
       width: 92%; max-width: 420px; text-align: center; margin-top: 35px; padding: 18px 10px;
@@ -183,31 +185,34 @@
     }
 
     #playerContainer {
-      position: relative;
-      width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
-      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
+      position: relative; width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; 
+      overflow: hidden; border: 2px solid #00ffff; display: none;
     }
     .match-poster { width: 100%; aspect-ratio: 16/9; display: block; object-fit: cover; }
-    .status-bar { padding: 8px; font-size: 12px; text-align: center; background: #111; color: #00ffff; font-weight: 600; width: 100%; }
 
-    .iframe-container {
-      position: relative;
-      width: 95%; max-width: 800px; margin-top: 20px; border-radius: 12px;
-      overflow: hidden; height: 600px; display: none; background: #000;
+    /* Main Iframe Wrapper */
+    .iframe-wrapper {
+      position: relative; width: 95%; max-width: 800px; margin-top: 20px; 
+      height: 600px; border-radius: 12px; overflow: hidden; display: none; background: #000;
     }
-    
+
+    /* THE FIX: Is layer ki wajah se popup par click nahi hoga */
+    .guard-layer {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 5; background: rgba(0,0,0,0.01); 
+    }
+
     #liveFrame { width: 100%; height: 100%; border: none; }
 
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
-      backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
+      backdrop-filter: blur(25px); border-radius: 25px; padding: 30px; margin: 30px 0 100px 0; text-align: center;
     }
     .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; display: block; }
 
-    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; padding: 12px 0; border-top: 1px solid rgba(0, 255, 255, 0.3); }
-    .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
-    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; padding: 12px 0; border-top: 1px solid #00ffff; }
+    .ticker-content { display: flex; white-space: nowrap; animation: scroll 30s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
   </style>
 </head>
 <body>
@@ -217,52 +222,47 @@
   </div>
 
   <header id="headerBox">
-    <div style="font-family: 'Orbitron'; color: #00ffff; font-weight: 700;">CRICKETLIVE! OFFICIAL</div>
+    <div style="font-family: 'Orbitron'; color: #00ffff;">CRICKETLIVE! OFFICIAL</div>
   </header>
 
   <div id="playerContainer">
-    <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067" alt="Cricket Poster" class="match-poster">
-    <div class="status-bar">SECURE CONNECTION ESTABLISHED</div>
+    <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067" class="match-poster">
   </div>
 
-  <div class="iframe-container" id="frameWrapper">
-    <iframe id="liveFrame" 
-            src="https://insiderlive3.netlify.app/fancodee/" 
-            sandbox="allow-scripts allow-same-origin allow-forms"
-            title="Live Cricket">
-    </iframe>
+  <div class="iframe-wrapper" id="frameWrapper">
+    <div class="guard-layer"></div>
+    <iframe id="liveFrame" src="https://insiderlive3.netlify.app/fancodee/" title="Live Cricket"></iframe>
   </div>
 
   <div id="supportBox">
-      <h2 style="color: #25D366; margin-bottom: 10px;">Support Us!</h2>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
+      <h2 style="color: #25D366; margin-bottom: 15px;">Support Us!</h2>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN WHATSAPP</a>
   </div>
 
   <div class="premium-ticker-wrap">
     <div class="ticker-content">
-      <div style="padding-right: 50px;">🏏 CRICKETLIVE! OFFICIAL - JOIN WHATSAPP FOR PREMIUM LINKS! 🏏</div>
+      <div style="color: #00ffff; font-weight: bold;">🏏 JOIN CRICKETLIVE! OFFICIAL FOR MORE LIVE MATCHES! 🏏</div>
     </div>
   </div>
 
 <script>
-  // Block any alerts from the main window
-  window.alert = function() { return true; };
-  window.confirm = function() { return true; };
-
   window.onload = function() {
+    // Alert function ko kill karna
+    try {
+        window.alert = function() { return true; };
+        window.confirm = function() { return true; };
+    } catch(e) {}
+
     setTimeout(() => {
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('headerBox').style.display = 'block';
-      document.getElementById('playerContainer').style.display = 'block';
-      document.getElementById('frameWrapper').style.display = 'block';
-      document.getElementById('supportBox').style.display = 'block';
-      
-      // Try to suppress frame alerts (Might be blocked by browser policy)
-      try {
-        var frame = document.getElementById('liveFrame');
-        frame.contentWindow.alert = function(){ return true; };
-      } catch(e) {}
-    }, 2000);
+      document.getElementById('loadingScreen').style.opacity = "0";
+      setTimeout(() => {
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('headerBox').style.display = 'block';
+        document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('frameWrapper').style.display = 'block';
+        document.getElementById('supportBox').style.display = 'block';
+      }, 600);
+    }, 3000); // 3 second wait karega loading khatam karne ke liye
   };
 </script>
 
