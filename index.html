@@ -174,3 +174,55 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gemini DASH Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.debug.js"></script>
+    <style>
+        body { margin: 0; background: #000; color: white; font-family: sans-serif; text-align: center; }
+        #video-container { width: 100%; max-width: 800px; margin: 20px auto; }
+        video { width: 100%; border: 2px solid #333; }
+        .info { padding: 10px; color: #ccc; }
+    </style>
+</head>
+<body>
+
+    <h2>My Stream Player</h2>
+    
+    <div id="video-container">
+        <video id="video" controls autoplay></video>
+    </div>
+
+    <div class="info">
+        <p>Agar video nahi chal rahi, toh iska matlab link ko <strong>DRM License Key</strong> ki zaroorat hai.</p>
+    </div>
+
+    <script>
+        async function initApp() {
+            shaka.polyfill.installAll();
+            if (shaka.Player.isBrowserSupported()) {
+                const video = document.getElementById('video');
+                const player = new shaka.Player(video);
+
+                // Error handling
+                player.addEventListener('error', (event) => {
+                    console.error('Error code', event.detail.code, 'object', event.detail);
+                });
+
+                try {
+                    // AAPKA MPD LINK YAHAN HAI
+                    await player.load('https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd');
+                    console.log('Video load ho gayi!');
+                } catch (e) {
+                    console.error('Load failed!', e);
+                }
+            } else {
+                alert('Aapka browser DASH support nahi karta.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
