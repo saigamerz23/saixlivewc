@@ -16,34 +16,33 @@
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- LOGO COVER: Isse MomixTV bilkul chhup jayega --- */
+        /* --- FINAL FIXED LOGO COVER --- */
         .watermark-cover {
             position: absolute;
-            /* In values ko aapke screenshot ke hisaab se set kiya hai */
-            top: 14px; 
-            left: 12px; 
-            background: #000; /* Solid Black */
-            padding: 5px 10px;
-            font-size: 12px;
+            /* Aapke screenshot ke mutabik MomixTV thoda niche aur right mein hai */
+            top: 25px; 
+            left: 35px; 
+            background: #000000; /* Solid Black */
+            padding: 4px 8px;
+            font-size: 11px;
             font-weight: bold;
             color: #38bdf8;
-            border-radius: 2px;
+            border-radius: 3px;
             z-index: 2147483647;
             pointer-events: none;
             display: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8); /* Taaki piche ka logo bilkul na dikhe */
+            border: 1px solid #1e293b;
+            /* Agar piche ka halka dikhe toh use blur karne ke liye */
+            backdrop-filter: blur(5px); 
         }
 
-        /* Fullscreen hote hi position adjust karne ke liye */
-        .player-container:fullscreen .watermark-cover {
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-        }
-        /* Mobile Fullscreen fix */
+        /* Fullscreen adjustment */
+        .player-container:fullscreen .watermark-cover,
         .player-container:-webkit-full-screen .watermark-cover {
-            top: 20px;
-            left: 20px;
+            top: 5%; 
+            left: 5%;
+            font-size: 14px;
+            padding: 6px 12px;
         }
 
         #my-overlay {
@@ -72,11 +71,11 @@
         <div id="cover" class="watermark-cover">CricketLIVE! Official</div>
 
         <div id="my-overlay">
-            <h2 style="margin-bottom:10px;">Watch Live Match</h2>
+            <h2 style="margin-bottom:10px; color:#22c55e;">Match Live Now!</h2>
             <button class="promo-btn" onclick="openAndStart()">
-                JOIN WHATSAPP & WATCH LIVE
+                JOIN WHATSAPP & WATCH
             </button>
-            <span class="close-text" onclick="hideOverlay()">Already Joined</span>
+            <span class="close-text" onclick="hideOverlay()">Already Joined (Skip)</span>
         </div>
 
         <iframe id="main-player" 
