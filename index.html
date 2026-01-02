@@ -16,55 +16,56 @@
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- WATERMARK BLOCKER (MomixTV ko hide karne ke liye) --- */
+        /* --- PERFECT WATERMARK COVER (Full Screen Compatible) --- */
         .watermark-cover {
             position: absolute;
-            top: 10px; /* Agar logo niche hai to isse bottom: 10px kar dein */
-            left: 10px; /* Agar logo right mein hai to isse right: 10px kar dein */
-            background: #0f172a; /* Player jaisa dark color */
-            padding: 5px 12px;
-            font-size: 14px;
+            /* In values ko aap 1-2 pixel upar-niche karke perfect fit kar sakte hain */
+            top: 8px; 
+            left: 8px; 
+            background: #000000; /* Solid Black takki niche ka kuch na dikhe */
+            padding: 4px 10px;
+            font-size: 13px;
             font-weight: bold;
             color: #38bdf8;
             border-radius: 4px;
-            z-index: 10; /* Player ke upar dikhega */
-            pointer-events: none; /* Isse video ke buttons dabane mein dikkat nahi hogi */
-            border: 1px solid #334155;
-            display: none; /* Shuruat mein hide rahega jab tak video start na ho */
+            z-index: 2147483647; /* Sabse upar */
+            pointer-events: none;
+            border: 1px solid #1e293b;
+            display: none;
         }
 
-        /* --- AAPKA POPUP --- */
+        /* --- POPUP OVERLAY --- */
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 1); 
+            background: #0f172a; 
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            z-index: 9999;
+            z-index: 999999;
         }
 
         .promo-btn {
             background: #22c55e; color: white; border: none;
             padding: 12px 25px; font-size: 18px; font-weight: bold;
-            border-radius: 50px; cursor: pointer; margin-bottom: 10px;
+            border-radius: 50px; cursor: pointer; margin-bottom: 15px;
         }
         
-        .close-text { font-size: 13px; color: #94a3b8; cursor: pointer; text-decoration: underline; }
+        .close-text { font-size: 14px; color: #94a3b8; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
 
     <div class="header">Cricket Live Official</div>
 
-    <div class="player-container">
+    <div class="player-container" id="video-area">
         <div id="cover" class="watermark-cover">CricketLIVE! Official</div>
 
         <div id="my-overlay">
-            <h2 style="margin-bottom:10px;">Live Match Ready</h2>
-            <button class="promo-btn" onclick="hideOverlay()">
-                JOIN & WATCH LIVE
+            <h2 style="margin-bottom:10px;">Watch Live Match</h2>
+            <button class="promo-btn" onclick="openWhatsApp()">
+                JOIN WHATSAPP & WATCH LIVE
             </button>
-            <span class="close-text" onclick="hideOverlay()">Already Joined</span>
+            <span class="close-text" onclick="hideOverlay()">Already Joined (Direct Watch)</span>
         </div>
 
         <iframe id="main-player" 
@@ -78,13 +79,30 @@
         const params = new URLSearchParams(window.location.search);
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
+        
+        // Player Source
         player.src = "https://momixtv.pages.dev/?id=" + vid;
+
+        function openWhatsApp() {
+            window.open('https://whatsapp.com/channel/AapkaLink', '_blank');
+            hideOverlay();
+        }
 
         function hideOverlay() {
             document.getElementById('my-overlay').style.display = 'none';
-            // Video chalte hi hamara naya logo dikhne lagega
             document.getElementById('cover').style.display = 'block';
         }
+
+        /* --- FULL SCREEN LOGIC --- */
+        // Ye script check karega ki agar video full screen hoti hai to logo ko wahi rakhe
+        document.addEventListener('fullscreenchange', function() {
+            const cover = document.getElementById('cover');
+            if (document.fullscreenElement) {
+                cover.style.position = "fixed"; // Full screen mein fixed kar dega
+            } else {
+                cover.style.position = "absolute"; // Wapas aane par normal
+            }
+        });
     </script>
 
 </body>
