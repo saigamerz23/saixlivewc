@@ -9,34 +9,35 @@
         .header { padding: 15px; font-size: 22px; font-weight: bold; color: #38bdf8; }
         
         .player-container { 
-            position: relative; /* Isse layer upar aayegi */
+            position: relative; 
             width: 95%; max-width: 800px; margin: auto; aspect-ratio: 16/9; 
             background: #000; border: 2px solid #334155; border-radius: 10px; overflow: hidden; 
         }
 
-        iframe { width: 100%; height: 100%; border: none; }
+        /* Iframe ko shuruat mein thoda dhundhla rakha hai */
+        iframe { width: 100%; height: 100%; border: none; z-index: 1; }
 
-        /* --- AAPKA POPUP LAYER --- */
+        /* --- AAPKA POPUP LAYER (Isse MomixTV wala hide ho jayega) --- */
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.95); /* Dark background */
+            background: #0f172a; /* Solid background taki piche ka popup na dikhe */
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            z-index: 10; /* Sabse upar */
+            z-index: 9999; /* Sabse upar */
             transition: 0.5s;
         }
 
         .promo-btn {
-            background: #22c55e; color: white; border: none;
+            background: #25d366; color: white; border: none;
             padding: 12px 25px; font-size: 18px; font-weight: bold;
             border-radius: 50px; cursor: pointer; margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
         }
 
-        .promo-btn:hover { background: #16a34a; transform: scale(1.05); }
+        .promo-btn:hover { background: #128c7e; transform: scale(1.05); }
         
-        .close-text { font-size: 12px; color: #94a3b8; cursor: pointer; text-decoration: underline; }
+        .close-text { font-size: 13px; color: #94a3b8; cursor: pointer; text-decoration: underline; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -45,14 +46,14 @@
 
     <div class="player-container">
         <div id="my-overlay">
-            <h2 style="margin-bottom:10px;">Live Match Ready!</h2>
-            <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 20px;">Match dekhne ke liye niche click karein</p>
+            <h2 style="margin-bottom:5px; color:#25d366;">Match Live Ho Gaya Hai!</h2>
+            <p style="font-size: 14px; color: #cbd5e1; margin-bottom: 20px; padding: 0 10px;">Hamare WhatsApp Channel par updates paayein aur match dekhein</p>
             
-            <button class="promo-btn" onclick="window.open('https://t.me/AapkaChannel', '_blank'); hideOverlay();">
-                JOIN TELEGRAM & WATCH
+            <button class="promo-btn" onclick="openAndHide()">
+                JOIN WHATSAPP & WATCH NOW
             </button>
             
-            <span class="close-text" onclick="hideOverlay()">Directly Watch (Skip)</span>
+            <span class="close-text" onclick="hideOverlay()">Already Joined (Skip)</span>
         </div>
 
         <iframe id="main-player" 
@@ -67,12 +68,22 @@
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
 
-        // URL set karein lekin player ko piche rehne dein
+        // Player load ho raha hai piche
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
-        // Function jo aapke popup ko hatayega
+        // Jab user Join button dabaye
+        function openAndHide() {
+            window.open('https://whatsapp.com/channel/AapkaLink', '_blank'); // Apna Link Dalein
+            hideOverlay();
+        }
+
+        // Overlay hatane ka function
         function hideOverlay() {
-            document.getElementById('my-overlay').style.display = 'none';
+            const overlay = document.getElementById('my-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
         }
     </script>
 
