@@ -3,49 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Live Official - Streaming</title>
+    <title>Cricket Live Official</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #0f172a;
-            color: white;
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        body { margin: 0; background-color: #0f172a; color: white; font-family: sans-serif; text-align: center; }
+        .header { padding: 20px; font-size: 24px; font-weight: bold; color: #38bdf8; }
+        .player-container { 
+            width: 95%; max-width: 1000px; margin: auto; aspect-ratio: 16/9; 
+            background: #000; border: 2px solid #334155; border-radius: 10px; overflow: hidden; 
         }
-        .header {
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
-        }
-        .player-container {
-            width: 95%;
-            max-width: 1000px;
-            aspect-ratio: 16/9;
-            background: #000;
-            border: 2px solid #334155;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .info {
-            margin-top: 20px;
-            text-align: center;
-            padding: 0 15px;
-        }
-        .no-video {
-            padding: 50px;
-            text-align: center;
-            color: #94a3b8;
-        }
+        iframe { width: 100%; height: 100%; border: none; }
+        .info { margin-top: 20px; padding: 10px; }
     </style>
 </head>
 <body>
@@ -53,36 +20,31 @@
     <div class="header">Cricket Live Official</div>
 
     <div class="player-container">
-        <iframe id="main-player" src="about:blank" allowfullscreen></iframe>
-        
-        <div id="status-msg" class="no-video" style="display:none;">
-            Please provide a valid Video ID in the URL.
-        </div>
+        <iframe id="main-player" 
+                src="" 
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
+                referrerpolicy="no-referrer"
+                allowfullscreen></iframe>
     </div>
 
-    <div class="info" id="video-info">
+    <div class="info">
         <h3>Live Streaming Section</h3>
-        <p>Aapki website ab MomixTV IDs ko support karti hai.</p>
+        <p id="msg">Loading stream...</p>
     </div>
 
     <script>
-        // 1. URL se Parameters nikalna
         const params = new URLSearchParams(window.location.search);
-        const vid = params.get('id');
+        
+        // AGAR URL MEIN ID NAHI HAI, TOH YE 'zeefhd' AUTOMATIC CHALAYEGA
+        const vid = params.get('id') || "zeefhd"; 
+        
         const player = document.getElementById('main-player');
-        const statusMsg = document.getElementById('status-msg');
+        const msgText = document.getElementById('msg');
 
-        // 2. Logic: Agar ID hai toh Momix ka link load karo
         if (vid) {
-            // MomixTV ka server link aur aapki ID ko mix karna
-            const streamUrl = "https://momixtv.pages.dev/?id=" + vid;
-            player.src = streamUrl;
-            player.style.display = "block";
-        } else {
-            // Agar ID nahi hai toh player chupa do aur message dikhao
-            player.style.display = "none";
-            statusMsg.style.display = "block";
-            statusMsg.innerHTML = "<h3>Welcome!</h3><p>Koi channel dekhne ke liye URL ke aage <b>?id=zeefhd</b> lagayein.</p>";
+            // MomixTV direct link format
+            player.src = "https://momixtv.pages.dev/?id=" + vid;
+            msgText.innerHTML = "Currently Playing: <b>" + vid + "</b>";
         }
     </script>
 
