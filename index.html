@@ -149,3 +149,44 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Vercel Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+    <style>
+        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        video { width: 100%; max-width: 800px; outline: none; }
+    </style>
+</head>
+<body>
+    <video id="video" controls autoplay></video>
+
+    <script>
+        async function initPlayer() {
+            const video = document.getElementById('video');
+            const player = new shaka.Player(video);
+
+            // DRM Configuration (Aapki Keys yahan jayengi)
+            player.configure({
+                drm: {
+                    clearKeys: {
+                        // 'KID': 'KEY' format
+                        '1779c27b9d077a3ba0c9cc1bb9a94b9f': 'cc5cf3b7928fb9e0a1ee6a8b566f0a8e'
+                    }
+                }
+            });
+
+            try {
+                // Aapka MPD link
+                await player.load('https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd');
+                console.log('Video load ho gaya!');
+            } catch (e) {
+                console.error('Error loading video', e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+</body>
+</html>
