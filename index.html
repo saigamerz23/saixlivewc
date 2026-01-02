@@ -4,69 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Live Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    
     <style>
-        body { margin: 0; background-color: #080d17; color: white; font-family: sans-serif; text-align: center; }
+        body { 
+            margin: 0; 
+            background-color: #050810; 
+            color: white; 
+            font-family: 'Poppins', sans-serif; 
+            text-align: center; 
+        }
+
+        /* --- TOP WEBSITE HEADER --- */
+        .site-header {
+            padding: 20px 0;
+            background: linear-gradient(to bottom, #0f172a, #050810);
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 20px;
+        }
+        .site-header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+        }
+        .site-header span { color: #38bdf8; }
         
-        /* Container jo full screen hoga */
+        /* Container */
         .player-container { 
             position: relative; 
-            width: 96%; max-width: 850px; margin: 20px auto; aspect-ratio: 16/9; 
-            background: #000; border-radius: 12px; overflow: hidden;
+            width: 96%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; 
+            background: #000; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 2px solid #1e293b;
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- PREMIUM TAG --- */
+        /* --- PREMIUM WATERMARK (Overlays Source Watermark) --- */
         .watermark-cover {
             position: absolute;
-            top: 25px; 
-            left: 20px; 
-            background: #000;
-            padding: 8px 18px;
-            font-size: 13px;
+            top: 15px; 
+            left: 15px; 
+            background: #000; /* Source logo chhupane ke liye solid black */
+            padding: 6px 15px;
+            font-size: 14px;
             font-weight: 800;
             color: #38bdf8;
-            border-radius: 6px;
-            z-index: 2147483647; 
+            border-radius: 4px;
+            z-index: 99999999; /* Isko sabse upar rakhega */
             pointer-events: none;
-            display: none;
-            border: 1.5px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 0 20px #000;
+            display: none; /* Sirf play ke baad dikhega */
+            border: 1px solid #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Fullscreen CSS: Jab pura container bada hoga tab tag ki position */
-        .player-container:fullscreen .watermark-cover {
-            display: block !important;
-            top: 30px !important;
-            left: 25px !important;
-            font-size: 18px !important;
-            padding: 10px 25px !important;
-        }
-        
+        /* Fullscreen settings */
+        .player-container:fullscreen .watermark-cover,
         .player-container:-webkit-full-screen .watermark-cover {
             display: block !important;
-            top: 30px !important;
-            left: 25px !important;
+            top: 20px !important;
+            left: 20px !important;
+            font-size: 18px !important;
+            padding: 10px 20px !important;
         }
 
+        /* Start Overlay */
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #080d17; 
+            background: rgba(8, 13, 23, 0.95); 
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            z-index: 999999;
+            z-index: 100;
         }
 
         .promo-btn {
             background: #22c55e; color: white; border: none;
-            padding: 14px 28px; font-size: 17px; font-weight: bold;
-            border-radius: 50px; cursor: pointer; margin-bottom: 15px;
+            padding: 16px 35px; font-size: 18px; font-weight: bold;
+            border-radius: 50px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
         }
+        .promo-btn:hover { transform: scale(1.05); background: #16a34a; }
     </style>
 </head>
 <body>
+
+    <header class="site-header">
+        <h1>CricketLIVE <span>Official</span></h1>
+    </header>
 
     <div class="player-container" id="main-video-wrapper">
         <div id="cover" class="watermark-cover">CricketLIVE Official</div>
@@ -95,21 +126,15 @@
             document.getElementById('cover').style.display = 'block';
         }
 
-        // --- Sabse Important Part ---
-        // Jab user player ke fullscreen button par click karega, 
-        // hum pure container (wrapper) ko fullscreen karenge taaki logo saath jaye.
-        
-        player.addEventListener('fullscreenchange', handleFS);
-        player.addEventListener('webkitfullscreenchange', handleFS);
+        // Fullscreen Logic: Pure wrapper ko fullscreen karega taaki watermark saath rahe
+        document.addEventListener('fullscreenchange', syncFS);
+        document.addEventListener('webkitfullscreenchange', syncFS);
 
-        function handleFS() {
-            if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
-                // Iframe ke bajaye pure box ko fullscreen kar do
-                if (wrapper.requestFullscreen) {
-                    wrapper.requestFullscreen();
-                } else if (wrapper.webkitRequestFullscreen) {
-                    wrapper.webkitRequestFullscreen();
-                }
+        function syncFS() {
+            // Agar player fullscreen jane ki koshish kare, to wrapper ko bhej do
+            if (document.fullscreenElement === player) {
+                document.exitFullscreen();
+                wrapper.requestFullscreen();
             }
         }
     </script>
