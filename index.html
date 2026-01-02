@@ -16,25 +16,36 @@
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- PERFECT WATERMARK COVER (Full Screen Compatible) --- */
+        /* --- LOGO COVER: Isse MomixTV bilkul chhup jayega --- */
         .watermark-cover {
             position: absolute;
-            /* In values ko aap 1-2 pixel upar-niche karke perfect fit kar sakte hain */
-            top: 8px; 
-            left: 8px; 
-            background: #000000; /* Solid Black takki niche ka kuch na dikhe */
-            padding: 4px 10px;
-            font-size: 13px;
+            /* In values ko aapke screenshot ke hisaab se set kiya hai */
+            top: 14px; 
+            left: 12px; 
+            background: #000; /* Solid Black */
+            padding: 5px 10px;
+            font-size: 12px;
             font-weight: bold;
             color: #38bdf8;
-            border-radius: 4px;
-            z-index: 2147483647; /* Sabse upar */
+            border-radius: 2px;
+            z-index: 2147483647;
             pointer-events: none;
-            border: 1px solid #1e293b;
             display: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8); /* Taaki piche ka logo bilkul na dikhe */
         }
 
-        /* --- POPUP OVERLAY --- */
+        /* Fullscreen hote hi position adjust karne ke liye */
+        .player-container:fullscreen .watermark-cover {
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+        }
+        /* Mobile Fullscreen fix */
+        .player-container:-webkit-full-screen .watermark-cover {
+            top: 20px;
+            left: 20px;
+        }
+
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -62,10 +73,10 @@
 
         <div id="my-overlay">
             <h2 style="margin-bottom:10px;">Watch Live Match</h2>
-            <button class="promo-btn" onclick="openWhatsApp()">
+            <button class="promo-btn" onclick="openAndStart()">
                 JOIN WHATSAPP & WATCH LIVE
             </button>
-            <span class="close-text" onclick="hideOverlay()">Already Joined (Direct Watch)</span>
+            <span class="close-text" onclick="hideOverlay()">Already Joined</span>
         </div>
 
         <iframe id="main-player" 
@@ -79,11 +90,9 @@
         const params = new URLSearchParams(window.location.search);
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
-        
-        // Player Source
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
-        function openWhatsApp() {
+        function openAndStart() {
             window.open('https://whatsapp.com/channel/AapkaLink', '_blank');
             hideOverlay();
         }
@@ -92,17 +101,6 @@
             document.getElementById('my-overlay').style.display = 'none';
             document.getElementById('cover').style.display = 'block';
         }
-
-        /* --- FULL SCREEN LOGIC --- */
-        // Ye script check karega ki agar video full screen hoti hai to logo ko wahi rakhe
-        document.addEventListener('fullscreenchange', function() {
-            const cover = document.getElementById('cover');
-            if (document.fullscreenElement) {
-                cover.style.position = "fixed"; // Full screen mein fixed kar dega
-            } else {
-                cover.style.position = "absolute"; // Wapas aane par normal
-            }
-        });
     </script>
 
 </body>
