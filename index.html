@@ -215,3 +215,43 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRICKETLIVE! OFFICIAL</title>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dash-shaka-playback@latest/dist/dash-shaka-playback.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; background-color: #000; font-family: sans-serif; }
+        #player { width: 100vw; height: 56.25vw; /* 16:9 Aspect Ratio */ max-height: 100vh; }
+        .header { text-align: center; color: #00fbff; padding: 20px; font-weight: bold; border: 1px solid #333; margin: 10px; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">CRICKETLIVE! OFFICIAL</div>
+
+    <div id="player"></div>
+
+    <script>
+        var player = new Clappr.Player({
+            source: 'https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd',
+            parentId: '#player',
+            plugins: [DashShakaPlayback],
+            shakaConfiguration: {
+                drm: {
+                    clearKeys: {
+                        '1779c27b9d077a3ba0c9cc1bb9a94b9f': 'cc5cf3b7928fb9e0a1ee6a8b566f0a8e'
+                    }
+                }
+            },
+            width: '100%',
+            height: '100%',
+            autoPlay: true,
+            mimeType: 'application/dash+xml',
+        });
+    </script>
+</body>
+</html>
