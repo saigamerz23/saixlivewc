@@ -5,46 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Live Official</title>
     <style>
-        body { margin: 0; background-color: #0f172a; color: white; font-family: sans-serif; text-align: center; }
-        .header { padding: 15px; font-size: 22px; font-weight: bold; color: #38bdf8; }
+        body { margin: 0; background-color: #0f172a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; }
+        .header { padding: 15px; font-size: 22px; font-weight: bold; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; }
         
         .player-container { 
             position: relative; 
-            width: 95%; max-width: 800px; margin: auto; aspect-ratio: 16/9; 
-            background: #000; border: 2px solid #334155; border-radius: 10px; overflow: hidden; 
+            width: 96%; max-width: 850px; margin: auto; aspect-ratio: 16/9; 
+            background: #000; border: 2px solid #1e293b; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- FINAL FIXED LOGO COVER --- */
+        /* --- PREMIUM WATERMARK COVER --- */
         .watermark-cover {
             position: absolute;
-            /* Aapke screenshot ke mutabik MomixTV thoda niche aur right mein hai */
-            top: 25px; 
-            left: 35px; 
-            background: #000000; /* Solid Black */
-            padding: 4px 8px;
-            font-size: 11px;
-            font-weight: bold;
+            /* Exact Position for Normal Mode */
+            top: 12px; 
+            left: 12px; 
+            background: linear-gradient(135deg, #0f172a 0%, #000000 100%);
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 700;
             color: #38bdf8;
-            border-radius: 3px;
+            border-radius: 6px;
             z-index: 2147483647;
             pointer-events: none;
             display: none;
-            border: 1px solid #1e293b;
-            /* Agar piche ka halka dikhe toh use blur karne ke liye */
-            backdrop-filter: blur(5px); 
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.9), inset 0 0 10px rgba(56, 189, 248, 0.1);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
-        /* Fullscreen adjustment */
-        .player-container:fullscreen .watermark-cover,
-        .player-container:-webkit-full-screen .watermark-cover {
-            top: 5%; 
-            left: 5%;
-            font-size: 14px;
-            padding: 6px 12px;
+        /* --- FULLSCREEN AUTOMATIC ADJUSTMENT --- */
+        /* Jab video full screen hogi, ye CSS apne aap trigger hoga */
+        :fullscreen .watermark-cover,
+        :-webkit-full-screen .watermark-cover,
+        :-ms-fullscreen .watermark-cover {
+            top: 25px !important;
+            left: 25px !important;
+            font-size: 18px !important;
+            padding: 8px 20px !important;
         }
 
+        /* --- OVERLAY POPUP --- */
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -55,27 +60,33 @@
         }
 
         .promo-btn {
-            background: #22c55e; color: white; border: none;
-            padding: 12px 25px; font-size: 18px; font-weight: bold;
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            color: white; border: none;
+            padding: 14px 30px; font-size: 18px; font-weight: bold;
             border-radius: 50px; cursor: pointer; margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
+            transition: 0.3s;
         }
+
+        .promo-btn:active { transform: scale(0.95); }
         
-        .close-text { font-size: 14px; color: #94a3b8; cursor: pointer; text-decoration: underline; }
+        .close-text { font-size: 14px; color: #94a3b8; cursor: pointer; text-decoration: underline; font-weight: 500; }
     </style>
 </head>
 <body>
 
     <div class="header">Cricket Live Official</div>
 
-    <div class="player-container" id="video-area">
+    <div class="player-container" id="player-box">
         <div id="cover" class="watermark-cover">CricketLIVE! Official</div>
 
         <div id="my-overlay">
-            <h2 style="margin-bottom:10px; color:#22c55e;">Match Live Now!</h2>
-            <button class="promo-btn" onclick="openAndStart()">
+            <h2 style="margin-bottom:10px; color: #fff;">Premium Stream Ready</h2>
+            <p style="color:#94a3b8; margin-bottom:25px;">Join our channel for backup links</p>
+            <button class="promo-btn" onclick="openAndGo()">
                 JOIN WHATSAPP & WATCH
             </button>
-            <span class="close-text" onclick="hideOverlay()">Already Joined (Skip)</span>
+            <span class="close-text" onclick="hideOverlay()">Already Joined - Skip</span>
         </div>
 
         <iframe id="main-player" 
@@ -89,9 +100,11 @@
         const params = new URLSearchParams(window.location.search);
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
+        
+        // Setting player source
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
-        function openAndStart() {
+        function openAndGo() {
             window.open('https://whatsapp.com/channel/AapkaLink', '_blank');
             hideOverlay();
         }
@@ -100,6 +113,15 @@
             document.getElementById('my-overlay').style.display = 'none';
             document.getElementById('cover').style.display = 'block';
         }
+
+        // Fullscreen fix for some Android browsers
+        document.addEventListener('fullscreenchange', () => {
+            const cover = document.getElementById('cover');
+            if (document.fullscreenElement) {
+                // Fullscreen mein z-index aur position ko force karna
+                cover.style.zIndex = "2147483647";
+            }
+        });
     </script>
 
 </body>
