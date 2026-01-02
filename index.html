@@ -32,18 +32,18 @@
         
         /* Video Container */
         .player-container { 
-            position: relative; 
+            position: relative; /* Watermark ki absolute positioning ke liye */
             width: 98%; 
             max-width: 850px; 
             margin: 10px auto; 
             aspect-ratio: 16/9; 
             background: #000; 
             border-radius: 12px; 
-            overflow: hidden;
+            overflow: hidden; /* Watermark container se bahar na jaaye */
             border: 1px solid #1e293b;
         }
 
-        /* Iframe settings - Full screen par sirf yehi dikhega */
+        /* Iframe settings */
         iframe { 
             width: 100%; 
             height: 100%; 
@@ -53,31 +53,36 @@
 
         /* --- PREMIUM WATERMARK --- */
         #cover {
-            position: absolute;
-            top: 12px; 
-            left: 12px; 
-            background: #000; /* Momixtv logo chhupane ke liye */
+            position: absolute; /* Default: Container ke andar */
+            top: 10px;          /* Momixtv watermark ko cover karne ke liye adjust kiya */
+            left: 10px;         /* Momixtv watermark ko cover karne ke liye adjust kiya */
+            background: #000;   /* Momixtv logo chhupane ke liye solid black */
             padding: 5px 12px;
             font-size: 12px;
             font-weight: 800;
             color: #38bdf8;
             border-radius: 4px;
-            z-index: 2147483647; 
-            pointer-events: none;
-            display: none;
+            z-index: 2147483647; /* Sabse upar */
+            pointer-events: none; /* Mouse events ignore karega */
+            display: none;      /* Pehle chhupa rahega */
             border: 1px solid rgba(56, 189, 248, 0.4);
             text-transform: uppercase;
-            box-shadow: 0 0 10px #000;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
 
-        /* Fullscreen Fix: Jab container fullscreen ho */
-        .player-container:fullscreen #cover {
+        /* Jab iframe fullscreen ho, tab watermark ki positioning */
+        iframe:fullscreen ~ #cover,
+        iframe:-webkit-full-screen ~ #cover {
             display: block !important;
-            font-size: 18px;
-            padding: 8px 20px;
-            top: 20px;
-            left: 20px;
+            position: fixed !important; /* Screen ke hisab se fix rahega */
+            top: 10px !important;       /* Top-left corner par */
+            left: 10px !important;      /* Top-left corner par */
+            font-size: 15px !important; /* Fullscreen par thoda bada */
+            padding: 8px 18px !important;
+            background: rgba(0, 0, 0, 0.8) !important; /* Thoda transparent black background */
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.7) !important; /* Stronger glow */
         }
+
 
         /* Watch Live Overlay */
         #my-overlay {
@@ -94,6 +99,11 @@
             padding: 12px 25px; font-size: 16px; font-weight: bold;
             border-radius: 50px; cursor: pointer;
             font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.4);
+        }
+        .promo-btn:hover {
+            transform: scale(1.05);
+            background: #16a34a;
         }
     </style>
 </head>
@@ -104,50 +114,60 @@
     </header>
 
     <div class="player-container" id="main-video-wrapper">
-        <div id="cover">CricketLIVE Official</div>
-
-        <div id="my-overlay">
-            <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
-        </div>
-
         <iframe id="main-player" 
                 src="" 
                 sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
                 allow="autoplay; encrypted-media; fullscreen" 
                 allowfullscreen></iframe>
+        
+        <div id="cover">CricketLIVE Official</div>
+
+        <div id="my-overlay">
+            <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
+        </div>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
-        const wrapper = document.getElementById('main-video-wrapper');
         const watermark = document.getElementById('cover');
         
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
         function hideOverlay() {
             document.getElementById('my-overlay').style.display = 'none';
-            watermark.style.display = 'block';
+            // Watermark ko initial play ke baad dikha do
+            watermark.style.display = 'block'; 
         }
 
-        // --- FIXED FULLSCREEN LOGIC ---
-        // Jab user iframe ke button par click karega, hum pure wrapper ko fullscreen karenge
-        // isse sirf video aur hamara watermark dikhega, puri website nahi.
-        
-        player.addEventListener('webkitfullscreenchange', handleFullscreen);
-        player.addEventListener('fullscreenchange', handleFullscreen);
+        // --- Important Change ---
+        // Ab hum iframe ko fullscreen jaane denge.
+        // Watermark ki styling CSS se control ho rahi hai
+        // jab iframe fullscreen mode mein hoga (iframe:fullscreen ~ #cover).
+        // Isliye yahan JavaScript mein explicit fullscreen handling ki zaroorat nahi hai.
+        // Browser apne aap iframe ko handle karega.
 
-        function handleFullscreen() {
-            if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
-                // Iframe khud fullscreen hone ki koshish kare to use rok kar wrapper ko karo
-                if (wrapper.requestFullscreen) {
-                    wrapper.requestFullscreen();
-                } else if (wrapper.webkitRequestFullscreen) {
-                    wrapper.webkitRequestFullscreen();
+        // Watermark display logic: Jab iframe fullscreen enter kare
+        player.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement === player) {
+                watermark.style.setProperty('display', 'block', 'important'); // ensure it's visible
+            } else {
+                // If exiting fullscreen, hide if it's not the initial 'play' state
+                if(document.getElementById('my-overlay').style.display !== 'none') {
+                     watermark.style.setProperty('display', 'none', 'important');
                 }
             }
-        }
+        });
+        player.addEventListener('webkitfullscreenchange', () => {
+             if (document.webkitFullscreenElement === player) {
+                watermark.style.setProperty('display', 'block', 'important');
+            } else {
+                if(document.getElementById('my-overlay').style.display !== 'none') {
+                     watermark.style.setProperty('display', 'none', 'important');
+                }
+            }
+        });
     </script>
 
 </body>
