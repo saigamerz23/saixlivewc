@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>CricketLIVE! Official - Willow Stream</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+  <title>CricketLIVE! Official</title>
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/controls.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/controls.min.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
 
@@ -20,6 +23,7 @@
       display: flex; flex-direction: column; align-items: center; overflow-x: hidden;
     }
 
+    /* Loading Screen */
     #loadingScreen {
       position: fixed; inset: 0; background: #050a18;
       display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000;
@@ -27,7 +31,6 @@
     }
     .welcome-text { font-size: 1.2rem; color: #bf953f; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
     .loader-text { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #00ffff; letter-spacing: 5px; animation: pulseText 1.5s infinite; }
-    
     @keyframes pulseText { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
 
     header {
@@ -38,35 +41,37 @@
     }
     .header-text-content { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 700; background: linear-gradient(90deg, #fff, #00ffff, #fff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 3s linear infinite; }
 
-    /* Updated Video Container */
-    #playerWrapper {
+    /* Player Styling */
+    #playerContainer {
       position: relative;
-      width: 95%; max-width: 850px; margin-top: 25px; border-radius: 12px; overflow: hidden;
-      border: 2px solid #00ffff; box-shadow: 0 0 25px rgba(0,255,242,0.3); display: none;
-      background: #000; line-height: 0;
+      width: 95%; max-width: 800px; margin-top: 25px; border-radius: 12px; overflow: hidden;
+      border: 2px solid #00ffff; box-shadow: 0 0 20px rgba(0,255,242,0.2); display: none;
+      background: #000;
     }
-
-    video { width: 100%; aspect-ratio: 16/9; outline: none; }
+    video { width: 100%; height: 100%; }
 
     .mini-badge {
-      position: absolute; top: 15px; left: 15px; z-index: 10;
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-      padding: 6px 12px; border-radius: 50px; border: 1px solid rgba(0, 255, 255, 0.4);
+      position: absolute; top: 10px; left: 10px; z-index: 10;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
+      padding: 4px 8px; border-radius: 50px; border: 1px solid rgba(0, 255, 255, 0.3);
     }
-    .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 11px; color: #00ffff; font-weight: 700; text-transform: uppercase; }
+    .mini-badge span { font-family: 'Orbitron', sans-serif; font-size: 10px; color: #00ffff; font-weight: 700; text-transform: uppercase; }
 
+    /* Support Box */
     #supportBox {
       display: none; width: 90%; max-width: 380px; background: rgba(10, 20, 40, 0.85);
       backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 25px; padding: 35px 25px; margin: 30px 0 120px 0; text-align: center;
       box-shadow: 0 20px 50px rgba(0,0,0,0.8);
     }
-    .box-title { font-size: 1.8rem; font-weight: 700; color: #25D366; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; }
+    .box-title { font-size: 1.5rem; font-weight: 700; color: #00ffff; margin-bottom: 15px; font-family: 'Orbitron', sans-serif; }
+    .join-btn { background: #25D366; color: white; text-decoration: none; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; display: block; animation: pulseGlow 2s infinite; }
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
     .already-btn { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; font-size: 0.9rem; cursor: pointer; width: 100%; margin-top: 12px; }
     #thankYouMsg { display: none; font-size: 1.2rem; color: #00ffff; font-weight: 600; padding: 20px; }
 
+    /* Ticker */
     .premium-ticker-wrap { width: 100%; overflow: hidden; background: rgba(3, 7, 18, 0.95); position: fixed; bottom: 0; left: 0; z-index: 1000; border-top: 1px solid rgba(0, 255, 255, 0.3); padding: 12px 0; }
     .ticker-content { display: flex; white-space: nowrap; width: max-content; animation: scroll 30s linear infinite; }
     @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -77,49 +82,48 @@
 <body>
 
   <div id="loadingScreen">
-    <div class="welcome-text">Welcome</div>
-    <div class="loader-text">CONNECTING...</div>
+    <div class="welcome-text">Welcome To</div>
+    <div class="loader-text">CRICKETLIVE!</div>
   </div>
 
   <header id="headerBox">
     <div class="header-text-content">CRICKETLIVE! OFFICIAL</div>
   </header>
 
-  <div id="playerWrapper">
+  <div id="playerContainer" data-shaka-player-container>
     <div class="mini-badge">
       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="14" alt="WA">
-      <span>Willow Cricket HD</span>
+      <span>CricketLIVE! Official</span>
     </div>
-    <video id="video" controls autoplay poster="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067"></video>
+    <video data-shaka-player id="video" autoplay poster="https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067"></video>
   </div>
 
   <div id="supportBox">
     <div id="boxContent">
-      <div class="box-title">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30">
-        Support Us!
-      </div>
-      <p style="margin-bottom: 20px; font-size: 0.95rem;">Join <strong>CricketLIVE! Official</strong> For Instant Updates & Links.</p>
-      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN NOW</a>
+      <div class="box-title">CricketLIVE! Official</div>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">Join our channel for all match links & updates!</p>
+      <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" class="join-btn" target="_blank">JOIN WHATSAPP</a>
       <button class="already-btn" onclick="handleAlreadyJoined()">Already Joined</button>
     </div>
-    <div id="thankYouMsg">Thank You for your Support!</div>
+    <div id="thankYouMsg">Enjoy the Match!</div>
   </div>
 
   <div class="premium-ticker-wrap">
     <div class="ticker-content">
-      <div class="ticker-item"><span class="live-pill">LIVE NOW</span> Willow Cricket is streaming in HD! Join WhatsApp channel for more links!</div>
-      <div class="ticker-item"><span class="live-pill">LIVE NOW</span> Willow Cricket is streaming in HD! Join WhatsApp channel for more links!</div>
+      <div class="ticker-item"><span class="live-pill">LIVE NOW</span> Willow Cricket HD Streaming Enabled. Change quality from settings icon!</div>
+      <div class="ticker-item"><span class="live-pill">LIVE NOW</span> Willow Cricket HD Streaming Enabled. Change quality from settings icon!</div>
     </div>
   </div>
 
 <script>
-  // 1. Shaka Player Logic
-  async function initPlayer() {
+  async function initApp() {
     const video = document.getElementById('video');
-    const player = new shaka.Player(video);
+    const ui = video['ui'];
+    const config = { 'controlPanelElements': ['play_pause', 'time_and_duration', 'spacer', 'quality', 'fullscreen'] };
+    ui.configure(config);
 
-    // DRM / Keys Configuration
+    const player = ui.getPlayer();
+    
     player.configure({
       drm: {
         clearKeys: {
@@ -129,27 +133,25 @@
     });
 
     try {
-      // Manifest URL
       await player.load('https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd');
-      console.log('Willow Stream Loaded!');
+      console.log('Stream Ready');
     } catch (e) {
-      console.error('Playback Error:', e);
+      console.error('Error', e);
     }
   }
 
-  // 2. UI Loading Logic
+  document.addEventListener('shaka-ui-loaded', initApp);
+
   window.onload = function() {
-    initPlayer(); // Start player loading
-    
     setTimeout(() => {
       document.getElementById('loadingScreen').style.opacity = "0";
       setTimeout(() => {
         document.getElementById('loadingScreen').style.display = 'none';
         document.getElementById('headerBox').style.display = 'block';
-        document.getElementById('playerWrapper').style.display = 'block';
+        document.getElementById('playerContainer').style.display = 'block';
         document.getElementById('supportBox').style.display = 'block';
       }, 600);
-    }, 2500);
+    }, 3000); // 3 Seconds Loading
   };
 
   function handleAlreadyJoined() {
