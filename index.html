@@ -178,102 +178,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Player</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
-    <style>
-        body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        video { width: 100%; max-width: 900px; aspect-ratio: 16/9; outline: none; }
-    </style>
-</head>
-<body>
-
-    <video id="videoPlayer" controls></video>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const url = "https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd";
-            
-            // Aapki Key aur ID yahan set hai
-            const protData = {
-                "org.w3.clearkey": {
-                    "clearkeys": {
-                        "1779c27b9d077a3ba0c9cc1bb9a94b9f": "cc5cf3b7928fb9e0a1ee6a8b566f0a8e"
-                    }
-                }
-            };
-
-            const video = document.querySelector("#videoPlayer");
-            const player = dashjs.MediaPlayer().create();
-
-            player.initialize(video, url, true);
-            player.setProtectionData(protData);
-
-            player.on(dashjs.MediaPlayer.events.ERROR, function (e) {
-                console.error("Player Error:", e);
-            });
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRICKETLIVE! OFFICIAL</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/controls.css">
     <style>
-        body { margin: 0; background-color: #000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .container { width: 100%; max-width: 800px; margin: auto; }
-        .header { text-align: center; color: #00fbff; padding: 15px; font-weight: bold; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        #video-container { width: 100%; border: 2px solid #00fbff; border-radius: 8px; overflow: hidden; background: #111; }
-        video { width: 100%; height: auto; display: block; }
+        body { margin: 0; background: #000; color: #00fbff; font-family: sans-serif; text-align: center; }
+        .header { padding: 15px; font-size: 22px; font-weight: bold; border-bottom: 1px solid #222; margin-bottom: 10px; }
+        #player-container { width: 100%; max-width: 900px; margin: auto; border: 2px solid #00fbff; background: #000; }
+        video { width: 100%; height: auto; }
     </style>
 </head>
 <body>
 
-<div class="container">
     <div class="header">CRICKETLIVE! OFFICIAL</div>
-    
-    <div id="video-container" data-shaka-player-container>
-        <video id="video" data-shaka-player autoplay></video>
+
+    <div id="player-container" data-shaka-player-container>
+        <video id="video" data-shaka-player autoplay poster="https://via.placeholder.com/800x450/000000/00fbff?text=Loading+Live+Stream..."></video>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/shaka-player.compiled.debug.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/shaka-player.ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/shaka-player.compiled.debug.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.3.5/dist/shaka-player.ui.js"></script>
 
-<script>
-async function initPlayer() {
-    const video = document.getElementById('video');
-    const ui = video['ui'];
-    const controls = ui.getControls();
-    const player = controls.getPlayer();
+    <script>
+        async function initApp() {
+            const video = document.getElementById('video');
+            const ui = video['ui'];
+            const controls = ui.getControls();
+            const player = controls.getPlayer();
 
-    // DRM Configuration (ClearKey)
-    player.configure({
-        drm: {
-            clearKeys: {
-                '1779c27b9d077a3ba0c9cc1bb9a94b9f': 'cc5cf3b7928fb9e0a1ee6a8b566f0a8e'
-            }
-        },
-        manifest: {
-            dash: {
-                ignoreMinBufferTime: true
+            // ClearKey DRM Setup
+            player.configure({
+                drm: {
+                    clearKeys: {
+                        '1779c27b9d077a3ba0c9cc1bb9a94b9f': 'cc5cf3b7928fb9e0a1ee6a8b566f0a8e'
+                    }
+                }
+            });
+
+            // Agar direct link na chale, to niche wali line mein 'proxy' ka use karein
+            const rawUrl = 'https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd';
+            
+            // Proxy use karne ke liye is line ko uncomment karein agar upar wala na chale:
+            // const manifestUri = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl);
+            const manifestUri = rawUrl; 
+
+            try {
+                await player.load(manifestUri);
+                console.log('Stream loaded successfully!');
+            } catch (error) {
+                console.error('Error loading stream:', error);
+                // Auto-retry with proxy if direct fails
+                if (manifestUri === rawUrl) {
+                    console.log('Retrying with Proxy...');
+                    await player.load('https://api.allorigins.win/raw?url=' + encodeURIComponent(rawUrl));
+                }
             }
         }
-    });
 
-    try {
-        const manifestUri = 'https://a201aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/clients/dash/enc/f60kqesunw/out/v1/a435ed7a00f947deb4369b46d8f2fb70/cenc.mpd';
-        await player.load(manifestUri);
-        console.log('The video has now been loaded!');
-    } catch (e) {
-        console.error('Error code', e.code, 'object', e);
-    }
-}
-
-document.addEventListener('shaka-ui-loaded', initPlayer);
-</script>
+        document.addEventListener('shaka-ui-loaded', initApp);
+    </script>
 </body>
 </html>
