@@ -17,80 +17,84 @@
 
         /* --- TOP WEBSITE HEADER --- */
         .site-header {
-            padding: 20px 0;
+            padding: 15px 0;
             background: linear-gradient(to bottom, #0f172a, #050810);
             border-bottom: 1px solid #1e293b;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .site-header h1 {
             margin: 0;
-            font-size: 28px;
-            letter-spacing: 1px;
+            font-size: 24px;
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
         }
         .site-header span { color: #38bdf8; }
         
-        /* Container */
+        /* Video Container */
         .player-container { 
             position: relative; 
-            width: 96%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; 
-            background: #000; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 2px solid #1e293b;
+            width: 98%; 
+            max-width: 850px; 
+            margin: 10px auto; 
+            aspect-ratio: 16/9; 
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden;
+            border: 1px solid #1e293b;
         }
 
-        iframe { width: 100%; height: 100%; border: none; }
+        /* Iframe settings - Full screen par sirf yehi dikhega */
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+        }
 
-        /* --- PREMIUM WATERMARK (Overlays Source Watermark) --- */
-        .watermark-cover {
+        /* --- PREMIUM WATERMARK --- */
+        #cover {
             position: absolute;
-            top: 15px; 
-            left: 15px; 
-            background: #000; /* Source logo chhupane ke liye solid black */
-            padding: 6px 15px;
-            font-size: 14px;
+            top: 12px; 
+            left: 12px; 
+            background: #000; /* Momixtv logo chhupane ke liye */
+            padding: 5px 12px;
+            font-size: 12px;
             font-weight: 800;
             color: #38bdf8;
             border-radius: 4px;
-            z-index: 99999999; /* Isko sabse upar rakhega */
+            z-index: 2147483647; 
             pointer-events: none;
-            display: none; /* Sirf play ke baad dikhega */
-            border: 1px solid #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+            display: none;
+            border: 1px solid rgba(56, 189, 248, 0.4);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 0 10px #000;
         }
 
-        /* Fullscreen settings */
-        .player-container:fullscreen .watermark-cover,
-        .player-container:-webkit-full-screen .watermark-cover {
+        /* Fullscreen Fix: Jab container fullscreen ho */
+        .player-container:fullscreen #cover {
             display: block !important;
-            top: 20px !important;
-            left: 20px !important;
-            font-size: 18px !important;
-            padding: 10px 20px !important;
+            font-size: 18px;
+            padding: 8px 20px;
+            top: 20px;
+            left: 20px;
         }
 
-        /* Start Overlay */
+        /* Watch Live Overlay */
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 13, 23, 0.95); 
+            background: #080d17; 
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            z-index: 100;
+            z-index: 9999;
         }
 
         .promo-btn {
             background: #22c55e; color: white; border: none;
-            padding: 16px 35px; font-size: 18px; font-weight: bold;
+            padding: 12px 25px; font-size: 16px; font-weight: bold;
             border-radius: 50px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
-            transition: 0.3s;
             font-family: 'Poppins', sans-serif;
         }
-        .promo-btn:hover { transform: scale(1.05); background: #16a34a; }
     </style>
 </head>
 <body>
@@ -100,7 +104,7 @@
     </header>
 
     <div class="player-container" id="main-video-wrapper">
-        <div id="cover" class="watermark-cover">CricketLIVE Official</div>
+        <div id="cover">CricketLIVE Official</div>
 
         <div id="my-overlay">
             <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
@@ -118,23 +122,30 @@
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
         const wrapper = document.getElementById('main-video-wrapper');
+        const watermark = document.getElementById('cover');
         
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
         function hideOverlay() {
             document.getElementById('my-overlay').style.display = 'none';
-            document.getElementById('cover').style.display = 'block';
+            watermark.style.display = 'block';
         }
 
-        // Fullscreen Logic: Pure wrapper ko fullscreen karega taaki watermark saath rahe
-        document.addEventListener('fullscreenchange', syncFS);
-        document.addEventListener('webkitfullscreenchange', syncFS);
+        // --- FIXED FULLSCREEN LOGIC ---
+        // Jab user iframe ke button par click karega, hum pure wrapper ko fullscreen karenge
+        // isse sirf video aur hamara watermark dikhega, puri website nahi.
+        
+        player.addEventListener('webkitfullscreenchange', handleFullscreen);
+        player.addEventListener('fullscreenchange', handleFullscreen);
 
-        function syncFS() {
-            // Agar player fullscreen jane ki koshish kare, to wrapper ko bhej do
-            if (document.fullscreenElement === player) {
-                document.exitFullscreen();
-                wrapper.requestFullscreen();
+        function handleFullscreen() {
+            if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
+                // Iframe khud fullscreen hone ki koshish kare to use rok kar wrapper ko karo
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) {
+                    wrapper.webkitRequestFullscreen();
+                }
             }
         }
     </script>
