@@ -5,54 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cricket Live Official</title>
     <style>
-        body { margin: 0; background-color: #080d17; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; overflow: hidden; }
-        .header { padding: 12px; font-size: 20px; font-weight: 800; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; }
+        body { margin: 0; background-color: #080d17; color: white; font-family: sans-serif; text-align: center; overflow: hidden; }
+        .header { padding: 12px; font-size: 20px; font-weight: 800; color: #38bdf8; text-transform: uppercase; }
         
         .player-container { 
             position: relative; 
             width: 96%; max-width: 850px; margin: auto; aspect-ratio: 16/9; 
             background: #000; border: 1.5px solid #1e293b; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- FINAL PERFECT FIT PREMIUM TAG --- */
+        /* --- SMART WATERMARK COVER --- */
         .watermark-cover {
             position: absolute;
-            /* Screenshot ke hisaab se MomixTV ka logo theek yahan hai */
-            top: 26px; 
-            left: 20px; 
-            
-            /* Premium Glossy Styling */
-            background: linear-gradient(145deg, #0f172a, #000000);
+            top: 15px; 
+            left: 12px; 
+            background: #000; /* Solid Black piche ka logo block karne ke liye */
             padding: 8px 18px;
             font-size: 13px;
             font-weight: 800;
             color: #38bdf8;
             border-radius: 6px;
-            z-index: 2147483647;
+            z-index: 2147483647; /* Sabse upar */
             pointer-events: none;
             display: none;
-            
-            /* Purane logo ko dhakne ke liye solid border aur shadow */
-            border: 1.5px solid rgba(56, 189, 248, 0.4);
-            box-shadow: 0 4px 15px rgba(0,0,0,1), 0 0 10px rgba(56, 189, 248, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 15px rgba(0,0,0,1); /* Deep shadow logo hide karne ke liye */
             white-space: nowrap;
         }
 
-        /* Fullscreen adjustment: Taaki video bada hone par logo wahi fit rahe */
-        .player-container:fullscreen .watermark-cover,
-        .player-container:-webkit-full-screen .watermark-cover {
-            top: 35px !important;
-            left: 30px !important;
-            font-size: 16px !important;
-            padding: 10px 22px !important;
+        /* --- FULL SCREEN MODE FIX (Screenshot 1000333304.jpg ke liye) --- */
+        /* Jab mobile rotate ho ya full screen ho, tab ye rules chalenge */
+        :fullscreen .watermark-cover,
+        :-webkit-full-screen .watermark-cover {
+            display: block !important;
+            top: 25px !important;
+            left: 20px !important;
+            font-size: 16px !important; /* Font bada kiya taaki logo dhak jaye */
+            padding: 10px 25px !important; /* Box bada kiya */
+            background: #000 !important;
+            box-shadow: 0 0 30px #000; /* Extra black glow */
         }
 
-        /* --- OVERLAY POPUP --- */
+        /* Landscape mode fix */
+        @media screen and (orientation: landscape) {
+            .watermark-cover {
+                top: 20px;
+                left: 20px;
+                padding: 10px 22px;
+            }
+        }
+
         #my-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -67,11 +71,9 @@
             color: white; border: none;
             padding: 14px 28px; font-size: 17px; font-weight: bold;
             border-radius: 50px; cursor: pointer; margin-bottom: 15px;
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
-            transition: 0.3s;
         }
         
-        .close-text { font-size: 14px; color: #64748b; cursor: pointer; text-decoration: underline; font-weight: 600; }
+        .close-text { font-size: 14px; color: #64748b; cursor: pointer; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -82,8 +84,7 @@
         <div id="cover" class="watermark-cover">CricketLIVE Official</div>
 
         <div id="my-overlay">
-            <h2 style="margin-bottom:10px; color:#fff;">Live Match Ready</h2>
-            <p style="color:#94a3b8; margin-bottom:25px;">Join WhatsApp for Direct Live Match Links</p>
+            <h2 style="margin-bottom:10px;">Match Is Live!</h2>
             <button class="promo-btn" onclick="openChannel()">
                 JOIN WHATSAPP & WATCH
             </button>
@@ -101,8 +102,6 @@
         const params = new URLSearchParams(window.location.search);
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
-        
-        // Iframe source set
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
         function openChannel() {
@@ -115,11 +114,11 @@
             document.getElementById('cover').style.display = 'block';
         }
 
-        // Fullscreen security check
+        // Fullscreen listener taaki logo hamesha visible rahe
         document.addEventListener('fullscreenchange', () => {
             const cover = document.getElementById('cover');
             if (document.fullscreenElement) {
-                cover.style.zIndex = "2147483647";
+                cover.style.display = 'block';
             }
         });
     </script>
