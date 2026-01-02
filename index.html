@@ -7,62 +7,109 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; }
+        body { 
+            margin: 0; 
+            background-color: #050810; 
+            color: white; 
+            font-family: 'Poppins', sans-serif; 
+            text-align: center; 
+        }
 
-        .site-header { padding: 15px 0; background: linear-gradient(to bottom, #0f172a, #050810); border-bottom: 1px solid #1e293b; margin-bottom: 10px; }
-        .site-header h1 { margin: 0; font-size: 24px; color: #ffffff; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        /* Top Header */
+        .site-header {
+            padding: 15px 0;
+            background: linear-gradient(to bottom, #0f172a, #050810);
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 10px;
+        }
+        .site-header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
         .site-header span { color: #38bdf8; }
         
+        /* Video Container */
         .player-container { 
-            position: relative; width: 98%; max-width: 850px; margin: 10px auto; aspect-ratio: 16/9; 
-            background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;
+            position: relative; 
+            width: 98%; 
+            max-width: 850px; 
+            margin: 10px auto; 
+            aspect-ratio: 16/9; 
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden;
+            border: 1px solid #1e293b;
         }
 
         iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        /* --- LOGO POSITION (Momixtv ko hide karne ke liye) --- */
+        /* --- PREMIUM WATERMARK POSITION FIXED --- */
         #cover {
             position: absolute;
-            top: 22px; left: 18px; /* Screenshot ke hisab se exact jagah */
-            background: #000; padding: 5px 12px; font-size: 12px; font-weight: 800;
-            color: #38bdf8; border-radius: 4px; z-index: 2147483647; 
-            pointer-events: none; display: none;
-            border: 1.5px solid #38bdf8; text-transform: uppercase;
+            top: 25px;          /* Momixtv se thoda niche fit kiya */
+            left: 15px;         
+            background: #000;   /* Solid Black to hide original logo */
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #38bdf8;
+            border-radius: 4px;
+            z-index: 2147483647; /* Maximum possible z-index */
+            pointer-events: none;
+            display: none;
+            border: 1.5px solid rgba(56, 189, 248, 0.6);
+            text-transform: uppercase;
             box-shadow: 0 0 15px #000;
         }
 
-        /* --- CUSTOM FULLSCREEN BUTTON --- */
-        .fs-btn {
-            position: absolute; bottom: 10px; right: 10px;
-            background: rgba(56, 189, 248, 0.8); color: white;
-            border: none; padding: 8px 12px; border-radius: 5px;
-            cursor: pointer; z-index: 2147483647; font-size: 12px; font-weight: bold;
+        /* --- FULLSCREEN FIX: YEH SABSE ZAROORI HAI --- */
+        /* Jab container fullscreen hoga, tab logo ko wapas dikhayega */
+        .player-container:fullscreen #cover,
+        .player-container:-webkit-full-screen #cover {
+            display: block !important;
+            top: 30px !important;
+            left: 20px !important;
+            font-size: 18px !important;
+            padding: 10px 20px !important;
         }
-
-        /* Fullscreen rules */
-        .player-container:fullscreen #cover { display: block !important; top: 35px; left: 25px; font-size: 18px; padding: 8px 18px; }
-        .player-container:fullscreen .fs-btn { display: none; } /* Fullscreen mein hide button */
 
         #my-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #080d17; display: flex; justify-content: center; align-items: center; z-index: 99999;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #080d17; 
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 99999;
         }
 
-        .promo-btn { background: #22c55e; color: white; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-family: 'Poppins'; }
+        .promo-btn {
+            background: #22c55e; color: white; border: none;
+            padding: 12px 25px; font-size: 16px; font-weight: bold;
+            border-radius: 50px; cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
     </style>
 </head>
 <body>
 
-    <header class="site-header"><h1>CricketLIVE <span>Official</span></h1></header>
+    <header class="site-header">
+        <h1>CricketLIVE <span>Official</span></h1>
+    </header>
 
     <div class="player-container" id="main-video-wrapper">
         <div id="cover">CricketLIVE! Official</div>
-        
-        <button class="fs-btn" id="go-fs" onclick="toggleFullScreen()">FULL SCREEN</button>
 
-        <div id="my-overlay"><button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button></div>
+        <div id="my-overlay">
+            <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
+        </div>
 
-        <iframe id="main-player" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        <iframe id="main-player" 
+                src="" 
+                sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen></iframe>
     </div>
 
     <script>
@@ -79,18 +126,23 @@
             watermark.style.display = 'block';
         }
 
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                if (wrapper.requestFullscreen) { wrapper.requestFullscreen(); }
-                else if (wrapper.webkitRequestFullscreen) { wrapper.webkitRequestFullscreen(); }
-                // Mobile landscape support
-                if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock("landscape").catch(() => {});
+        /* --- FULLSCREEN LOGIC --- */
+        // Jab browser detect karega ki iframe fullscreen ho raha hai,
+        // hum force karenge ki pura wrapper (logo ke sath) fullscreen ho.
+        
+        player.addEventListener('webkitfullscreenchange', handleFS);
+        player.addEventListener('fullscreenchange', handleFS);
+
+        function handleFS() {
+            if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) {
+                    wrapper.webkitRequestFullscreen();
                 }
-            } else {
-                document.exitFullscreen();
             }
         }
     </script>
+
 </body>
 </html>
