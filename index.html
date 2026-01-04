@@ -14,11 +14,12 @@
             font-family: 'Poppins', sans-serif; 
             text-align: center; 
             overflow-x: hidden;
+            padding-bottom: 50px;
         }
 
-        /* --- ULTRA PREMIUM NEON HEADER --- */
+        /* --- PREMIUM NEON HEADER --- */
         .site-header {
-            padding: 25px 0;
+            padding: 20px 10px;
             background: radial-gradient(circle at top, #1e293b 0%, #050810 70%);
             border-bottom: 2px solid #1e293b;
             margin-bottom: 15px;
@@ -27,20 +28,17 @@
         .site-header h1 {
             margin: 0;
             font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            letter-spacing: 2px;
-            /* Blue and Pink Premium Mixture */
+            font-size: clamp(18px, 5vw, 32px); 
+            letter-spacing: 1px;
+            white-space: nowrap;
             background: linear-gradient(90deg, #00d2ff 0%, #f9a8d4 50%, #00d2ff 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 3s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.5));
             text-transform: uppercase;
         }
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
+        @keyframes shine { to { background-position: 200% center; } }
         
         /* --- VIDEO CONTAINER --- */
         .player-container { 
@@ -57,65 +55,95 @@
         }
         iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        /* --- PREMIUM WHATSAPP POPUP --- */
+        /* --- QUALITY BUTTONS SYSTEM --- */
+        .quality-section-title {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .quality-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .quality-btn {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 900;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .quality-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
+        }
+
+        /* HD Tag for 720p and 1080p */
+        .hd-tag {
+            font-size: 10px;
+            background: #ff416c;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        /* --- WHATSAPP POPUP --- */
         #wp-popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.97);
+            background: rgba(0, 0, 0, 0.98);
             display: flex; justify-content: center; align-items: center;
             z-index: 2147483647;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
         }
         .wp-popup-content {
-            background: #0f172a;
-            padding: 35px 25px;
-            border-radius: 30px;
-            width: 85%;
-            max-width: 320px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            background: #0f172a; padding: 40px 30px; border-radius: 35px;
+            width: 85%; max-width: 320px; border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.7);
         }
         .wp-logo {
-            width: 70px; height: 70px;
-            background: #25D366;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+            width: 60px; height: 60px; background: #25D366; margin: 0 auto 20px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
         }
-        .wp-logo svg { width: 40px; height: 40px; fill: white; }
-        
+        .wp-logo svg { width: 35px; fill: white; }
         .join-btn {
             background: #25D366; color: white; text-decoration: none;
-            display: block; padding: 18px; font-size: 20px; font-weight: 900;
-            border-radius: 15px; margin-top: 15px;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-            text-transform: uppercase;
-            transition: 0.3s;
+            display: block; padding: 18px; font-size: 18px; font-weight: 900;
+            border-radius: 15px; margin-top: 20px; text-transform: uppercase;
         }
         .already-joined {
-            margin-top: 25px; color: #64748b; font-size: 12px;
+            margin-top: 25px; color: #64748b; font-size: 11px;
             font-weight: 800; cursor: pointer; text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* Watermark & Overlays */
-        #cover {
-            position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); 
-            padding: 8px 15px; font-size: 14px; font-weight: 900; color: #00d2ff; 
-            border-radius: 8px; z-index: 9999; pointer-events: none; display: none;
-            border: 1px solid #00d2ff; text-transform: uppercase;
-        }
         #my-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #050810; display: flex; justify-content: center; 
             align-items: center; z-index: 10000;
         }
         .promo-btn {
-            background: #22c55e; color: white; border: none; padding: 15px 35px;
+            background: #22c55e; color: white; border: none; padding: 15px 40px;
             font-size: 18px; font-weight: 900; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
         }
     </style>
 </head>
@@ -126,10 +154,10 @@
             <div class="wp-logo">
                 <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.12.554 4.189 1.602 6.006L0 24l6.135-1.61a11.83 11.83 0 005.912 1.569h.005c6.636 0 12.032-5.391 12.036-12.028a11.82 11.82 0 00-3.417-8.503z"/></svg>
             </div>
-            <h2 style="margin:0 0 10px 0; font-size: 24px;">Join WhatsApp</h2>
-            <p style="font-size: 14px; color: #94a3b8; margin: 0 0 20px 0;">Live Matches aur updates ke liye abhi join karein!</p>
+            <h2 style="margin:0;">Join WhatsApp</h2>
+            <p style="font-size: 13px; color: #94a3b8; margin: 10px 0 20px 0;">Live Matches updates ke liye join karein!</p>
             <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" onclick="closePopup()">JOIN NOW</a>
-            <div class="already-joined" onclick="redirectToWeb()">ALREADY JOINED</div>
+            <div class="already-joined" onclick="closePopup()">ALREADY JOINED</div>
         </div>
     </div>
 
@@ -138,11 +166,26 @@
     </header>
 
     <div class="player-container" id="main-video-wrapper">
-        <div id="cover">CricketLIVE! Official</div>
         <div id="my-overlay">
             <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
         </div>
         <iframe id="main-player" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+    </div>
+
+    <div class="quality-section-title">Select FanCode Quality</div>
+    <div class="quality-container">
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/360p.m3u8" target="_blank" class="quality-btn">
+            360p Low
+        </a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/480p.m3u8" target="_blank" class="quality-btn">
+            480p SD
+        </a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/720p.m3u8" target="_blank" class="quality-btn">
+            720p HD <span class="hd-tag">HD</span>
+        </a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/1080p.m3u8" target="_blank" class="quality-btn">
+            1080p <span class="hd-tag">ULTRA</span>
+        </a>
     </div>
 
     <script>
@@ -150,32 +193,33 @@
         const vid = params.get('id') || "zeefhd"; 
         const player = document.getElementById('main-player');
         const wrapper = document.getElementById('main-video-wrapper');
-        const watermark = document.getElementById('cover');
+        const popup = document.getElementById('wp-popup-overlay');
         
         player.src = "https://momixtv.pages.dev/?id=" + vid;
 
+        window.onload = function() {
+            if (localStorage.getItem('wp_joined') === 'true') {
+                popup.style.display = 'none';
+            }
+        }
+
         function hideOverlay() {
             document.getElementById('my-overlay').style.display = 'none';
-            watermark.style.display = 'block';
         }
 
         function closePopup() {
-            document.getElementById('wp-popup-overlay').style.display = 'none';
+            popup.style.display = 'none';
+            localStorage.setItem('wp_joined', 'true');
         }
 
-        function redirectToWeb() {
-            closePopup();
-            window.location.href = "https://cricket-live-official.vercel.app/";
-        }
-
-        player.addEventListener('webkitfullscreenchange', handleFS);
-        player.addEventListener('fullscreenchange', handleFS);
         function handleFS() {
             if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
                 if (wrapper.requestFullscreen) { wrapper.requestFullscreen(); } 
                 else if (wrapper.webkitRequestFullscreen) { wrapper.webkitRequestFullscreen(); }
             }
         }
+        player.addEventListener('webkitfullscreenchange', handleFS);
+        player.addEventListener('fullscreenchange', handleFS);
     </script>
 </body>
 </html>
