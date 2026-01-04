@@ -96,6 +96,14 @@
             box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
         }
 
+        /* HINDI BUTTON SPECIAL STYLE */
+        .hindi-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+            color: white !important;
+            grid-column: span 2; /* Full width for Hindi button */
+            border: none !important;
+        }
+
         .hd-tag {
             font-size: 10px;
             background: #ff416c;
@@ -171,8 +179,12 @@
         <iframe id="main-player" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
     </div>
 
-    <div class="quality-section-title">Select FanCode Quality (New Tab)</div>
+    <div class="quality-section-title">Select Language / Quality (New Tab)</div>
     <div class="quality-container">
+        <a href="https://shotner.u0k.workers.dev/ILT20-Z5-HIN.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn hindi-btn">
+            HINDI - LIVE <span class="hd-tag">STABLE</span>
+        </a>
+        
         <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/360p.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn">
             360p Low
         </a>
