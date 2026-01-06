@@ -17,26 +17,22 @@
             padding-bottom: 50px;
         }
 
-        /* --- PREMIUM NEON HEADER --- */
+        /* --- PREMIUM HEADER --- */
         .site-header {
             padding: 20px 10px;
             background: radial-gradient(circle at top, #1e293b 0%, #050810 70%);
             border-bottom: 2px solid #1e293b;
             margin-bottom: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
         .site-header h1 {
             margin: 0;
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(18px, 5vw, 32px); 
-            letter-spacing: 1px;
-            white-space: nowrap;
             background: linear-gradient(90deg, #00d2ff 0%, #f9a8d4 50%, #00d2ff 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 3s linear infinite;
-            text-transform: uppercase;
         }
         @keyframes shine { to { background-position: 200% center; } }
         
@@ -51,17 +47,15 @@
             border-radius: 20px; 
             overflow: hidden;
             border: 2px solid #1e293b;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
         iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        /* --- QUALITY BUTTONS SYSTEM --- */
+        /* --- QUALITY BUTTONS --- */
         .quality-section-title {
             margin-top: 30px;
             font-size: 14px;
             color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 2px;
             font-weight: 700;
         }
 
@@ -75,33 +69,21 @@
         }
 
         .quality-btn {
-            position: relative;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #00d2ff;
-            text-decoration: none;
             padding: 15px;
             font-size: 16px;
             font-weight: 900;
             border-radius: 12px;
             border: 1px solid rgba(0, 210, 255, 0.3);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            text-decoration: none;
         }
 
-        .quality-btn:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%);
-            color: white;
-            border-color: transparent;
-            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4);
-        }
-
-        /* HINDI BUTTON SPECIAL STYLE */
         .hindi-btn {
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
             color: white !important;
-            grid-column: span 2; /* Full width for Hindi button */
-            border: none !important;
+            grid-column: span 2;
         }
 
         .hd-tag {
@@ -110,7 +92,6 @@
             color: white;
             padding: 2px 6px;
             border-radius: 4px;
-            vertical-align: middle;
             margin-left: 5px;
         }
 
@@ -118,35 +99,42 @@
         #wp-popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 2147483647;
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.95);
+            display: flex; /* Initially Flex to show on Page Load */
+            justify-content: center; align-items: center;
+            z-index: 999999;
+            backdrop-filter: blur(10px);
         }
         .wp-popup-content {
-            background: #0f172a; padding: 40px 30px; border-radius: 35px;
+            background: #0f172a; padding: 40px 30px; border-radius: 30px;
             width: 85%; max-width: 320px; border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            text-align: center;
+            animation: popupBounce 0.5s ease;
+        }
+        @keyframes popupBounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
         }
         .wp-logo {
-            width: 60px; height: 60px; background: #25D366; margin: 0 auto 20px;
+            width: 70px; height: 70px; background: #25D366; margin: 0 auto 20px;
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
         }
-        .wp-logo svg { width: 35px; fill: white; }
+        .wp-logo svg { width: 40px; fill: white; }
         .join-btn {
             background: #25D366; color: white; text-decoration: none;
             display: block; padding: 18px; font-size: 18px; font-weight: 900;
-            border-radius: 15px; margin-top: 20px; text-transform: uppercase;
+            border-radius: 15px; margin-top: 20px;
         }
         .already-joined {
-            margin-top: 25px; color: #64748b; font-size: 11px;
-            font-weight: 800; cursor: pointer; text-transform: uppercase;
+            margin-top: 25px; color: #94a3b8; font-size: 13px;
+            font-weight: 700; cursor: pointer; text-decoration: underline;
         }
 
         #my-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #050810; display: flex; justify-content: center; 
-            align-items: center; z-index: 10000;
+            align-items: center; z-index: 10;
         }
         .promo-btn {
             background: #22c55e; color: white; border: none; padding: 15px 40px;
@@ -162,9 +150,9 @@
                 <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.12.554 4.189 1.602 6.006L0 24l6.135-1.61a11.83 11.83 0 005.912 1.569h.005c6.636 0 12.032-5.391 12.036-12.028a11.82 11.82 0 00-3.417-8.503z"/></svg>
             </div>
             <h2 style="margin:0;">Join WhatsApp</h2>
-            <p style="font-size: 13px; color: #94a3b8; margin: 10px 0 20px 0;">Live Matches updates ke liye join karein!</p>
-            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" onclick="closePopup()">JOIN NOW</a>
-            <div class="already-joined" onclick="closePopup()">ALREADY JOINED</div>
+            <p style="font-size: 14px; color: #94a3b8; margin: 10px 0 20px 0;">Live Matches ke links ke liye hamara channel join karein!</p>
+            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" onclick="goToLink()">JOIN & WATCH LIVE</a>
+            <div class="already-joined" onclick="goToLink()">ALREADY JOINED</div>
         </div>
     </div>
 
@@ -172,45 +160,38 @@
         <h1>CricketLIVE! Official!</h1>
     </header>
 
-    <div class="player-container" id="main-video-wrapper">
+    <div class="player-container">
         <div id="my-overlay">
-            <button class="promo-btn" onclick="hideOverlay()">WATCH LIVE MATCH</button>
+            <button class="promo-btn" onclick="hideOverlay()">CLICK TO WATCH LIVE</button>
         </div>
-        <iframe id="main-player" src="" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        <iframe id="main-player" src="https://cinearena.github.io/id/sports.html?id=Sports18Khel" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
     </div>
 
-    <div class="quality-section-title">Select Language / Quality (New Tab)</div>
+    <div class="quality-section-title">Select Link To Watch</div>
     <div class="quality-container">
-        <a href="https://shotner.u0k.workers.dev/ILT20-Z5-HIN.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn hindi-btn">
-            HINDI - LIVE <span class="hd-tag">STABLE</span>
-        </a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/360p.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn">
-            360p Low
-        </a>
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/480p.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn">
-            480p SD
-        </a>
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/720p.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn">
-            720p HD <span class="hd-tag">HD</span>
-        </a>
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138656_english_hls_ce83ff130b39556_1ta-di_h264/1080p.m3u8" target="_blank" rel="noopener noreferrer" class="quality-btn">
-            1080p <span class="hd-tag">ULTRA</span>
-        </a>
+        <div onclick="showPopup('https://cinearena.github.io/id/sports.html?id=Sports18Khel')" class="quality-btn hindi-btn">
+            SPORTS 18 KHEL - LIVE <span class="hd-tag">STABLE</span>
+        </div>
+        <div onclick="showPopup('https://cinearena.github.io/id/sports.html?id=Sports18Khel')" class="quality-btn">Server 1 (Auto)</div>
+        <div onclick="showPopup('https://cinearena.github.io/id/sports.html?id=Sports18Khel')" class="quality-btn">Server 2 (HD) <span class="hd-tag">HD</span></div>
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const vid = params.get('id') || "zeefhd"; 
-        const player = document.getElementById('main-player');
-        const wrapper = document.getElementById('main-video-wrapper');
+        let pendingLink = "";
         const popup = document.getElementById('wp-popup-overlay');
-        
-        player.src = "https://momixtv.pages.dev/?id=" + vid;
 
-        window.onload = function() {
-            if (localStorage.getItem('wp_joined') === 'true') {
-                popup.style.display = 'none';
+        // Function to show popup when link clicked
+        function showPopup(url) {
+            pendingLink = url;
+            popup.style.display = 'flex';
+        }
+
+        // Function for popup buttons
+        function goToLink() {
+            popup.style.display = 'none';
+            if (pendingLink !== "") {
+                window.open(pendingLink, '_blank');
+                pendingLink = ""; // Clear link
             }
         }
 
@@ -218,19 +199,7 @@
             document.getElementById('my-overlay').style.display = 'none';
         }
 
-        function closePopup() {
-            popup.style.display = 'none';
-            localStorage.setItem('wp_joined', 'true');
-        }
-
-        function handleFS() {
-            if (document.fullscreenElement === player || document.webkitFullscreenElement === player) {
-                if (wrapper.requestFullscreen) { wrapper.requestFullscreen(); } 
-                else if (wrapper.webkitRequestFullscreen) { wrapper.webkitRequestFullscreen(); }
-            }
-        }
-        player.addEventListener('webkitfullscreenchange', handleFS);
-        player.addEventListener('fullscreenchange', handleFS);
+        // Web open hote hi popup dikhane ke liye logic pehle se hi CSS/HTML mein 'display: flex' hai.
     </script>
 </body>
 </html>
