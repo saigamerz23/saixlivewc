@@ -3,154 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Live Official</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="referrer" content="no-referrer">
+    <title>CricketLIVE! Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        body { 
-            margin: 0; 
-            background-color: #050810; 
-            color: white; 
-            font-family: 'Poppins', sans-serif; 
-            text-align: center; 
-            padding-bottom: 50px;
-        }
-
-        .site-header {
-            padding: 20px 10px;
-            background: radial-gradient(circle at top, #1e293b 0%, #050810 70%);
-            border-bottom: 2px solid #1e293b;
-            margin-bottom: 15px;
-        }
-        .site-header h1 {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(18px, 5vw, 32px); 
-            background: linear-gradient(90deg, #00d2ff 0%, #f9a8d4 50%, #00d2ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; }
         
-        .player-container { 
-            width: 96%; 
-            max-width: 850px; 
-            margin: 10px auto; 
-            aspect-ratio: 16/9; 
-            background: #000; 
-            border-radius: 20px; 
-            border: 2px solid #1e293b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Main Header */
+        .header { padding: 30px 10px; background: #0f172a; border-bottom: 2px solid #1e293b; margin-bottom: 20px; }
+        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 26px; }
 
-        .quality-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 0 20px;
+        /* Quality Buttons Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 500px; margin: 0 auto; padding: 20px; }
+        .btn { 
+            background: #1e293b; color: #00d2ff; padding: 25px 10px; 
+            border-radius: 12px; border: 1px solid #334155; 
+            text-decoration: none; font-weight: bold; font-size: 20px;
+            display: block; cursor: pointer; transition: 0.3s;
         }
+        .btn:hover { border-color: #00d2ff; background: #111827; transform: translateY(-3px); }
 
-        /* --- PURE HTML LINK BOXES --- */
-        .quality-btn {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #00d2ff;
-            padding: 18px;
-            font-size: 18px;
-            font-weight: 900;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            cursor: pointer;
-            text-decoration: none; 
-            display: block; 
-            transition: 0.3s;
+        /* --- WHATSAPP POPUP (Load on Entry) --- */
+        #entry-popup { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); 
+            display: flex; /* Page khulte hi dikhega */
+            justify-content: center; align-items: center; 
+            z-index: 9999; backdrop-filter: blur(10px); 
         }
-        .quality-btn:hover { background: #1e293b; border-color: #00d2ff; }
-
-        .hd-tag {
-            font-size: 10px;
-            background: #ff416c;
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
+        .pop-box { 
+            background: #0f172a; padding: 40px 30px; border-radius: 25px; 
+            width: 85%; max-width: 320px; border: 1px solid rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
         }
-
-        /* --- WHATSAPP POPUP --- */
-        #wp-popup-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            display: none; 
-            justify-content: center; align-items: center;
-            z-index: 999999;
-            backdrop-filter: blur(10px);
+        .pop-box h2 { font-family: 'Orbitron'; color: #00d2ff; margin: 0; }
+        .join-btn { 
+            background: #25D366; color: white; display: block; padding: 18px; 
+            border-radius: 15px; text-decoration: none; margin-top: 25px; 
+            font-weight: 900; font-size: 18px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
-        .wp-popup-content {
-            background: #0f172a; padding: 40px 30px; border-radius: 30px;
-            width: 85%; max-width: 320px; border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .join-btn {
-            background: #25D366; color: white; text-decoration: none;
-            display: block; padding: 18px; font-size: 18px; font-weight: 900;
-            border-radius: 15px; margin-top: 20px;
+        .close-text { 
+            margin-top: 20px; cursor: pointer; font-size: 13px; 
+            color: #94a3b8; text-decoration: underline; font-weight: bold; 
         }
     </style>
 </head>
-<body>
+<body onload="checkPopup()">
 
-    <div id="wp-popup-overlay">
-        <div class="wp-popup-content">
-            <h2 style="margin:0;">Join WhatsApp</h2>
-            <p style="font-size: 14px; color: #94a3b8; margin: 10px 0 20px 0;">Live Matches ke links ke liye hamara channel join karein!</p>
-            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" onclick="closePopup()">JOIN NOW</a>
-            <p onclick="closePopup()" style="cursor:pointer; text-decoration:underline; margin-top:20px; color:#94a3b8; font-weight:bold;">ALREADY JOINED</p>
+    <div id="entry-popup">
+        <div class="pop-box">
+            <h2>IMPORTANT!</h2>
+            <p style="color:#94a3b8; font-size:14px; margin-top:10px;">
+                Live Match ke fast links aur updates ke liye hamara WhatsApp Channel join karein!
+            </p>
+            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" onclick="closePopup()">JOIN CHANNEL NOW</a>
+            <div class="close-text" onclick="closePopup()">ALREADY JOINED / CONTINUE TO SITE</div>
         </div>
     </div>
 
-    <header class="site-header">
+    <header class="header">
         <h1>CricketLIVE! Official</h1>
     </header>
 
-    <div class="player-container">
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/720p.m3u8" 
-           target="_blank" 
-           onclick="showPopup()" 
-           style="background:#22c55e; color:white; padding:15px 40px; border-radius:50px; text-decoration:none; font-weight:900; font-size:18px;">
-           CLICK TO WATCH LIVE
-        </a>
-    </div>
+    <p style="color:#00d2ff; font-weight: bold; letter-spacing: 1px;">SELECT STREAM QUALITY</p>
 
-    <p style="margin-top:30px; font-weight:bold; color:#94a3b8;">SELECT QUALITY (OPEN IN BROWSER)</p>
-    
-    <div class="quality-container">
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/240p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">240p</a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/360p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">360p</a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/480p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">480p</a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/540p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">540p</a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/720p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">720p <span class="hd-tag">HD</span></a>
-        
-        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/1080p.m3u8" target="_blank" onclick="showPopup()" class="quality-btn">1080p <span class="hd-tag">FHD</span></a>
+    <div class="grid">
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/240p.m3u8" rel="noreferrer" target="_blank" class="btn">240P</a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/360p.m3u8" rel="noreferrer" target="_blank" class="btn">360P</a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/480p.m3u8" rel="noreferrer" target="_blank" class="btn">480P</a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/540p.m3u8" rel="noreferrer" target="_blank" class="btn">540P</a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/720p.m3u8" rel="noreferrer" target="_blank" class="btn">720P HD</a>
+        <a href="https://in-mc-fdlive.fancode.com/mumbai/138742_english_hls_abe2a9963978817_1ta-di_h264/1080p.m3u8" rel="noreferrer" target="_blank" class="btn">1080P FHD</a>
     </div>
 
     <script>
-        function showPopup() {
-            // Click hote hi naya tab khul jayega (browser handles this via target="_blank")
-            // Aur peeche website par popup dikhega
-            setTimeout(() => {
-                document.getElementById('wp-popup-overlay').style.display = 'flex';
-            }, 300);
+        // Page load hote hi popup dikhane ke liye
+        function checkPopup() {
+            document.getElementById('entry-popup').style.display = 'flex';
         }
 
+        // Popup band karne ke liye
         function closePopup() {
-            document.getElementById('wp-popup-overlay').style.display = 'none';
+            document.getElementById('entry-popup').style.display = 'none';
         }
+
+        // Additional security for Forbidden Error (Bypass Referrer)
+        document.querySelectorAll('.btn').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                const url = this.href;
+                const win = window.open();
+                win.opener = null;
+                win.location = url;
+            };
+        });
     </script>
 </body>
 </html>
