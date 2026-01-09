@@ -12,39 +12,39 @@
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
         /* Video Box Styling */
-        .video-wrapper {
-            width: 95%;
-            max-width: 850px;
-            margin: 15px auto;
-            background: #000;
-            border: 2px solid #00d2ff;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
+        .video-wrapper { width: 95%; max-width: 850px; margin: 15px auto; background: #000; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; position: relative; }
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        /* Buttons */
-        .fs-button { background: linear-gradient(45deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 30px; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-        .stream-button { background: linear-gradient(45deg, #f9a8d4, #ff0080); color: white; border: none; padding: 15px 25px; font-size: 15px; font-weight: bold; border-radius: 30px; cursor: pointer; margin-top: 15px; display: inline-block; text-decoration: none; width: 85%; max-width: 320px; text-transform: uppercase; }
+        /* Buttons Styling */
+        .fs-button { background: linear-gradient(45deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px 25px; font-size: 14px; font-weight: bold; border-radius: 30px; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+
+        .stream-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        .stream-button { 
+            background: linear-gradient(45deg, #f9a8d4, #ff0080); 
+            color: white; border: none; padding: 12px 5px; font-size: 13px; font-weight: bold; border-radius: 12px; 
+            cursor: pointer; text-decoration: none; width: 45%; text-transform: uppercase; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
         .hd-button { background: linear-gradient(45deg, #00d2ff, #0072ff); }
 
-        /* Info Box */
+        /* Info Box and Copy Section */
         .info-box { background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 20px; max-width: 420px; margin: 30px auto; padding: 25px; }
         .btn-wa { background: #25D366; color: white; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 12px; }
         .btn-tg { background: #0088cc; color: white; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; }
+        
+        #shareLink { width: 90%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #050810; color: #00d2ff; text-align: center; margin-bottom: 10px; font-size: 12px; }
 
         /* Popup */
-        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .pop-box { background: #111827; padding: 35px; border-radius: 25px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; }
     </style>
 </head>
-<body onload="checkPopup()">
+<body onload="initPlayer()">
 
     <div id="entry-popup">
         <div class="pop-box">
-            <h2 style="font-family:'Orbitron'; color:#00d2ff;">MATCH IS LIVE! 🏏</h2>
+            <h2 style="font-family:'Orbitron'; color:#00d2ff;">MATCH IS LIVE! </h2>
             <p style="color:#94a3b8; font-size:14px;">Join for Fast Updates & Backup Links</p>
             <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn-wa" onclick="closePopup()">JOIN WHATSAPP (FREE)</a>
             <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="btn-tg" onclick="closePopup()">JOIN TELEGRAM (LIVE)</a>
@@ -58,33 +58,69 @@
 
     <div class="video-wrapper" id="videoArea">
         <div class="video-container">
-            <iframe 
-                id="livePlayer" 
-                src="https://cinearena.github.io/id/sports.html?id=Star2eng" 
-                allow="autoplay; encrypted-media" 
-                allowfullscreen>
-            </iframe>
+            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
     
     <button class="fs-button" onclick="goFullScreen()">CLICK FOR FULL SCREEN</button>
 
-    <div style="margin-top: 20px;">
-        <a href="https://cinearena.github.io/id/sports.html?id=Star2eng" target="_blank" class="stream-button">Star Sports 2 SD</a>
-        <br>
-        <a href="https://cinearena.github.io/id/sports.html?id=Star2engHD" target="_blank" class="stream-button hd-button">Star Sports 2 HD</a>
+    <div class="stream-grid">
+        <button onclick="changeChannel('Star1HindiHD', 'hindi')" class="stream-button hd-button">Star Sports 1 Hindi</button>
+        <button onclick="changeChannel('Star2eng', 'star2sd')" class="stream-button">Star Sports 2 SD</button>
+        <button onclick="changeChannel('Star1tamil', 'tamil')" class="stream-button">Star Sports Tamil</button>
+        <button onclick="changeChannel('Star2kannada', 'kannada')" class="stream-button">Star Sports Kannada</button>
+        <button onclick="changeChannel('Star1teluguHD', 'telugu')" class="stream-button hd-button">Star Sports Telugu</button>
+        <button onclick="changeChannel('Star2engHD', 'star2hd')" class="stream-button hd-button">Star Sports 2 HD</button>
     </div>
 
     <div class="info-box">
-        <h3 style="color:#f9a8d4;">STAY CONNECTED! ⚡</h3>
-        <p style="font-size: 13px; color: #94a3b8;">Match link down hone par naya link channel par mil jayega.</p>
+        <h3 style="color:#f9a8d4;">SHARE DIRECT MATCH LINK! </h3>
+        <input type="text" id="shareLink" readonly>
+        <button onclick="copyLink()" style="background: #00d2ff; color: #000; border: none; padding: 8px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">COPY LINK & SHARE</button>
+        <hr style="border: 0.5px solid #334155; margin: 20px 0;">
         <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn-wa">WhatsApp Channel</a>
         <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="btn-tg">Telegram Channel</a>
     </div>
 
     <script>
-        function checkPopup() { document.getElementById('entry-popup').style.display = 'flex'; }
+        const player = document.getElementById('livePlayer');
+        const baseUrl = "https://cinearena.github.io/id/sports.html?id=";
+
+        function initPlayer() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ch = urlParams.get('ch');
+
+            // Popup hamesha dikhayega jab page load hoga
+            document.getElementById('entry-popup').style.display = 'flex';
+
+            if (ch === 'star2sd') changeChannel('Star2eng', 'star2sd');
+            else if (ch === 'tamil') changeChannel('Star1tamil', 'tamil');
+            else if (ch === 'kannada') changeChannel('Star2kannada', 'kannada');
+            else if (ch === 'telugu') changeChannel('Star1teluguHD', 'telugu');
+            else if (ch === 'star2hd') changeChannel('Star2engHD', 'star2hd');
+            else {
+                changeChannel('Star1HindiHD', 'hindi');
+            }
+        }
+
+        function changeChannel(id, slug) {
+            player.src = baseUrl + id;
+            // Bina refresh kiye URL change karega
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?ch=' + slug;
+            window.history.pushState({path:newUrl},'',newUrl);
+            document.getElementById('shareLink').value = newUrl;
+        }
+
+        function copyLink() {
+            var copyText = document.getElementById("shareLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // Mobile ke liye
+            document.execCommand("copy");
+            alert("Match Link Copy Ho Gaya! Ab dosto ko bhej dein.");
+        }
+
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
+        
         function goFullScreen() {
             var el = document.getElementById('videoArea');
             if (el.requestFullscreen) { el.requestFullscreen(); } 
