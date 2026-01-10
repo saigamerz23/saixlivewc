@@ -7,115 +7,89 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 40px; }
-        .header { padding: 15px 10px; background: #0f172a; border-bottom: 2px solid #1e293b; }
+        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 40px; overflow-x: hidden; }
+        .header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00d2ff; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
-        .video-wrapper { width: 95%; max-width: 850px; margin: 15px auto; background: #000; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; position: relative; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; z-index: 1; }
+        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .video-container { width: 100%; height: 100%; }
+        .video-container iframe { width: 100%; height: 100%; border: 0; }
 
-        .channel-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 15px auto; max-width: 500px; }
-        .channel-button { flex: 1 1 40%; background: linear-gradient(45deg, #f9a8d4, #ff0080); color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .jio-btn { background: linear-gradient(45deg, #00d2ff, #0072ff); }
-        .active-btn { outline: 2px solid white; box-shadow: 0 0 10px #00d2ff; }
-        
-        .share-section { margin: 20px auto; max-width: 400px; }
-        #shareInput { width: 80%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #00d2ff; text-align: center; margin-bottom: 10px; font-size: 12px; }
-        .copy-btn { background: #00d2ff; color: #000; border: none; padding: 8px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
+        .channel-button { border: none; padding: 14px; font-size: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; }
+        .active-btn { outline: 2px solid #fff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); }
+        .btn-cyan { background: linear-gradient(45deg, #00d2ff, #0072ff); }
+        .btn-pink { background: linear-gradient(45deg, #f9a8d4, #ff0080); }
 
-        .fs-button { background: #1e293b; color: #00d2ff; border: 1px solid #00d2ff; padding: 10px 20px; font-size: 12px; font-weight: bold; border-radius: 30px; cursor: pointer; margin-bottom: 10px; }
+        /* Share Panel Clean Look */
+        .share-section { margin-top: 30px; padding: 15px; background: #1e293b; border-radius: 15px; width: 90%; max-width: 450px; margin-left: auto; margin-right: auto; border: 1.5px dashed #00d2ff; }
+        .share-preview { background: #050810; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; text-align: left; margin-bottom: 15px; border: 1px solid #334155; line-height: 1.5; white-space: pre-wrap; }
+        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 14px; }
 
-        .info-box { background: linear-gradient(145deg, #1e293b, #0f172a); border: 1px solid #334155; border-radius: 20px; max-width: 420px; margin: 30px auto; padding: 25px; }
-        .btn-wa { background: #25D366; color: white; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 12px; }
-        .btn-tg { background: #0088cc; color: white; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; }
-        
-        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-        .pop-box { background: #111827; padding: 35px; border-radius: 25px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; }
+        .group-btn { background: #25D366; color: white; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; max-width: 420px; margin: 20px auto; font-size: 16px; }
     </style>
 </head>
 <body onload="checkUrlParams()">
 
-    <div id="entry-popup">
-        <div class="pop-box">
-            <h2 style="font-family:'Orbitron'; color:#00d2ff;">MATCH IS LIVE! </h2>
-            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn-wa" onclick="closePopup()">JOIN WHATSAPP</a>
-            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="btn-tg" onclick="closePopup()">JOIN TELEGRAM</a>
-            <div style="margin-top:20px; cursor:pointer; font-size:12px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
-        </div>
-    </div>
+    <header class="header"><h1>CricketLIVE! Official</h1></header>
 
-    <header class="header">
-        <h1>CricketLIVE! Official</h1>
-    </header>
-
-    <div class="video-wrapper" id="videoArea">
+    <div class="video-wrapper">
         <div class="video-container">
-            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"></iframe>
+            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
         </div>
     </div>
-    
-    <button class="fs-button" onclick="goFullScreen()">FULL SCREEN MODE</button>
 
     <div class="channel-grid">
-        <button id="btn-sd" class="channel-button jio-btn" onclick="updatePlayer('sd')">Star Sports SD</button>
-        <button id="btn-hd" class="channel-button" onclick="updatePlayer('hd')">Star Sports HD</button>
+        <button id="btn-sd" class="channel-button btn-cyan" onclick="updatePlayer('sd', 'Star Sports SD')">Star Sports SD</button>
+        <button id="btn-hd" class="channel-button btn-pink" onclick="updatePlayer('hd', 'Star Sports HD')">Star Sports HD</button>
+        <button id="btn-hotstar" class="channel-button btn-cyan" onclick="updatePlayer('hotstar', 'Hotstar Hindi')">Hotstar Hindi</button>
+        <button id="btn-willow" class="channel-button btn-pink" onclick="updatePlayer('willow', 'Willow Sports')">Willow Sports</button>
     </div>
 
     <div class="share-section">
-        <p style="font-size: 13px; color: #f9a8d4;">Share this channel link:</p>
-        <input type="text" id="shareInput" readonly>
-        <br>
-        <button class="copy-btn" onclick="copyLink()">COPY LINK & SHARE</button>
+        <div class="share-preview" id="sharePreview">Select a channel to share...</div>
+        <button class="copy-btn" onclick="copyShareMessage()">COPY & SHARE LINK</button>
     </div>
 
-    <div class="info-box">
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn-wa">WhatsApp Channel</a>
-        <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="btn-tg">Telegram Channel</a>
-    </div>
+    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="group-btn">Join WhatsApp Group</a>
 
     <script>
         const links = {
             'sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
-            'hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD'
+            'hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD',
+            'hotstar': 'https://insiderlivehd.pages.dev/Hindi',
+            'willow': 'https://teamrowillow.pages.dev/willow'
         };
+
+        const channelNames = { 'sd': 'Star Sports SD', 'hd': 'Star Sports HD', 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports' };
+        
+        // APNI VERCEL DOMAIN YAHAN LIKHO
+        const MY_DOMAIN = "https://cricket-live-official.vercel.app/";
 
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            const ch = params.get('ch');
-            if (ch && links[ch]) {
-                updatePlayer(ch);
-            } else {
-                updatePlayer('sd');
-            }
+            const ch = params.get('ch') || 'sd';
+            updatePlayer(ch, channelNames[ch]);
         }
 
-        function updatePlayer(type) {
+        function updatePlayer(type, name) {
             document.getElementById('livePlayer').src = links[type];
             
-            // Highlight active button
+            // Ab ye localhost nahi lega, humesha vercel link banayega
+            const shareUrl = `${MY_DOMAIN}?ch=${type}`;
+            
+            const previewMsg = `*Watch Live Cricket on CricketLIVE! Official* 🏏\n\n*Channel:* ${name}\n*Link:* ${shareUrl}`;
+            document.getElementById('sharePreview').innerText = previewMsg;
+
             document.querySelectorAll('.channel-button').forEach(btn => btn.classList.remove('active-btn'));
             document.getElementById('btn-' + type).classList.add('active-btn');
-
-            // Update URL without refresh
-            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?ch=' + type;
-            window.history.pushState({path:newUrl},'',newUrl);
-            document.getElementById('shareInput').value = newUrl;
         }
 
-        function copyLink() {
-            const copyText = document.getElementById("shareInput");
-            copyText.select();
-            document.execCommand("copy");
-            alert("Channel Link Copied! Ab dosto ko bhej dein.");
-        }
-
-        function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
-        
-        function goFullScreen() {
-            var el = document.getElementById('videoArea');
-            if (el.requestFullscreen) { el.requestFullscreen(); } 
-            else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); } 
+        function copyShareMessage() {
+            const message = document.getElementById('sharePreview').innerText;
+            navigator.clipboard.writeText(message).then(() => {
+                alert("Clean Share Link Copied! 🚀");
+            });
         }
     </script>
 </body>
