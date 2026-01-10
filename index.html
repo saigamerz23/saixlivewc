@@ -8,28 +8,48 @@
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 40px; overflow-x: hidden; }
+        
+        /* Entrance Popup */
+        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
+        .pop-box { background: #111827; padding: 30px; border-radius: 20px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.3); }
+        .pop-btn { padding: 14px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 12px; color: white; font-size: 14px; transition: 0.3s; }
+
         .header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00d2ff; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
-        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; }
         .video-container { width: 100%; height: 100%; }
         .video-container iframe { width: 100%; height: 100%; border: 0; }
 
-        .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
-        .channel-button { border: none; padding: 14px; font-size: 12px; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; }
+        /* Updated Grid for 2 Buttons */
+        .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
+        .channel-button { border: none; padding: 16px; font-size: 13px; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; }
         .active-btn { outline: 2px solid #fff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); }
         .btn-cyan { background: linear-gradient(45deg, #00d2ff, #0072ff); }
         .btn-pink { background: linear-gradient(45deg, #f9a8d4, #ff0080); }
 
-        /* Share Panel Clean Look */
-        .share-section { margin-top: 30px; padding: 15px; background: #1e293b; border-radius: 15px; width: 90%; max-width: 450px; margin-left: auto; margin-right: auto; border: 1.5px dashed #00d2ff; }
-        .share-preview { background: #050810; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; text-align: left; margin-bottom: 15px; border: 1px solid #334155; line-height: 1.5; white-space: pre-wrap; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 14px; }
+        /* Share Section */
+        .share-section { margin-top: 30px; padding: 15px; background: #1e293b; border-radius: 15px; width: 90%; max-width: 450px; margin: auto; border: 1.5px dashed #00d2ff; }
+        .share-preview { background: #050810; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; text-align: left; margin-bottom: 15px; white-space: pre-wrap; border: 1px solid #334155; }
+        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
 
-        .group-btn { background: #25D366; color: white; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: bold; display: block; max-width: 420px; margin: 20px auto; font-size: 16px; }
+        /* Join Buttons Footer */
+        .join-container { margin-top: 25px; padding: 0 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .join-btn { width: 90%; max-width: 420px; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px; display: block; transition: 0.3s; }
+        .wa-btn { background: #25D366; color: white; }
+        .tg-btn { background: #0088cc; color: white; }
     </style>
 </head>
 <body onload="checkUrlParams()">
+
+    <div id="entry-popup">
+        <div class="pop-box">
+            <h2 style="font-family:'Orbitron'; color:#00d2ff; font-size: 18px; margin-bottom:20px;">WPL 2026 LIVE 🏏</h2>
+            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP CHANNEL</a>
+            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM CHANNEL</a>
+            <div style="margin-top:20px; cursor:pointer; font-size:12px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
+        </div>
+    </div>
 
     <header class="header"><h1>CricketLIVE! Official</h1></header>
 
@@ -40,57 +60,55 @@
     </div>
 
     <div class="channel-grid">
-        <button id="btn-sd" class="channel-button btn-cyan" onclick="updatePlayer('sd', 'Star Sports SD')">Star Sports SD</button>
-        <button id="btn-hd" class="channel-button btn-pink" onclick="updatePlayer('hd', 'Star Sports HD')">Star Sports HD</button>
         <button id="btn-hotstar" class="channel-button btn-cyan" onclick="updatePlayer('hotstar', 'Hotstar Hindi')">Hotstar Hindi</button>
         <button id="btn-willow" class="channel-button btn-pink" onclick="updatePlayer('willow', 'Willow Sports')">Willow Sports</button>
     </div>
 
     <div class="share-section">
-        <div class="share-preview" id="sharePreview">Select a channel to share...</div>
-        <button class="copy-btn" onclick="copyShareMessage()">COPY & SHARE LINK</button>
+        <div class="share-preview" id="sharePreview">Select a channel...</div>
+        <button class="copy-btn" onclick="copyShareMessage()">COPY & SHARE MESSAGE</button>
     </div>
 
-    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="group-btn">Join WhatsApp Group</a>
+    <div class="join-container">
+        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn wa-btn">Join WhatsApp Group</a>
+        <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn tg-btn">Join Telegram Channel</a>
+    </div>
 
     <script>
         const links = {
-            'sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
-            'hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD',
             'hotstar': 'https://insiderlivehd.pages.dev/Hindi',
             'willow': 'https://teamrowillow.pages.dev/willow'
         };
 
-        const channelNames = { 'sd': 'Star Sports SD', 'hd': 'Star Sports HD', 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports' };
-        
-        // APNI VERCEL DOMAIN YAHAN LIKHO
+        const channelNames = { 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports' };
         const MY_DOMAIN = "https://cricket-live-official.vercel.app/";
 
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            const ch = params.get('ch') || 'sd';
-            updatePlayer(ch, channelNames[ch]);
+            // Default ab 'hotstar' load hoga
+            const ch = params.get('ch') || 'hotstar'; 
+            updatePlayer(ch, channelNames[ch] || 'Hotstar Hindi');
         }
 
         function updatePlayer(type, name) {
+            if(!links[type]) type = 'hotstar'; // Safety check
+            
             document.getElementById('livePlayer').src = links[type];
-            
-            // Ab ye localhost nahi lega, humesha vercel link banayega
             const shareUrl = `${MY_DOMAIN}?ch=${type}`;
-            
             const previewMsg = `*Watch Live Cricket on CricketLIVE! Official* 🏏\n\n*Channel:* ${name}\n*Link:* ${shareUrl}`;
             document.getElementById('sharePreview').innerText = previewMsg;
-
+            
             document.querySelectorAll('.channel-button').forEach(btn => btn.classList.remove('active-btn'));
             document.getElementById('btn-' + type).classList.add('active-btn');
         }
 
         function copyShareMessage() {
-            const message = document.getElementById('sharePreview').innerText;
-            navigator.clipboard.writeText(message).then(() => {
-                alert("Clean Share Link Copied! 🚀");
+            navigator.clipboard.writeText(document.getElementById('sharePreview').innerText).then(() => {
+                alert("Share Message Copied!");
             });
         }
+
+        function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
     </script>
 </body>
 </html>
