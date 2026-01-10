@@ -18,6 +18,7 @@
         .channel-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 15px auto; max-width: 500px; }
         .channel-button { flex: 1 1 40%; background: linear-gradient(45deg, #f9a8d4, #ff0080); color: white; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .jio-btn { background: linear-gradient(45deg, #00d2ff, #0072ff); }
+        .active-btn { outline: 2px solid white; box-shadow: 0 0 10px #00d2ff; }
         
         .share-section { margin: 20px auto; max-width: 400px; }
         #shareInput { width: 80%; padding: 10px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #00d2ff; text-align: center; margin-bottom: 10px; font-size: 12px; }
@@ -37,7 +38,7 @@
 
     <div id="entry-popup">
         <div class="pop-box">
-            <h2 style="font-family:'Orbitron'; color:#00d2ff;">MATCH IS LIVE! 🏏</h2>
+            <h2 style="font-family:'Orbitron'; color:#00d2ff;">MATCH IS LIVE! </h2>
             <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="btn-wa" onclick="closePopup()">JOIN WHATSAPP</a>
             <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="btn-tg" onclick="closePopup()">JOIN TELEGRAM</a>
             <div style="margin-top:20px; cursor:pointer; font-size:12px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
@@ -50,15 +51,15 @@
 
     <div class="video-wrapper" id="videoArea">
         <div class="video-container">
-            <iframe id="livePlayer" src="https://tinyurl.com/mr9cfy87" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"></iframe>
+            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin allow-top-navigation"></iframe>
         </div>
     </div>
     
     <button class="fs-button" onclick="goFullScreen()">FULL SCREEN MODE</button>
 
     <div class="channel-grid">
-        <button class="channel-button jio-btn" onclick="updatePlayer('hotstar')">Jio Hotstar</button>
-        <button class="channel-button" onclick="updatePlayer('willow')">Willow Sports</button>
+        <button id="btn-sd" class="channel-button jio-btn" onclick="updatePlayer('sd')">Star Sports SD</button>
+        <button id="btn-hd" class="channel-button" onclick="updatePlayer('hd')">Star Sports HD</button>
     </div>
 
     <div class="share-section">
@@ -75,8 +76,8 @@
 
     <script>
         const links = {
-            'hotstar': 'https://tinyurl.com/mr9cfy87',
-            'willow': 'https://teamrowillow.pages.dev/willow'
+            'sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
+            'hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD'
         };
 
         function checkUrlParams() {
@@ -85,12 +86,17 @@
             if (ch && links[ch]) {
                 updatePlayer(ch);
             } else {
-                updatePlayer('hotstar');
+                updatePlayer('sd');
             }
         }
 
         function updatePlayer(type) {
             document.getElementById('livePlayer').src = links[type];
+            
+            // Highlight active button
+            document.querySelectorAll('.channel-button').forEach(btn => btn.classList.remove('active-btn'));
+            document.getElementById('btn-' + type).classList.add('active-btn');
+
             // Update URL without refresh
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?ch=' + type;
             window.history.pushState({path:newUrl},'',newUrl);
@@ -100,7 +106,6 @@
         function copyLink() {
             const copyText = document.getElementById("shareInput");
             copyText.select();
-            copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
             alert("Channel Link Copied! Ab dosto ko bhej dein.");
         }
@@ -111,7 +116,6 @@
             var el = document.getElementById('videoArea');
             if (el.requestFullscreen) { el.requestFullscreen(); } 
             else if (el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); } 
-            else if (el.msRequestFullscreen) { el.msRequestFullscreen(); }
         }
     </script>
 </body>
