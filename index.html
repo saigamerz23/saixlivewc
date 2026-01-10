@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CricketLIVE! Official - LIVE</title>
+    <title>CricketLIVE! Official - SA20 LIVE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 40px; overflow-x: hidden; }
@@ -17,27 +16,35 @@
         .header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00d2ff; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
-        /* Video Box Fix */
-        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
-        .video-container { width: 100%; height: 100%; position: relative; background: #000; }
-        iframe, .video-js { width: 100% !important; height: 100% !important; border: 0; position: absolute; top: 0; left: 0; }
-
-        /* Button Grid Layout: Responsive fixing */
-        .channel-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 10px; 
-            margin: 20px auto; 
-            max-width: 94%; 
-            padding: 0 10px; 
+        /* Video Box Container */
+        .video-wrapper { 
+            width: 94%; 
+            max-width: 800px; 
+            margin: 25px auto; 
+            background: #000; 
+            position: relative; 
+            border: 2px solid #00d2ff; 
+            border-radius: 12px; 
+            overflow: hidden; /* Yeh bahar nikle hue hisse ko kaat dega */
+            aspect-ratio: 16 / 9; 
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); 
         }
 
-        .channel-button { border: none; padding: 12px 8px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; width: 100%; }
-        .active-btn { outline: 2px solid #fff; box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); }
-        .btn-cyan { background: linear-gradient(45deg, #00d2ff, #0072ff); }
-        .btn-pink { background: linear-gradient(45deg, #f9a8d4, #ff0080); }
-        .btn-orange { background: linear-gradient(45deg, #ff9a9e, #fad0c4); color: #000; }
-        .btn-purple { background: linear-gradient(45deg, #a18cd1, #fbc2eb); color: #000; }
+        .video-container { width: 100%; height: 100%; position: relative; background: #000; overflow: hidden; }
+        
+        /* Iframe Adjustment: Ise aur upar aur bada kiya gaya hai taaki ache se fit ho */
+        iframe { 
+            width: 100% !important; 
+            height: 130% !important; /* Height badhayi gayi hai */
+            border: 0; 
+            position: absolute; 
+            top: -45px; /* Ise aur upar khiskaya gaya hai */
+            left: 0;
+            transform: scale(1.05); /* Thoda zoom taaki gaps na dikhen */
+        }
+
+        .channel-grid { display: flex; justify-content: center; margin: 20px auto; max-width: 94%; }
+        .channel-button { border: none; padding: 15px 30px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; width: 100%; max-width: 400px; background: linear-gradient(45deg, #00d2ff, #0072ff); box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); }
 
         .share-section { margin-top: 20px; padding: 15px; background: #1e293b; border-radius: 15px; width: 90%; max-width: 450px; margin: auto; border: 1.5px dashed #00d2ff; }
         .share-preview { background: #050810; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; text-align: left; margin-bottom: 15px; white-space: pre-wrap; border: 1px solid #334155; overflow-wrap: break-word; }
@@ -49,11 +56,11 @@
         .tg-btn { background: #0088cc; color: white; }
     </style>
 </head>
-<body onload="checkUrlParams()">
+<body>
 
     <div id="entry-popup">
         <div class="pop-box">
-            <h2 style="font-family:'Orbitron'; color:#00d2ff; font-size: 18px; margin-bottom:20px;">WPL 2026 LIVE 🏏</h2>
+            <h2 style="font-family:'Orbitron'; color:#00d2ff; font-size: 18px; margin-bottom:20px;">SA20 2026 LIVE </h2>
             <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP CHANNEL</a>
             <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM CHANNEL</a>
             <div style="margin-top:20px; cursor:pointer; font-size:12px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
@@ -64,19 +71,16 @@
 
     <div class="video-wrapper">
         <div class="video-container" id="player-container">
-            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
+            <div style="color: #64748b; padding-top: 20%;">Click SA20 LIVE button to start...</div>
         </div>
     </div>
 
     <div class="channel-grid">
-        <button id="btn-hotstar" class="channel-button btn-cyan" onclick="updatePlayer('hotstar', 'Hotstar Hindi')">Hotstar Hindi</button>
-        <button id="btn-willow" class="channel-button btn-pink" onclick="updatePlayer('willow', 'Willow Sports')">Willow Sports</button>
-        <button id="btn-willow480" class="channel-button btn-orange" onclick="updatePlayer('willow480', 'Willow 480p')">Willow 480p</button>
-        <button id="btn-willow720" class="channel-button btn-purple" onclick="updatePlayer('willow720', 'Willow 720p')">Willow 720p</button>
+        <button class="channel-button" onclick="loadMatch()">SA20 LIVE</button>
     </div>
 
     <div class="share-section">
-        <div class="share-preview" id="sharePreview">Select a channel...</div>
+        <div class="share-preview" id="sharePreview">Join and Watch SA20 Live Match!</div>
         <button class="copy-btn" onclick="copyShareMessage()">COPY & SHARE MESSAGE</button>
     </div>
 
@@ -85,43 +89,20 @@
         <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn tg-btn">Join Telegram Channel</a>
     </div>
 
-    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
     <script>
-        const links = {
-            'hotstar': 'https://insiderlivehd.pages.dev/Hindi',
-            'willow': 'https://teamrowillow.pages.dev/willow',
-            'willow480': 'https://aps32.playlist.live-video.net/v1/playlist/CqgFz2AWl8rcfm04TMTQO3T8D5QejCxTpLNIRpzMJ6Jar5eouOyuqksJuZAxKFoSq3pdbflnE81AYRguZ3-dAqZq7ANe4quK22D7FLWviane6Mw4vElCRDRVIYENrMTtbdkDzAJ9YXYfVOzdtp2TiatD2jqYEksA3OMJgIewGiCOifsgcC_bmWuvCQtDV7kz5D3lrk-eqLujbddUJUy7--uAqZ1ojy3UkfzkGe4u_mLpS-YewQeIbAu23vz4F7kOMxSLnCk7Zg09to_MtPQgATEiAMasU2e35KBSwIna0IQgubpEf18dClCr3EGZ5WRx39ta4W-PfOCdYiQZWTVZtzE0jTdyiYwSpWjy3i-U2ZiY3MbMVmcl7Qprm2d3K_dfbtbigSN8p9S8y5C-TSEMdrpz35cGFNwkKgFPKyhOGJKy9nLbht5Eplxcr5qQpozxb47dom2xmyy_7XIq3Q5f7yKabzUcfskWpV36WfdcGErkPfblvp-K-YnvYNVct_AzGJXD23YcVqwMoODgmRuKQVlT9ZHj9SobH4ucbVd8kC2BGIkKvXt379qgHa45ROA7OlIFfNnKi5tx66tQGtCV58h6zMXTbOwqmxB9M8ncPqoXE7eifhE7wg4kSf6j69SoRLeq622ecLgvz6YCcQm_mu9d2wxmoM1ZSO28eyJnPuxw-A49nX96LPzje5w3yPY_5MdxOCIlvQA9OkydjDmMlKuJGzci2Oi24ezvgN6IWD_eXiBnuOGMGr7yvawWrEQ-ViUe9p6dkr4uPItQpJkK723HPHUuU7fDkeH-dODcgStkqsBPruiLWUS_F4LE-mpOfbIQ577UBGFoijuWrrEn7kdbYM7DBD43Ak1VSJwRkZ25bPTVEO_mhtOigP4ZTsaXp7Y-vFzI2YNXAsEaDALOm5X8lG1tUixMLiABKgl1cy13ZXN0LTIwkw4.m3u8',
-            'willow720': 'https://aps32.playlist.live-video.net/v1/playlist/Cq8FoTC1EBiSXm1Y929uNKtBdsxsZf7DZxZVECWSM_plmk8VZfiI54DKRNDhen0EH1UvysUMQT0qa2e8Ds5lMGnf1h8DZAdNbqdEUI7MJnvObXquyvnPJSB0Ocdcg0a8ADhhxEXRFBKOtK5SUW7eX-aO0T31rl5tNBKXQMu2NXtVCn6W2gBbaGwg4ElSO3ba5XyZdicg9SSCdALdAP8XeJEQuDrvHRdZ6Qn-HuuooR8SgiZud70vRJtPKq6gO3QUEXso8KNyl4HG8DxMJkgh1ZTUtXO7075RbFJEOizkrunfO07ofOq24I64x_J7oOHG6xWr-gSfkpcVn2SUuh4kcOz-DeBYcptuqSBR7wkuqw1Vl1ozK2kwMSZuSXV7CL4zFPy0j7HU_EXh86ERObyZNygPbGTpJTdYbVEG6yS9vWYx9mVkhRbbjXgmxjPgNqjnkldKYiSGLmn6Ve6kCw95aW79RR8PYhPM_rbKHc1MDg55k8pQyMIYE-2qSh5MIeSTSmh_CJtZqVZRKMTVcB_wkQz23griboeT396vFkfjRsC9C7Juhbsk8cY6Bhtg455uid95y3iD4vEKLDkNhdtNmjw8Qu5NdptehGma87SPWTKH6eiZyv415u2J02aQqq3seJpLbWMJemq3BkcqZlNqdvHGTnNv5whFzZgYt5ANEYr_bqMeNhhIMafWCIhb9ZUsRO9j18Fa8UiNLTJ7JVnYQt64m1Qwocl4RkXYpqpoAlJ9-cYTy8UaTflCxHvBbO7f9FHBEsPsHJHrnOk1u9kTdI0bqgmPQdHdd3-IblvddhZnsOcHrGVrp2EVH0y4qsuP7AJIasPC_SxfmB1X-Cw6FSOkTvzGvTox5xK1Wa_mLJou8hGGdaVZT4C01AFyHo9nKAzjSTpYrUBXiJWdFPjxELZtGgzwCnwS-108zBQCDIogASoJdXMtd2VzdC0yMJMO.m3u8'
-        };
-
-        const channelNames = { 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports', 'willow480': 'Willow Cricbuzz 480p', 'willow720': 'Willow Cricbuzz 720p' };
+        const STREAM_URL = "https://teamroiframe5.pages.dev/";
         const MY_DOMAIN = "https://cricket-live-official.vercel.app/";
 
-        function checkUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            const ch = params.get('ch') || 'hotstar'; 
-            updatePlayer(ch, channelNames[ch]);
-        }
-
-        function updatePlayer(type, name) {
+        function loadMatch() {
             const container = document.getElementById('player-container');
-            const shareUrl = `${MY_DOMAIN}?ch=${type}`;
-            document.getElementById('sharePreview').innerText = `*Watch Live Cricket on CricketLIVE! Official* 🏏\n\n*Channel:* ${name}\n*Link:* ${shareUrl}`;
-
-            if (links[type].includes('.m3u8')) {
-                container.innerHTML = `<video id="hls-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%"><source src="${links[type]}" type="application/x-mpegURL"></video>`;
-                videojs('hls-player').play();
-            } else {
-                container.innerHTML = `<iframe id="livePlayer" src="${links[type]}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>`;
-            }
-
-            document.querySelectorAll('.channel-button').forEach(btn => btn.classList.remove('active-btn'));
-            const activeBtn = document.getElementById('btn-' + type);
-            if (activeBtn) activeBtn.classList.add('active-btn');
+            container.innerHTML = `<iframe src="${STREAM_URL}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>`;
+            
+            document.getElementById('sharePreview').innerText = `*Watch SA20 Live on CricketLIVE! Official* \n\n*Link:* ${MY_DOMAIN}`;
         }
 
         function copyShareMessage() {
-            navigator.clipboard.writeText(document.getElementById('sharePreview').innerText).then(() => {
+            const text = document.getElementById('sharePreview').innerText;
+            navigator.clipboard.writeText(text).then(() => {
                 alert("Share Message Copied!");
             });
         }
