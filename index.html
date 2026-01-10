@@ -17,23 +17,23 @@
         .header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00d2ff; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
-        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; }
+        /* Video Section Improvements */
+        .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
         .video-container { width: 100%; height: 100%; }
         .video-container iframe { width: 100%; height: 100%; border: 0; }
 
-        /* Updated Grid for 2 Buttons */
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
         .channel-button { border: none; padding: 16px; font-size: 13px; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; }
         .active-btn { outline: 2px solid #fff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); }
         .btn-cyan { background: linear-gradient(45deg, #00d2ff, #0072ff); }
         .btn-pink { background: linear-gradient(45deg, #f9a8d4, #ff0080); }
 
-        /* Share Section */
         .share-section { margin-top: 30px; padding: 15px; background: #1e293b; border-radius: 15px; width: 90%; max-width: 450px; margin: auto; border: 1.5px dashed #00d2ff; }
         .share-preview { background: #050810; padding: 12px; border-radius: 8px; font-size: 13px; color: #cbd5e1; text-align: left; margin-bottom: 15px; white-space: pre-wrap; border: 1px solid #334155; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
+        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin-bottom: 5px; }
+        
+        .refresh-btn { background: #334155; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; font-size: 12px; cursor: pointer; margin-top: 10px; }
 
-        /* Join Buttons Footer */
         .join-container { margin-top: 25px; padding: 0 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
         .join-btn { width: 90%; max-width: 420px; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 16px; display: block; transition: 0.3s; }
         .wa-btn { background: #25D366; color: white; }
@@ -55,12 +55,13 @@
 
     <div class="video-wrapper">
         <div class="video-container">
-            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+            <iframe id="livePlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
         </div>
     </div>
+    <button class="refresh-btn" onclick="refreshPlayer()">🔄 Refresh Player if Not Loading</button>
 
     <div class="channel-grid">
-        <button id="btn-hotstar" class="channel-button btn-cyan" onclick="updatePlayer('hotstar', 'Hotstar Hindi')">Hotstar Hindi</button>
+        <button id="btn-sa20" class="channel-button btn-cyan" onclick="updatePlayer('sa20', 'SA20 Live')">SA20 Sports</button>
         <button id="btn-willow" class="channel-button btn-pink" onclick="updatePlayer('willow', 'Willow Sports')">Willow Sports</button>
     </div>
 
@@ -76,30 +77,41 @@
 
     <script>
         const links = {
-            'hotstar': 'https://insiderlivehd.pages.dev/Hindi',
+            'sa20': 'https://lchdsports.pages.dev/?id=SA20',
             'willow': 'https://teamrowillow.pages.dev/willow'
         };
 
-        const channelNames = { 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports' };
+        const channelNames = { 'sa20': 'SA20 Live', 'willow': 'Willow Sports' };
         const MY_DOMAIN = "https://cricket-live-official.vercel.app/";
+        let currentType = 'sa20';
 
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            // Default ab 'hotstar' load hoga
-            const ch = params.get('ch') || 'hotstar'; 
-            updatePlayer(ch, channelNames[ch] || 'Hotstar Hindi');
+            currentType = params.get('ch') || 'sa20'; 
+            updatePlayer(currentType, channelNames[currentType] || 'SA20 Live');
         }
 
         function updatePlayer(type, name) {
-            if(!links[type]) type = 'hotstar'; // Safety check
+            currentType = type;
+            if(!links[type]) currentType = 'sa20'; 
             
-            document.getElementById('livePlayer').src = links[type];
-            const shareUrl = `${MY_DOMAIN}?ch=${type}`;
+            const player = document.getElementById('livePlayer');
+            player.src = links[currentType];
+            
+            const shareUrl = `${MY_DOMAIN}?ch=${currentType}`;
             const previewMsg = `*Watch Live Cricket on CricketLIVE! Official* 🏏\n\n*Channel:* ${name}\n*Link:* ${shareUrl}`;
             document.getElementById('sharePreview').innerText = previewMsg;
             
             document.querySelectorAll('.channel-button').forEach(btn => btn.classList.remove('active-btn'));
-            document.getElementById('btn-' + type).classList.add('active-btn');
+            const activeBtn = document.getElementById('btn-' + currentType);
+            if(activeBtn) activeBtn.classList.add('active-btn');
+        }
+
+        function refreshPlayer() {
+            const player = document.getElementById('livePlayer');
+            const currentSrc = player.src;
+            player.src = ''; // Clear
+            setTimeout(() => { player.src = currentSrc; }, 100); // Reload
         }
 
         function copyShareMessage() {
