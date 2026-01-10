@@ -17,9 +17,10 @@
         .header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00d2ff; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 20px; margin: 0; }
 
-        /* Video Section Improvements */
         .video-wrapper { width: 94%; max-width: 800px; margin: 25px auto; background: #000; position: relative; border: 2px solid #00d2ff; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
         .video-container { width: 100%; height: 100%; }
+        
+        /* New Link Fix: Popup rokne ke liye sandbox ke saath compatibility */
         .video-container iframe { width: 100%; height: 100%; border: 0; }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px auto; max-width: 500px; padding: 0 15px; }
@@ -61,7 +62,7 @@
     <button class="refresh-btn" onclick="refreshPlayer()">🔄 Refresh Player if Not Loading</button>
 
     <div class="channel-grid">
-        <button id="btn-sa20" class="channel-button btn-cyan" onclick="updatePlayer('sa20', 'SA20 Live')">SA20 Sports</button>
+        <button id="btn-hotstar" class="channel-button btn-cyan" onclick="updatePlayer('hotstar', 'Hotstar Hindi')">Hotstar Hindi</button>
         <button id="btn-willow" class="channel-button btn-pink" onclick="updatePlayer('willow', 'Willow Sports')">Willow Sports</button>
     </div>
 
@@ -77,23 +78,23 @@
 
     <script>
         const links = {
-            'sa20': 'https://lchdsports.pages.dev/?id=SA20',
+            'hotstar': 'https://insiderlivehd.pages.dev/Hindi',
             'willow': 'https://teamrowillow.pages.dev/willow'
         };
 
-        const channelNames = { 'sa20': 'SA20 Live', 'willow': 'Willow Sports' };
+        const channelNames = { 'hotstar': 'Hotstar Hindi', 'willow': 'Willow Sports' };
         const MY_DOMAIN = "https://cricket-live-official.vercel.app/";
-        let currentType = 'sa20';
+        let currentType = 'hotstar';
 
         function checkUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            currentType = params.get('ch') || 'sa20'; 
-            updatePlayer(currentType, channelNames[currentType] || 'SA20 Live');
+            currentType = params.get('ch') || 'hotstar'; 
+            updatePlayer(currentType, channelNames[currentType] || 'Hotstar Hindi');
         }
 
         function updatePlayer(type, name) {
             currentType = type;
-            if(!links[type]) currentType = 'sa20'; 
+            if(!links[type]) currentType = 'hotstar'; 
             
             const player = document.getElementById('livePlayer');
             player.src = links[currentType];
@@ -110,8 +111,8 @@
         function refreshPlayer() {
             const player = document.getElementById('livePlayer');
             const currentSrc = player.src;
-            player.src = ''; // Clear
-            setTimeout(() => { player.src = currentSrc; }, 100); // Reload
+            player.src = ''; 
+            setTimeout(() => { player.src = currentSrc; }, 100); 
         }
 
         function copyShareMessage() {
