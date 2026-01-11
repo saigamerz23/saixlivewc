@@ -8,14 +8,16 @@
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
+        
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 300px; border: 2px solid #00d2ff; }
         .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; color: white; font-size: 13px; }
-        
-        .header { padding: 20px 10px; background: #0f172a; }
-        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 26px; margin: 0; text-transform: uppercase; }
 
+        .header { padding: 20px 10px; background: #0f172a; }
+        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; margin: 0; text-transform: uppercase; }
+
+        /* VIDEO AREA */
         .video-wrapper { 
             width: 96%; 
             max-width: 850px; 
@@ -28,27 +30,42 @@
             position: relative;
         }
 
+        /* Iframe settings to push popup out of view */
         iframe { 
             width: 100%; 
-            height: 115%; 
+            height: 180%; /* Height aur zyada badha di */
             border: 0; 
             position: absolute; 
-            top: -10%; 
+            top: -40%; /* Iframe ko upar khinch liya taaki middle popup niche chala jaye */
             left: 0; 
+            z-index: 1;
+        }
+
+        /* Click blocker layer */
+        #shield {
+            position: absolute;
+            top: 15%; /* Jahan popup aata hai wahan ki clicks block karega */
+            left: 0;
+            width: 100%;
+            height: 70%;
+            z-index: 10;
+            background: transparent;
+            display: none;
         }
 
         .fs-container { margin-bottom: 10px; }
         .fs-btn { background: #1e293b; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 15px; font-size: 11px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        
+
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
-        .channel-button:hover { background: #00d2ff; color: #000; }
-        .tnt-willow-btn { background: linear-gradient(45deg, #334155, #1e293b); }
+        
+        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; }
 
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 8px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 8px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; }
+        
+        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
     </style>
 </head>
 <body>
@@ -56,8 +73,8 @@
     <div id="entry-popup">
         <div class="pop-box">
             <div class="support-text">SUPPORT US!</div>
-            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP</a>
-            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM</a>
+            <a href="https://whatsapp.com" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP</a>
+            <a href="https://t.me" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM</a>
             <div style="margin-top:15px; cursor:pointer; font-size:11px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
         </div>
     </div>
@@ -65,8 +82,9 @@
     <header class="header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
 
     <div class="video-wrapper" id="videoWrapper">
-        <div class="video-container" id="player-container">
-            <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Select a Channel below...</div>
+        <div id="shield" onclick="this.style.display='none'"></div>
+        <div id="player-container">
+            <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div>
         </div>
     </div>
 
@@ -75,12 +93,13 @@
     </div>
 
     <div class="channel-grid">
-        <button class="channel-button" onclick="loadMatch('Hindi2', 'ss2hindi')">Star Sports 2 Hindi SD</button>
-        <button class="channel-button" onclick="loadMatch('Star1eng', 'ss1sdeng')">Star Sports 1 SD</button>
-        <button class="channel-button" onclick="loadMatch('Star1engHD', 'ss1enghd')">SS 1 (Eng HD)</button>
-        <button class="channel-button" onclick="loadMatch('Star1HindiHD', 'ss1hindihd')">SS 1 (Hindi HD)</button>
-        <button class="channel-button tnt-willow-btn" onclick="loadMatch('TNTSports4', 'tnt4')">TNT Sports 4</button>
-        <button class="channel-button tnt-willow-btn" onclick="loadMatch('WillowSports', 'willow')">Willow Sports</button>
+        <button class="channel-button" onclick="loadMatch('ss2hindi')">Star Sports 2 Hindi</button>
+        <button class="channel-button" onclick="loadMatch('ss1sdeng')">Star Sports 1 SD</button>
+        <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (Eng HD)</button>
+        <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (Hindi HD)</button>
+        <button class="channel-button" onclick="loadMatch('tnt4')">TNT Sports 4</button>
+        <button class="channel-button" onclick="loadMatch('willow')">Willow Sports</button>
+        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER - NO POPUP)</button>
     </div>
 
     <div class="share-mini">
@@ -88,8 +107,8 @@
         <button class="copy-btn" onclick="copyShareMessage()">COPY LINK</button>
     </div>
 
-    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366; color:white;">Join WhatsApp Group</a>
-    <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc; color:white;">Join Telegram Channel</a>
+    <a href="#" class="join-btn" style="background:#25D366;">Join WhatsApp</a>
+    <a href="#" class="join-btn" style="background:#0088cc;">Join Telegram</a>
 
     <script>
         const channels = {
@@ -98,46 +117,35 @@
             'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
             'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
             'tnt4': 'https://cinearena.github.io/id/sports.html?id=TNTSports4',
-            'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports'
+            'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports',
+            'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20'
         };
 
-        let currentShareLink = "";
-        let siteBaseURL = window.location.origin + window.location.pathname;
-
-        function loadMatch(id, slug) {
+        function loadMatch(slug) {
             const url = channels[slug];
             const container = document.getElementById('player-container');
+            const shield = document.getElementById('shield');
             
+            // SA20 ke liye clicks block karne wali layer activate
+            if(slug === 'sa20_live') shield.style.display = 'block';
+            else shield.style.display = 'none';
+
             container.innerHTML = `<iframe 
                 src="${url}" 
-                sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" 
+                sandbox="allow-scripts allow-same-origin allow-forms" 
                 allow="autoplay; encrypted-media; fullscreen" 
+                referrerpolicy="no-referrer"
                 allowfullscreen></iframe>`;
             
-            currentShareLink = siteBaseURL + "?ch=" + slug;
-            document.getElementById('sharePreview').innerText = currentShareLink;
-        }
-
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ch = urlParams.get('ch');
-            if (ch && channels[ch]) {
-                loadMatch('', ch);
-            }
-        };
-
-        function copyShareMessage() {
-            if (!currentShareLink) { alert("Pehle channel select karein!"); return; }
-            navigator.clipboard.writeText(currentShareLink).then(() => { alert("Direct Link Copied!"); });
-        }
-
-        function goFullScreen() {
-            const elem = document.getElementById("videoWrapper");
-            if (elem.requestFullscreen) elem.requestFullscreen();
-            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+            document.getElementById('sharePreview').innerText = window.location.origin + window.location.pathname + "?ch=" + slug;
         }
 
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
+        function goFullScreen() {
+            let v = document.getElementById("videoWrapper");
+            if (v.requestFullscreen) v.requestFullscreen();
+            else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+        }
     </script>
 </body>
 </html>
