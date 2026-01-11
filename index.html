@@ -29,22 +29,8 @@
             position: relative;
         }
 
-        /* Standard Iframe */
-        #main-player { 
-            width: 100%; 
-            height: 100%; 
-            border: 0; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            z-index: 1;
-        }
-
-        /* Special Zoom for WPL & SA20 to hide middle/top popups */
-        .extreme-crop { 
-            height: 180% !important; 
-            top: -40% !important; 
-        }
+        #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
+        .extreme-crop { height: 180% !important; top: -40% !important; }
 
         #shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; display: none; }
 
@@ -54,7 +40,6 @@
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
-        /* Highlighted Buttons */
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
         .wpl-btn { background: linear-gradient(45deg, #ff00cc, #3333ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
 
@@ -62,6 +47,7 @@
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; min-width: 80px; }
         
+        /* FOOTER JOIN BUTTONS */
         .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
     </style>
 </head>
@@ -70,8 +56,8 @@
     <div id="entry-popup">
         <div class="pop-box">
             <div class="support-text">SUPPORT US!</div>
-            <a href="https://whatsapp.com" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP</a>
-            <a href="https://t.me" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM</a>
+            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP</a>
+            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM</a>
             <div style="margin-top:15px; cursor:pointer; font-size:11px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
         </div>
     </div>
@@ -86,19 +72,18 @@
     </div>
 
     <div class="fs-container">
-        <button class="fs-btn" onclick="goFullScreen()"> FULL SCREEN MODE</button>
+        <button class="fs-btn" onclick="goFullScreen()">⛶ FULL SCREEN MODE</button>
     </div>
 
     <div class="channel-grid">
-        <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')"> WPL LIVE (HD NO ADS)</button>
-        
+        <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (HD NO ADS)</button>
         <button class="channel-button" onclick="loadMatch('ss2hindi')">Star Sports 2 Hindi</button>
         <button class="channel-button" onclick="loadMatch('ss1sdeng')">Star Sports 1 SD</button>
         <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (Eng HD)</button>
         <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (Hindi HD)</button>
         <button class="channel-button" onclick="loadMatch('tnt4')">TNT Sports 4</button>
         <button class="channel-button" onclick="loadMatch('willow')">Willow Sports</button>
-        <button class="channel-button special-btn" onclick="loadMatch('sa20_live')"> SA20 LIVE (GEO SUPER)</button>
+        <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER)</button>
     </div>
 
     <div class="share-mini">
@@ -106,8 +91,8 @@
         <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY LINK</button>
     </div>
 
-    <a href="#" class="join-btn" style="background:#25D366;">Join WhatsApp</a>
-    <a href="#" class="join-btn" style="background:#0088cc;">Join Telegram</a>
+    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366;">Join WhatsApp Group</a>
+    <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc;">Join Telegram Channel</a>
 
     <script>
         const channels = {
@@ -126,7 +111,6 @@
             const container = document.getElementById('player-container');
             const shield = document.getElementById('shield');
             
-            // Extreme crop applying to WPL and SA20 to hide popups
             const useExtremeCrop = (slug === 'wpl_live' || slug === 'sa20_live');
             const cropClass = useExtremeCrop ? 'extreme-crop' : '';
             
