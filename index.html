@@ -8,70 +8,26 @@
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
-        
-        /* POPUP BOX */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 300px; border: 2px solid #00d2ff; }
-        
-        .support-text { 
-            font-family: 'Bebas Neue', cursive; 
-            font-size: 32px; 
-            color: #00d2ff; 
-            letter-spacing: 2px; 
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-        }
-
+        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; color: white; font-size: 13px; }
-
         .header { padding: 20px 10px; background: #0f172a; }
-        .header h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            background: linear-gradient(90deg, #00d2ff, #f9a8d4); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            font-size: 26px; 
-            margin: 0; 
-            white-space: nowrap;
-            text-transform: uppercase; 
-        }
-
-        .video-wrapper { 
-            width: 96%; 
-            max-width: 850px; 
-            margin: 15px auto; 
-            background: #000; 
-            position: relative; 
-            border: 2px solid #00d2ff; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            aspect-ratio: 16 / 9; 
-        }
-
+        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 26px; margin: 0; text-transform: uppercase; }
+        .video-wrapper { width: 96%; max-width: 850px; margin: 15px auto; background: #000; border: 2px solid #00d2ff; border-radius: 10px; overflow: hidden; aspect-ratio: 16 / 9; }
         .video-container { width: 100%; height: 100%; position: relative; }
         iframe { width: 100% !important; height: 100% !important; border: 0; position: absolute; top: 0; left: 0; }
-
         .fs-container { margin-bottom: 10px; }
         .fs-btn { background: #1e293b; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 15px; font-size: 11px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
-        
-        .channel-button { 
-            border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; transition: 0.3s; 
-            background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff;
-        }
-
+        .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         .channel-button:hover { background: #00d2ff; color: #000; }
-        
         .tnt-willow-btn { background: linear-gradient(45deg, #334155, #1e293b); }
         .bbl-btn { background: linear-gradient(45deg, #0072ff, #00d2ff); border-color: #fff; }
-
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 8px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 8px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        
-        .join-container { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
-        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; }
     </style>
 </head>
 <body>
@@ -98,52 +54,71 @@
     </div>
 
     <div class="channel-grid">
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2HINDISD')">Star Sports 2 Hindi SD</button>
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star1engHD')">SS 1 (Eng)</button>
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star1HindiHD')">SS 1 (Hindi)</button>
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2tamilHD')">SS Tamil</button>
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2teluguHD')">SS Telugu</button>
-        <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2kannada')">SS Kannada</button>
-        <button class="channel-button tnt-willow-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=TNTSports4')">TNT Sports 4</button>
-        <button class="channel-button tnt-willow-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=WillowSports')">Willow Sports</button>
-        <button class="channel-button bbl-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2eng')">Star Sports 2 SD English</button>
-        <button class="channel-button bbl-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2engHD')">Star Sports 2 HD English</button>
+        <button class="channel-button" onclick="loadMatch('Star2HINDISD', 'ss2hindi')">Star Sports 2 Hindi SD</button>
+        <button class="channel-button" onclick="loadMatch('Star1engHD', 'ss1eng')">SS 1 (Eng)</button>
+        <button class="channel-button" onclick="loadMatch('Star1HindiHD', 'ss1hindi')">SS 1 (Hindi)</button>
+        <button class="channel-button" onclick="loadMatch('Star2tamilHD', 'sstamil')">SS Tamil</button>
+        <button class="channel-button" onclick="loadMatch('Star2teluguHD', 'sstelugu')">SS Telugu</button>
+        <button class="channel-button" onclick="loadMatch('Star2kannada', 'sskannada')">SS Kannada</button>
+        <button class="channel-button tnt-willow-btn" onclick="loadMatch('TNTSports4', 'tnt4')">TNT Sports 4</button>
+        <button class="channel-button tnt-willow-btn" onclick="loadMatch('WillowSports', 'willow')">Willow Sports</button>
+        <button class="channel-button bbl-btn" onclick="loadMatch('Star2eng', 'ss2sdeng')">Star Sports 2 SD English</button>
+        <button class="channel-button bbl-btn" onclick="loadMatch('Star2engHD', 'ss2hdeng')">Star Sports 2 HD English</button>
     </div>
 
     <div class="share-mini">
-        <div id="sharePreview">Select a channel to get your share link</div>
+        <div id="sharePreview">Select a channel...</div>
         <button class="copy-btn" onclick="copyShareMessage()">COPY LINK</button>
     </div>
 
-    <div class="join-container">
-        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366; color:white;">Join WhatsApp Group</a>
-        <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc; color:white;">Join Telegram Channel</a>
-    </div>
+    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366; color:white;">Join WhatsApp Group</a>
+    <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc; color:white;">Join Telegram Channel</a>
 
     <script>
-        // Fix: Isse sirf aapki website ka URL copy hoga
-        let mySiteURL = window.location.href; 
-        
-        function loadMatch(url) {
+        const channels = {
+            'ss2hindi': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
+            'ss1eng': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
+            'ss1hindi': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
+            'sstamil': 'https://cinearena.github.io/id/sports.html?id=Star2tamilHD',
+            'sstelugu': 'https://cinearena.github.io/id/sports.html?id=Star2teluguHD',
+            'sskannada': 'https://cinearena.github.io/id/sports.html?id=Star2kannada',
+            'tnt4': 'https://cinearena.github.io/id/sports.html?id=TNTSports4',
+            'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports',
+            'ss2sdeng': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
+            'ss2hdeng': 'https://cinearena.github.io/id/sports.html?id=Star2engHD'
+        };
+
+        let currentShareLink = "";
+        let siteBaseURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+        function loadMatch(id, slug) {
+            const url = channels[slug];
             const container = document.getElementById('player-container');
-            container.innerHTML = `<iframe id="mainIframe" src="${url}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+            container.innerHTML = `<iframe src="${url}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
             
-            // Link preview mein aapki website ka URL dikhayega
-            document.getElementById('sharePreview').innerText = mySiteURL;
+            // Generate link like: https://site.com/?ch=willow
+            currentShareLink = siteBaseURL + "?ch=" + slug;
+            document.getElementById('sharePreview').innerText = currentShareLink;
+        }
+
+        // Automatic load if URL has ?ch=name
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ch = urlParams.get('ch');
+            if (ch && channels[ch]) {
+                loadMatch('', ch);
+            }
+        };
+
+        function copyShareMessage() {
+            if (!currentShareLink) { alert("Pehle channel select karein!"); return; }
+            navigator.clipboard.writeText(currentShareLink).then(() => { alert("Direct Link Copied!"); });
         }
 
         function goFullScreen() {
             const elem = document.getElementById("videoWrapper");
-            if (elem.requestFullscreen) { elem.requestFullscreen(); }
-            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
-            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
-        }
-
-        function copyShareMessage() {
-            // Yeh hamesha aapki hi website ka link copy karega
-            navigator.clipboard.writeText(mySiteURL).then(() => { 
-                alert("Website Link Copied! Ab aap ise share kar sakte hain."); 
-            });
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
         }
 
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
