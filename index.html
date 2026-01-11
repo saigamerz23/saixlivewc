@@ -6,6 +6,8 @@
     <title>CRICKETLIVE! OFFICIAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
@@ -29,7 +31,7 @@
             position: relative;
         }
 
-        #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
+        #main-player, #hls-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; background: #000;}
         .extreme-crop { height: 180% !important; top: -40% !important; }
 
         #shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; display: none; }
@@ -40,6 +42,7 @@
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
+        .sony-btn { background: linear-gradient(45deg, #420075, #000) !important; border-color: #ff00ff !important; }
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
         .wpl-btn { background: linear-gradient(45deg, #ff00cc, #3333ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
 
@@ -47,7 +50,6 @@
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; min-width: 80px; }
         
-        /* FOOTER JOIN BUTTONS */
         .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
     </style>
 </head>
@@ -76,6 +78,9 @@
     </div>
 
     <div class="channel-grid">
+        <button class="channel-button sony-btn" onclick="loadMatch('sony1')">📺 Sony LIV 1 (HD)</button>
+        <button class="channel-button sony-btn" onclick="loadMatch('sony2')">📺 Sony LIV 2 (HD)</button>
+        
         <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (HD NO ADS)</button>
         <button class="channel-button" onclick="loadMatch('ss2hindi')">Star Sports 2 Hindi</button>
         <button class="channel-button" onclick="loadMatch('ss1sdeng')">Star Sports 1 SD</button>
@@ -96,6 +101,8 @@
 
     <script>
         const channels = {
+            'sony1': 'https://dai.google.com/linear/hls/event/HynNobMPSu6nQCgpxsK0lQ/master.m3u8',
+            'sony2': 'https://dai.google.com/linear/hls/event/HynNobMPSu6nQCgpxsK0lQ/master.m3u8',
             'wpl_live': 'https://insiderlivehd.pages.dev/Willow2',
             'ss2hindi': 'https://insiderlivehd.pages.dev/Hindi2',
             'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
@@ -111,20 +118,35 @@
             const container = document.getElementById('player-container');
             const shield = document.getElementById('shield');
             
+            const isM3U8 = url.includes('.m3u8');
             const useExtremeCrop = (slug === 'wpl_live' || slug === 'sa20_live');
             const cropClass = useExtremeCrop ? 'extreme-crop' : '';
             
             if(useExtremeCrop) shield.style.display = 'block';
             else shield.style.display = 'none';
 
-            container.innerHTML = `<iframe 
-                id="main-player"
-                class="${cropClass}"
-                src="${url}" 
-                sandbox="allow-scripts allow-same-origin allow-forms" 
-                allow="autoplay; encrypted-media; fullscreen" 
-                referrerpolicy="no-referrer"
-                allowfullscreen></iframe>`;
+            if (isM3U8) {
+                // If it's an M3U8 link, use HTML5 Video + HLS.js
+                container.innerHTML = `<video id="hls-player" controls autoplay playsinline></video>`;
+                const video = document.getElementById('hls-player');
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(url);
+                    hls.attachMedia(video);
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = url;
+                }
+            } else {
+                // If it's a normal link, use Iframe
+                container.innerHTML = `<iframe 
+                    id="main-player"
+                    class="${cropClass}"
+                    src="${url}" 
+                    sandbox="allow-scripts allow-same-origin allow-forms" 
+                    allow="autoplay; encrypted-media; fullscreen" 
+                    referrerpolicy="no-referrer"
+                    allowfullscreen></iframe>`;
+            }
             
             const shareLink = window.location.href.split('?')[0] + "?ch=" + slug;
             document.getElementById('sharePreview').innerText = shareLink;
