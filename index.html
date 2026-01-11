@@ -17,7 +17,6 @@
         .header { padding: 20px 10px; background: #0f172a; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; margin: 0; text-transform: uppercase; }
 
-        /* VIDEO AREA */
         .video-wrapper { 
             width: 96%; 
             max-width: 850px; 
@@ -30,28 +29,17 @@
             position: relative;
         }
 
-        /* Iframe settings to push popup out of view */
         iframe { 
             width: 100%; 
-            height: 180%; /* Height aur zyada badha di */
+            height: 180%; 
             border: 0; 
             position: absolute; 
-            top: -40%; /* Iframe ko upar khinch liya taaki middle popup niche chala jaye */
+            top: -40%; 
             left: 0; 
             z-index: 1;
         }
 
-        /* Click blocker layer */
-        #shield {
-            position: absolute;
-            top: 15%; /* Jahan popup aata hai wahan ki clicks block karega */
-            left: 0;
-            width: 100%;
-            height: 70%;
-            z-index: 10;
-            background: transparent;
-            display: none;
-        }
+        #shield { position: absolute; top: 15%; left: 0; width: 100%; height: 70%; z-index: 10; background: transparent; display: none; }
 
         .fs-container { margin-bottom: 10px; }
         .fs-btn { background: #1e293b; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 15px; font-size: 11px; border-radius: 20px; cursor: pointer; font-weight: bold; }
@@ -61,9 +49,32 @@
         
         .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; }
 
+        /* SHARE SECTION FIX */
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px auto; width: 92%; max-width: 400px; }
-        #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 8px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 8px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        #sharePreview { 
+            font-size: 10px; 
+            color: #00d2ff; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+            background: #111827; 
+            padding: 10px; 
+            border-radius: 4px; 
+            flex-grow: 1; 
+            border: 1px solid #334155; 
+            text-align: left;
+        }
+        .copy-btn { 
+            background: linear-gradient(90deg, #00d2ff, #0072ff); 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 4px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            min-width: 80px;
+        }
         
         .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
     </style>
@@ -99,12 +110,12 @@
         <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (Hindi HD)</button>
         <button class="channel-button" onclick="loadMatch('tnt4')">TNT Sports 4</button>
         <button class="channel-button" onclick="loadMatch('willow')">Willow Sports</button>
-        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER - NO POPUP)</button>
+        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER)</button>
     </div>
 
     <div class="share-mini">
-        <div id="sharePreview">Select a channel...</div>
-        <button class="copy-btn" onclick="copyShareMessage()">COPY LINK</button>
+        <div id="sharePreview">Channel select karein...</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY LINK</button>
     </div>
 
     <a href="#" class="join-btn" style="background:#25D366;">Join WhatsApp</a>
@@ -126,7 +137,6 @@
             const container = document.getElementById('player-container');
             const shield = document.getElementById('shield');
             
-            // SA20 ke liye clicks block karne wali layer activate
             if(slug === 'sa20_live') shield.style.display = 'block';
             else shield.style.display = 'none';
 
@@ -137,15 +147,71 @@
                 referrerpolicy="no-referrer"
                 allowfullscreen></iframe>`;
             
-            document.getElementById('sharePreview').innerText = window.location.origin + window.location.pathname + "?ch=" + slug;
+            // Share link generate karna
+            const shareLink = window.location.href.split('?')[0] + "?ch=" + slug;
+            document.getElementById('sharePreview').innerText = shareLink;
+        }
+
+        // COPY FUNCTION FIX
+        function copyShareMessage() {
+            const linkText = document.getElementById('sharePreview').innerText;
+            const btn = document.getElementById('copyBtn');
+
+            if (linkText.includes("...")) {
+                alert("Pehle koi channel select karein!");
+                return;
+            }
+
+            // Method 1: Modern API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(linkText).then(() => {
+                    showSuccess(btn);
+                }).catch(() => {
+                    fallbackCopy(linkText, btn);
+                });
+            } else {
+                // Method 2: Fallback for older browsers/HTTP
+                fallbackCopy(linkText, btn);
+            }
+        }
+
+        function fallbackCopy(text, btn) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showSuccess(btn);
+            } catch (err) {
+                alert("Copy failed, please copy manually.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showSuccess(btn) {
+            const originalText = btn.innerText;
+            btn.innerText = "COPIED!";
+            btn.style.background = "#25D366";
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "linear-gradient(90deg, #00d2ff, #0072ff)";
+            }, 2000);
         }
 
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
+        
         function goFullScreen() {
             let v = document.getElementById("videoWrapper");
             if (v.requestFullscreen) v.requestFullscreen();
             else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
         }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ch = urlParams.get('ch');
+            if (ch && channels[ch]) loadMatch(ch);
+        };
     </script>
 </body>
 </html>
