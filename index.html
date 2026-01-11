@@ -101,22 +101,17 @@
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2HINDISD')">Star Sports 2 Hindi SD</button>
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star1engHD')">SS 1 (Eng)</button>
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star1HindiHD')">SS 1 (Hindi)</button>
-        
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2tamilHD')">SS Tamil</button>
-        
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2teluguHD')">SS Telugu</button>
-        
         <button class="channel-button" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2kannada')">SS Kannada</button>
-
         <button class="channel-button tnt-willow-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=TNTSports4')">TNT Sports 4</button>
         <button class="channel-button tnt-willow-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=WillowSports')">Willow Sports</button>
-        
         <button class="channel-button bbl-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2eng')">Star Sports 2 SD English</button>
         <button class="channel-button bbl-btn" onclick="loadMatch('https://cinearena.github.io/id/sports.html?id=Star2engHD')">Star Sports 2 HD English</button>
     </div>
 
     <div class="share-mini">
-        <div id="sharePreview">Link will appear here</div>
+        <div id="sharePreview">Select a channel to get your share link</div>
         <button class="copy-btn" onclick="copyShareMessage()">COPY LINK</button>
     </div>
 
@@ -126,23 +121,31 @@
     </div>
 
     <script>
-        let currentLink = "";
+        // Fix: Isse sirf aapki website ka URL copy hoga
+        let mySiteURL = window.location.href; 
+        
         function loadMatch(url) {
             const container = document.getElementById('player-container');
             container.innerHTML = `<iframe id="mainIframe" src="${url}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
-            currentLink = url;
-            document.getElementById('sharePreview').innerText = currentLink;
+            
+            // Link preview mein aapki website ka URL dikhayega
+            document.getElementById('sharePreview').innerText = mySiteURL;
         }
+
         function goFullScreen() {
             const elem = document.getElementById("videoWrapper");
             if (elem.requestFullscreen) { elem.requestFullscreen(); }
             else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); }
             else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); }
         }
+
         function copyShareMessage() {
-            if (currentLink === "") { alert("Pehle channel select karein!"); return; }
-            navigator.clipboard.writeText(currentLink).then(() => { alert("Link Copied!"); });
+            // Yeh hamesha aapki hi website ka link copy karega
+            navigator.clipboard.writeText(mySiteURL).then(() => { 
+                alert("Website Link Copied! Ab aap ise share kar sakte hain."); 
+            });
         }
+
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
     </script>
 </body>
