@@ -9,16 +9,14 @@
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
-        /* Telegram Popup (Entry) */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 300px; border: 2px solid #00d2ff; }
-        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
+        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; color: white; font-size: 13px; }
 
         .header { padding: 15px 10px; background: #0f172a; }
-        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; text-transform: uppercase; }
+        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
 
-        /* PLAYER BOX WITH CROPPING */
         .video-wrapper { 
             width: 96%; 
             max-width: 850px; 
@@ -29,26 +27,38 @@
             overflow: hidden; 
             aspect-ratio: 16 / 9; 
             position: relative;
+            /* Smooth Rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         #main-player { 
             width: 100%; 
-            height: 125%; /* Height increased to cover crop */
+            height: 100%;
             border: 0; 
             position: absolute; 
-            top: -55px; /* Pushes yellow bar up out of view */
+            top: 0; 
             left: 0; 
-            z-index: 1; 
+            z-index: 1;
+            will-change: transform;
+        }
+
+        /* Smoothing Extreme Crop for WPL & SA20 */
+        .extreme-crop { 
+            height: 160% !important; 
+            top: -30% !important;
+            transform: scale(1.05); /* Halki si scaling for better fit */
         }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
+        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
 
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 15px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; min-width: 80px; }
+        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; min-width: 80px; }
         
         .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
     </style>
@@ -66,7 +76,7 @@
 
     <header class="header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
 
-    <div class="video-wrapper" id="videoWrapper">
+    <div class="video-wrapper">
         <div id="player-container">
             <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div>
         </div>
@@ -81,6 +91,7 @@
         <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (HINDI HD)</button>
         <button class="channel-button" onclick="loadMatch('tnt4')">TNT SPORTS 4</button>
         <button class="channel-button" style="grid-column: span 2;" onclick="loadMatch('willow')">WILLOW SPORTS</button>
+        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER)</button>
     </div>
 
     <div class="share-mini">
@@ -94,6 +105,7 @@
     <script>
         const channels = {
             'wpl_live': 'https://teamrohittry2.pages.dev/',
+            'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20',
             'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
             'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
             'ss2sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
@@ -107,27 +119,23 @@
             const url = channels[slug];
             const container = document.getElementById('player-container');
             
-            // Apply crop specifically for the WPL link
-            const isWPL = (slug === 'wpl_live');
-            const playerStyle = isWPL ? 'style="top: -55px; height: 125%;"' : 'style="top: 0; height: 100%;"';
+            let cropClass = (slug === 'wpl_live' || slug === 'sa20_live') ? 'class="extreme-crop"' : '';
 
             container.innerHTML = `<iframe 
                 id="main-player"
+                ${cropClass}
                 src="${url}" 
-                ${playerStyle}
                 sandbox="allow-scripts allow-same-origin allow-forms" 
                 allow="autoplay; encrypted-media; fullscreen" 
-                referrerpolicy="no-referrer"
-                allowfullscreen></iframe>`;
+                loading="lazy"></iframe>`;
             
             document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
         }
 
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
-        
         function copyShareMessage() {
             const linkText = document.getElementById('sharePreview').innerText;
-            if (linkText.includes("...")) return alert("Pehle channel select karein!");
+            if (linkText.includes("...")) return;
             navigator.clipboard.writeText(linkText);
             document.getElementById('copyBtn').innerText = "COPIED!";
             setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY LINK"; }, 2000);
