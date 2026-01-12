@@ -42,9 +42,9 @@
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
-        .sony-btn { background: linear-gradient(45deg, #420075, #000) !important; border-color: #ff00ff !important; }
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
-        .wpl-btn { background: linear-gradient(45deg, #ff00cc, #3333ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
+        /* Style for the new Khel button */
+        .khel-btn { background: linear-gradient(45deg, #ffcc00, #ff6600) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
 
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
@@ -78,11 +78,8 @@
     </div>
 
     <div class="channel-grid">
-        <button class="channel-button sony-btn" onclick="loadMatch('sony1')">📺 Sony LIV 1 (HD)</button>
-        <button class="channel-button sony-btn" onclick="loadMatch('sony2')">📺 Sony LIV 2 (HD)</button>
+        <button class="channel-button khel-btn" onclick="loadMatch('sskhel')">🏏 STAR SPORTS KHEL (LIVE)</button>
         
-        <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (HD NO ADS)</button>
-        <button class="channel-button" onclick="loadMatch('ss2hindi')">Star Sports 2 Hindi</button>
         <button class="channel-button" onclick="loadMatch('ss1sdeng')">Star Sports 1 SD</button>
         <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (Eng HD)</button>
         <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (Hindi HD)</button>
@@ -101,10 +98,7 @@
 
     <script>
         const channels = {
-            'sony1': 'https://dai.google.com/linear/hls/event/HynNobMPSu6nQCgpxsK0lQ/master.m3u8',
-            'sony2': 'https://dai.google.com/linear/hls/event/HynNobMPSu6nQCgpxsK0lQ/master.m3u8',
-            'wpl_live': 'https://insiderlivehd.pages.dev/Willow2',
-            'ss2hindi': 'https://insiderlivehd.pages.dev/Hindi2',
+            'sskhel': 'https://cinearena.github.io/id/sports.html?id=Star2khel',
             'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
             'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
             'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
@@ -119,14 +113,13 @@
             const shield = document.getElementById('shield');
             
             const isM3U8 = url.includes('.m3u8');
-            const useExtremeCrop = (slug === 'wpl_live' || slug === 'sa20_live');
+            const useExtremeCrop = (slug === 'sa20_live');
             const cropClass = useExtremeCrop ? 'extreme-crop' : '';
             
             if(useExtremeCrop) shield.style.display = 'block';
             else shield.style.display = 'none';
 
             if (isM3U8) {
-                // If it's an M3U8 link, use HTML5 Video + HLS.js
                 container.innerHTML = `<video id="hls-player" controls autoplay playsinline></video>`;
                 const video = document.getElementById('hls-player');
                 if (Hls.isSupported()) {
@@ -137,7 +130,6 @@
                     video.src = url;
                 }
             } else {
-                // If it's a normal link, use Iframe
                 container.innerHTML = `<iframe 
                     id="main-player"
                     class="${cropClass}"
