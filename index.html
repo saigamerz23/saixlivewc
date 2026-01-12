@@ -6,46 +6,47 @@
     <title>CRICKETLIVE! OFFICIAL</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
+        /* Telegram Popup (Entry) */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
         .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 300px; border: 2px solid #00d2ff; }
         .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; color: white; font-size: 13px; }
 
-        .header { padding: 20px 10px; background: #0f172a; }
-        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; margin: 0; text-transform: uppercase; }
+        .header { padding: 15px 10px; background: #0f172a; }
+        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; text-transform: uppercase; }
 
+        /* PLAYER BOX WITH CROPPING */
         .video-wrapper { 
             width: 96%; 
             max-width: 850px; 
-            margin: 15px auto; 
+            margin: 20px auto; 
             background: #000; 
             border: 2px solid #00d2ff; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             overflow: hidden; 
             aspect-ratio: 16 / 9; 
             position: relative;
         }
 
-        #main-player, #hls-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; background: #000;}
-        .extreme-crop { height: 180% !important; top: -40% !important; }
-
-        #shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; display: none; }
-
-        .fs-container { margin-bottom: 10px; }
-        .fs-btn { background: #1e293b; color: #00d2ff; border: 1px solid #00d2ff; padding: 5px 15px; font-size: 11px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        #main-player { 
+            width: 100%; 
+            height: 125%; /* Height increased to cover crop */
+            border: 0; 
+            position: absolute; 
+            top: -55px; /* Pushes yellow bar up out of view */
+            left: 0; 
+            z-index: 1; 
+        }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
-        .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
-        .khel-btn { background: linear-gradient(45deg, #ffcc00, #ff6600) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
+        .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
 
-        .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 10px auto; width: 92%; max-width: 400px; }
+        .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 15px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; min-width: 80px; }
         
@@ -66,29 +67,20 @@
     <header class="header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
 
     <div class="video-wrapper" id="videoWrapper">
-        <div id="shield" onclick="this.style.display='none'"></div>
         <div id="player-container">
             <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div>
         </div>
     </div>
 
-    <div class="fs-container">
-        <button class="fs-btn" onclick="goFullScreen()">⛶ FULL SCREEN MODE</button>
-    </div>
-
     <div class="channel-grid">
-        <button class="channel-button khel-btn" onclick="loadMatch('sskhel')">🏏 STAR SPORTS KHEL (LIVE)</button>
-        
-        <button class="channel-button" onclick="loadMatch('ss1sdeng')">Star Sports 1 SD</button>
-        <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (Eng HD)</button>
-        
-        <button class="channel-button" onclick="loadMatch('ss2sd')">Star Sports 2 SD</button>
-        <button class="channel-button" onclick="loadMatch('ss2hd')">Star Sports 2 HD</button>
-        
-        <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (Hindi HD)</button>
-        <button class="channel-button" onclick="loadMatch('tnt4')">TNT Sports 4</button>
-        <button class="channel-button" onclick="loadMatch('willow')">Willow Sports</button>
-        <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER)</button>
+        <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
+        <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
+        <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
+        <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
+        <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
+        <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (HINDI HD)</button>
+        <button class="channel-button" onclick="loadMatch('tnt4')">TNT SPORTS 4</button>
+        <button class="channel-button" style="grid-column: span 2;" onclick="loadMatch('willow')">WILLOW SPORTS</button>
     </div>
 
     <div class="share-mini">
@@ -101,75 +93,44 @@
 
     <script>
         const channels = {
-            'sskhel': 'https://cinearena.github.io/id/sports.html?id=Star2khel',
+            'wpl_live': 'https://teamrohittry2.pages.dev/',
             'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
             'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
             'ss2sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
             'ss2hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD',
             'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
             'tnt4': 'https://cinearena.github.io/id/sports.html?id=TNTSports4',
-            'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports',
-            'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20'
+            'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports'
         };
 
         function loadMatch(slug) {
             const url = channels[slug];
             const container = document.getElementById('player-container');
-            const shield = document.getElementById('shield');
             
-            const isM3U8 = url.includes('.m3u8');
-            const useExtremeCrop = (slug === 'sa20_live');
-            const cropClass = useExtremeCrop ? 'extreme-crop' : '';
-            
-            if(useExtremeCrop) shield.style.display = 'block';
-            else shield.style.display = 'none';
+            // Apply crop specifically for the WPL link
+            const isWPL = (slug === 'wpl_live');
+            const playerStyle = isWPL ? 'style="top: -55px; height: 125%;"' : 'style="top: 0; height: 100%;"';
 
-            if (isM3U8) {
-                container.innerHTML = `<video id="hls-player" controls autoplay playsinline></video>`;
-                const video = document.getElementById('hls-player');
-                if (Hls.isSupported()) {
-                    const hls = new Hls();
-                    hls.loadSource(url);
-                    hls.attachMedia(video);
-                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                    video.src = url;
-                }
-            } else {
-                container.innerHTML = `<iframe 
-                    id="main-player"
-                    class="${cropClass}"
-                    src="${url}" 
-                    sandbox="allow-scripts allow-same-origin allow-forms" 
-                    allow="autoplay; encrypted-media; fullscreen" 
-                    referrerpolicy="no-referrer"
-                    allowfullscreen></iframe>`;
-            }
+            container.innerHTML = `<iframe 
+                id="main-player"
+                src="${url}" 
+                ${playerStyle}
+                sandbox="allow-scripts allow-same-origin allow-forms" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                referrerpolicy="no-referrer"
+                allowfullscreen></iframe>`;
             
-            const shareLink = window.location.href.split('?')[0] + "?ch=" + slug;
-            document.getElementById('sharePreview').innerText = shareLink;
-        }
-
-        function copyShareMessage() {
-            const linkText = document.getElementById('sharePreview').innerText;
-            const btn = document.getElementById('copyBtn');
-            if (linkText.includes("...")) return alert("Pehle channel select karein!");
-
-            const textArea = document.createElement("textarea");
-            textArea.value = linkText;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            btn.innerText = "COPIED!";
-            setTimeout(() => { btn.innerText = "COPY LINK"; }, 2000);
+            document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
         }
 
         function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
-        function goFullScreen() {
-            let v = document.getElementById("videoWrapper");
-            if (v.requestFullscreen) v.requestFullscreen();
-            else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+        
+        function copyShareMessage() {
+            const linkText = document.getElementById('sharePreview').innerText;
+            if (linkText.includes("...")) return alert("Pehle channel select karein!");
+            navigator.clipboard.writeText(linkText);
+            document.getElementById('copyBtn').innerText = "COPIED!";
+            setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY LINK"; }, 2000);
         }
 
         window.onload = function() {
