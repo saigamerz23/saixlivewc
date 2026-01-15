@@ -10,14 +10,22 @@
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
-        /* Popup Styling */
-        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-        .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; }
+        /* Popup Styling - Fixed to be on top of everything */
+        #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050810; display: flex; justify-content: center; align-items: center; z-index: 99999; }
+        .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); }
         .support-text { font-family: 'Bebas Neue', cursive; font-size: 28px; color: #00d2ff; letter-spacing: 1.5px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 12px; }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); }
 
         .header { padding: 15px 10px; background: #0f172a; border-bottom: 1px solid #1e293b; }
-        .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
+        .header h1, .share-header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
+
+        .share-header { display: none; padding: 15px 10px; }
+
+        /* LIVE SIGNAL (Hidden by Default) */
+        #live-signal-box { display: none; justify-content: flex-end; width: 96%; max-width: 850px; margin: 10px auto -15px auto; visibility: hidden; }
+        #live-signal { background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 5px; font-size: 9px; font-weight: bold; color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); display: flex; align-items: center; }
+        .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         .video-wrapper { 
             width: 96%; max-width: 850px; margin: 20px auto; background: #000; border: 2px solid #00d2ff; 
@@ -26,15 +34,7 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
 
-        /* LIVE SIGNAL & WATERMARK */
-        #live-signal {
-            display: none; position: absolute; top: 10px; right: 12px; z-index: 2147483647;
-            background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 5px;
-            font-size: 9px; font-weight: bold; color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); backdrop-filter: blur(4px);
-        }
-        .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
+        /* WATERMARK (Hidden by Default) */
         #watermark {
             position: absolute; top: 8px; left: 8px; z-index: 2147483647; 
             font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 900;
@@ -44,8 +44,7 @@
             pointer-events: none; display: none; text-transform: uppercase;
         }
 
-        /* REACTIONS */
-        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 10px auto; }
+        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 10px auto; visibility: hidden; }
         .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
         .react-btn:active { transform: scale(1.3); }
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 30px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
@@ -79,10 +78,12 @@
     </div>
 
     <header class="header" id="site-header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
+    <div class="share-header" id="share-header"><h1>CRICKETLIVE! OFFICIAL</h1></div>
+
+    <div id="live-signal-box"><div id="live-signal"><span class="green-dot"></span>LIVE</div></div>
 
     <div class="video-wrapper">
         <div id="watermark">CricketLIVE! Official</div>
-        <div id="live-signal"><span class="green-dot"></span>LIVE</div>
         <div id="player-container">
             <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div>
         </div>
@@ -141,16 +142,35 @@
             'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
         };
 
+        let currentChannel = null;
+
         function loadMatch(slug) {
+            currentChannel = slug;
             const url = channels[slug];
             const container = document.getElementById('player-container');
             let extraStyle = (slug === 'wpl_live' || slug === 'sa20_live') ? 'class="extreme-crop"' : '';
-            // Added sandbox to prevent popups from inner servers
             container.innerHTML = `<iframe id="main-player" ${extraStyle} src="${url}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no"></iframe>`;
-            document.getElementById('watermark').style.display = 'inline-block';
-            document.getElementById('live-signal').style.display = 'flex';
-            document.getElementById('reaction-bar').style.display = 'flex';
+            
+            // Elements are loaded but only shown if popup is closed
+            if (document.getElementById('entry-popup').style.display === 'none') {
+                showUIParts();
+            }
             document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
+        }
+
+        function showUIParts() {
+            if (currentChannel) {
+                document.getElementById('watermark').style.display = 'inline-block';
+                document.getElementById('live-signal-box').style.display = 'flex';
+                document.getElementById('live-signal-box').style.visibility = 'visible';
+                document.getElementById('reaction-bar').style.display = 'flex';
+                document.getElementById('reaction-bar').style.visibility = 'visible';
+            }
+        }
+
+        function closePopup() { 
+            document.getElementById('entry-popup').style.display = 'none'; 
+            showUIParts(); // Show UI only after popup is gone
         }
 
         function react(emoji) {
@@ -173,16 +193,15 @@
         function whatsappShare() {
             const linkText = document.getElementById('sharePreview').innerText;
             if (linkText.includes("...")) return;
-            window.open("https://api.whatsapp.com/send?text=WPL Live streaming link: " + linkText, '_blank');
+            window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank');
         }
-
-        function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
 
         window.onload = function() {
             const ch = new URLSearchParams(window.location.search).get('ch');
             if (ch && channels[ch]) {
                 loadMatch(ch);
                 document.getElementById('site-header').classList.add('hidden-mode');
+                document.getElementById('share-header').style.display = 'block';
                 document.getElementById('main-grid').classList.add('hidden-mode');
                 document.getElementById('social-box').classList.add('hidden-mode');
                 document.getElementById('view-all-btn').style.display = 'block';
