@@ -52,8 +52,8 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
         
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
-        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; grid-column: span 2; font-size: 13px; margin-top: 5px; }
-        .khel-btn { background: linear-gradient(45deg, #ed1c24, #2e3192) !important; color: white !important; grid-column: span 2; border: 1px solid #fff; }
+        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; font-size: 11px; }
+        .khel-btn { background: linear-gradient(45deg, #ed1c24, #2e3192) !important; color: white !important; border: 1px solid #fff; font-size: 10px; }
 
         .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 15px auto; width: 92%; max-width: 400px; }
         #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
@@ -88,10 +88,15 @@
         <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
         <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
         <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (HINDI HD)</button>
+        <button class="channel-button" onclick="loadMatch('ss2hindisd')">SS 2 (HINDI SD)</button>
+        <button class="channel-button" onclick="loadMatch('ssselect2sd')">SS SELECT 2 SD</button>
+        <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
+        
         <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
-        <button class="channel-button" style="grid-column: span 2;" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-        <button class="channel-button khel-btn" onclick="loadMatch('ss_khel')">📺 STAR SPORTS KHEL VHT LIVE</button>
-        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE (GEO SUPER)</button>
+        <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
+        
+        <button class="channel-button khel-btn" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
+        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE</button>
     </div>
 
     <div class="share-mini">
@@ -111,7 +116,9 @@
             'ss2sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
             'ss2hd': 'https://cinearena.github.io/id/sports.html?id=Star2engHD',
             'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
-            // TNT Sports 1 link updated here
+            'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
+            'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
+            'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
             'tnt1': 'https://cinearena.github.io/id/sports.html?id=TNTSports1',
             'willow': 'https://cinearena.github.io/id/sports.html?id=WillowSports',
             'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
