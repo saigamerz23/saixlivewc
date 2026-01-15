@@ -4,85 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRICKETLIVE! OFFICIAL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
+        /* Popup Styling */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.98); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-        .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 300px; border: 2px solid #00d2ff; }
-        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 15px; }
-        .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: block; margin-bottom: 10px; color: white; font-size: 13px; }
+        .pop-box { background: #111827; padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; border: 2px solid #00d2ff; }
+        .support-text { font-family: 'Bebas Neue', cursive; font-size: 28px; color: #00d2ff; letter-spacing: 1.5px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); }
 
-        .header { padding: 15px 10px; background: #0f172a; }
+        .header { padding: 15px 10px; background: #0f172a; border-bottom: 1px solid #1e293b; }
         .header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
 
         .video-wrapper { 
-            width: 96%; 
-            max-width: 850px; 
-            margin: 20px auto; 
-            background: #000; 
-            border: 2px solid #00d2ff; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            aspect-ratio: 16 / 9; 
-            position: relative;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+            width: 96%; max-width: 850px; margin: 20px auto; background: #000; border: 2px solid #00d2ff; 
+            border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; position: relative;
         }
 
-        #main-player { 
-            width: 100%; 
-            height: 100%;
-            border: 0; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            z-index: 1;
-            will-change: transform;
+        #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        /* LIVE SIGNAL & WATERMARK */
+        #live-signal {
+            display: none; position: absolute; top: 10px; right: 12px; z-index: 2147483647;
+            background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 5px;
+            font-size: 9px; font-weight: bold; color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); backdrop-filter: blur(4px);
+        }
+        .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        #watermark {
+            position: absolute; top: 8px; left: 8px; z-index: 2147483647; 
+            font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 900;
+            color: #ffffff; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px); padding: 3px 6px; border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.25); text-shadow: 1px 1px 2px #000; 
+            pointer-events: none; display: none; text-transform: uppercase;
         }
 
-        .extreme-crop { 
-            height: 160% !important; 
-            top: -30% !important;
-            transform: scale(1.05); 
-        }
+        /* REACTIONS */
+        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 10px auto; }
+        .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+        .react-btn:active { transform: scale(1.3); }
+        .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 30px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
+        @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.4); opacity: 1; } 100% { transform: translateY(-350px) translateX(40px); opacity: 0; } }
+
+        .extreme-crop { height: 165% !important; top: -32% !important; transform: scale(1.08); }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: linear-gradient(45deg, #1e293b, #334155); border: 1px solid #00d2ff; }
-        
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 2px solid #fff; }
-        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; font-size: 11px; }
-        .khel-btn { background: linear-gradient(45deg, #ed1c24, #2e3192) !important; color: white !important; border: 1px solid #fff; font-size: 10px; }
 
-        .share-mini { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 15px auto; width: 92%; max-width: 400px; }
-        #sharePreview { font-size: 10px; color: #00d2ff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; min-width: 80px; }
-        
-        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: block; margin: 10px auto; color: white; }
+        #sharePreview { font-size: 10px; color: #00d2ff; background: #111827; padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid #334155; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .wp-share-btn { background: #25D366; color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; margin-left: 5px; }
+
+        .join-btn { width: 90%; max-width: 420px; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px auto; color: white; }
+
+        .hidden-mode { display: none !important; }
+        #view-all-btn { display: none; margin: 10px auto; background: #ffffff; color: #000; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; width: fit-content; border: 2px solid #00d2ff; }
     </style>
 </head>
 <body>
 
     <div id="entry-popup">
         <div class="pop-box">
-            <div class="support-text">SUPPORT US!</div>
-            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;">JOIN WHATSAPP</a>
-            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;">JOIN TELEGRAM</a>
-            <div style="margin-top:15px; cursor:pointer; font-size:11px; color:#64748b; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
+            <div class="support-text"><i class="fab fa-whatsapp"></i> JOIN US <i class="fab fa-telegram"></i></div>
+            <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WHATSAPP GROUP</a>
+            <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> TELEGRAM CHANNEL</a>
+            <div style="margin-top:18px; cursor:pointer; font-size:11px; color:#00d2ff; font-weight:bold; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
         </div>
     </div>
 
-    <header class="header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
+    <header class="header" id="site-header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
 
     <div class="video-wrapper">
+        <div id="watermark">CricketLIVE! Official</div>
+        <div id="live-signal"><span class="green-dot"></span>LIVE</div>
         <div id="player-container">
             <div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div>
         </div>
     </div>
 
-    <div class="channel-grid">
+    <div class="reaction-bar" id="reaction-bar">
+        <div class="react-btn" onclick="react('🔥')">🔥</div>
+        <div class="react-btn" onclick="react('🏏')">🏏</div>
+        <div class="react-btn" onclick="react('❤️')">❤️</div>
+        <div class="react-btn" onclick="react('😂')">😂</div>
+    </div>
+
+    <a href="/" id="view-all-btn">Show All Channels</a>
+
+    <div class="channel-grid" id="main-grid">
         <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
+        <button class="channel-button" style="background: linear-gradient(45deg, #f9a8d4, #00d2ff); color:#000;" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE</button>
         <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
         <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
         <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
@@ -91,21 +108,21 @@
         <button class="channel-button" onclick="loadMatch('ss2hindisd')">SS 2 (HINDI SD)</button>
         <button class="channel-button" onclick="loadMatch('ssselect2sd')">SS SELECT 2 SD</button>
         <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
-        
         <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
         <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-        
-        <button class="channel-button khel-btn" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
-        <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🔥 SA20 LIVE</button>
+        <button class="channel-button" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
     </div>
 
-    <div class="share-mini">
-        <div id="sharePreview">Channel select karein...</div>
-        <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY LINK</button>
+    <div class="share-mini" style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;" id="share-box">
+        <div id="sharePreview">Select a channel...</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY</button>
+        <button class="wp-share-btn" onclick="whatsappShare()"><i class="fab fa-whatsapp"></i></button>
     </div>
 
-    <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366;">Join WhatsApp Group</a>
-    <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc;">Join Telegram Channel</a>
+    <div id="social-box">
+        <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> Join WhatsApp</a>
+        <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> Join Telegram</a>
+    </div>
 
     <script>
         const channels = {
@@ -127,33 +144,49 @@
         function loadMatch(slug) {
             const url = channels[slug];
             const container = document.getElementById('player-container');
-            
-            let cropClass = (slug === 'wpl_live' || slug === 'sa20_live') ? 'class="extreme-crop"' : '';
-
-            container.innerHTML = `<iframe 
-                id="main-player"
-                ${cropClass}
-                src="${url}" 
-                sandbox="allow-scripts allow-same-origin allow-forms" 
-                allow="autoplay; encrypted-media; fullscreen" 
-                loading="lazy"></iframe>`;
-            
+            let extraStyle = (slug === 'wpl_live' || slug === 'sa20_live') ? 'class="extreme-crop"' : '';
+            // Added sandbox to prevent popups from inner servers
+            container.innerHTML = `<iframe id="main-player" ${extraStyle} src="${url}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no"></iframe>`;
+            document.getElementById('watermark').style.display = 'inline-block';
+            document.getElementById('live-signal').style.display = 'flex';
+            document.getElementById('reaction-bar').style.display = 'flex';
             document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
         }
 
-        function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
+        function react(emoji) {
+            const el = document.createElement('div');
+            el.className = 'floating-emoji';
+            el.innerText = emoji;
+            el.style.left = (45 + Math.random() * 10) + '%';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 2000);
+        }
+
         function copyShareMessage() {
             const linkText = document.getElementById('sharePreview').innerText;
             if (linkText.includes("...")) return;
             navigator.clipboard.writeText(linkText);
-            document.getElementById('copyBtn').innerText = "COPIED!";
-            setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY LINK"; }, 2000);
+            document.getElementById('copyBtn').innerText = "DONE!";
+            setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000);
         }
 
+        function whatsappShare() {
+            const linkText = document.getElementById('sharePreview').innerText;
+            if (linkText.includes("...")) return;
+            window.open("https://api.whatsapp.com/send?text=WPL Live streaming link: " + linkText, '_blank');
+        }
+
+        function closePopup() { document.getElementById('entry-popup').style.display = 'none'; }
+
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ch = urlParams.get('ch');
-            if (ch && channels[ch]) loadMatch(ch);
+            const ch = new URLSearchParams(window.location.search).get('ch');
+            if (ch && channels[ch]) {
+                loadMatch(ch);
+                document.getElementById('site-header').classList.add('hidden-mode');
+                document.getElementById('main-grid').classList.add('hidden-mode');
+                document.getElementById('social-box').classList.add('hidden-mode');
+                document.getElementById('view-all-btn').style.display = 'block';
+            }
         };
     </script>
 </body>
