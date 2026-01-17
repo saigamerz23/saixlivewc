@@ -50,8 +50,25 @@
 
         #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; }
 
-        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 10px auto; visibility: hidden; }
-        .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+        /* REACTION BAR FIX */
+        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; visibility: visible; }
+        .react-btn { 
+            font-size: 24px; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            background: rgba(255,255,255,0.1); 
+            padding: 8px; 
+            border-radius: 50%; 
+            width: 45px; 
+            height: 45px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+        .react-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+        
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
         @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px) translateX(50px); opacity: 0; } }
 
@@ -80,7 +97,7 @@
 
 <div id="entry-popup">
     <div class="pop-box">
-        <div class="support-text"> JOIN US</div>
+        <div class="support-text">🚀 JOIN US</div>
         <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WHATSAPP GROUP</a>
         <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> TELEGRAM CHANNEL</a>
         <div style="margin-top:18px; cursor:pointer; font-size:11px; color:#00d2ff; font-weight:bold; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
@@ -103,19 +120,19 @@
 </div>
 
 <div class="reaction-bar" id="reaction-bar">
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
+    <div class="react-btn" onclick="react('🔥')">🔥</div>
+    <div class="react-btn" onclick="react('😂')">😂</div>
+    <div class="react-btn" onclick="react('🎯')">🎯</div>
+    <div class="react-btn" onclick="react('🏏')">🏏</div>
+    <div class="react-btn" onclick="react('👏')">👏</div>
 </div>
 
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
-    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')"> FOX CRICKET LIVE (FIXED)</button>
-    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')"> WPL LIVE (NEW SERVER)</button>
-    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')"> CRICLIFE (WILLOW SERVER)</button>
+    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">📺 FOX CRICKET LIVE (FIXED)</button>
+    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">📺 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">📺 CRICLIFE (WILLOW SERVER)</button>
     <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
     <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
@@ -126,8 +143,8 @@
     <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')"> SS KHEL VHT</button>
-    <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')"> SA20 LIVE</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
+    <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">📺 SA20 LIVE</button>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
@@ -186,7 +203,6 @@
         if (currentChannel && popupClosed) {
             document.getElementById('live-signal-box').style.display = 'flex';
             document.getElementById('reaction-bar').style.display = 'flex';
-            document.getElementById('reaction-bar').style.visibility = 'visible';
         }
     }
 
