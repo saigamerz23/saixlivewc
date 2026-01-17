@@ -44,13 +44,15 @@
         .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
+        /* Adjusted Top for Prime Button to move video slightly up */
+        .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
         @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
         #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; }
 
-        /* REACTION BAR FIX */
+        /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; visibility: visible; }
         .react-btn { 
             font-size: 24px; 
@@ -78,7 +80,7 @@
         .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
-        .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
+        .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
 
         #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
@@ -121,18 +123,18 @@
 
 <div class="reaction-bar" id="reaction-bar">
     <div class="react-btn" onclick="react('🔥')">🔥</div>
-    <div class="react-btn" onclick="react('😂')">😂</div>
-    <div class="react-btn" onclick="react('🎯')">🎯</div>
-    <div class="react-btn" onclick="react('🏏')">🏏</div>
     <div class="react-btn" onclick="react('👏')">👏</div>
+    <div class="react-btn" onclick="react('🤩')">🤩</div>
+    <div class="react-btn" onclick="react('🏏')">🏏</div>
+    <div class="react-btn" onclick="react('💯')">💯</div>
 </div>
 
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
-    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">📺 FOX CRICKET LIVE (FIXED)</button>
-    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">📺 WPL LIVE (NEW SERVER)</button>
-    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">📺 CRICLIFE (WILLOW SERVER)</button>
+    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
+    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
     <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
     <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
@@ -143,8 +145,9 @@
     <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
-    <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">📺 SA20 LIVE</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">🏏 SS KHEL VHT</button>
+    <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
+    <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
@@ -164,6 +167,7 @@
         'wpl_live': 'https://teamrohittry2.pages.dev/',
         'criclife': 'https://run-machine.pages.dev/?id=willow',
         'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20',
+        'prime_live': 'https://edlios.pages.dev/edid?id=u19',
         'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
         'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
         'ss2sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
@@ -188,12 +192,13 @@
         let cropClass = '';
         if (slug === 'fox_cricket') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
+        else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; // Custom crop for Prime
         else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow') cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
-        document.getElementById('watermark').style.display = (slug === 'fox_cricket' || slug === 'criclife') ? 'none' : 'inline-block';
+        document.getElementById('watermark').style.display = (slug === 'fox_cricket' || slug === 'criclife' || slug === 'prime_live') ? 'none' : 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
