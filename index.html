@@ -5,84 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRICKETLIVE! OFFICIAL</title>
     
-    <meta property="og:title" content="🏏 CRICKETLIVE! OFFICIAL - Watch Live Now">
-    <meta property="og:description" content="Watch High Quality Cricket Streaming Ad-Free. Join our Community!">
-    <meta property="og:image" content="https://img.freepik.com/premium-vector/live-streaming-icon-badge-design-template-broadcasting-news-tv-shows-online-stream-sports-game-radio-live-vector-illustration_662353-568.jpg">
-    <meta property="og:type" content="website">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <style>
         body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
-        /* GLASSMORPHISM POPUP */
+        /* POPUP */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.85); backdrop-filter: blur(12px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
-        .pop-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
-        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 20px; display: block; text-align: center; }
+        .pop-box { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 25px; border-radius: 20px; width: 85%; max-width: 320px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .support-text { font-family: 'Bebas Neue', cursive; font-size: 32px; color: #00d2ff; letter-spacing: 2px; margin-bottom: 20px; display: block; }
         .pop-btn { padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; color: white; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* FLOATING SOCIAL SIDEBAR - LEFT & BOTTOM POSITION */
+        /* SIDEBAR */
         .floating-sidebar { position: fixed; left: 10px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .sidebar-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; text-decoration: none; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
+        .sidebar-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; text-decoration: none; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
         .sidebar-wp { background: rgba(37, 211, 102, 0.8); }
         .sidebar-tg { background: rgba(0, 136, 204, 0.8); }
-        .sidebar-icon:hover { transform: scale(1.1); }
 
-        .header { padding: 15px 10px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .header h1, .share-header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; white-space: nowrap; }
+        .header { padding: 15px 10px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
+        .header h1, .share-header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
         .share-header { display: none; padding: 15px 10px; }
 
-        #live-signal-box { display: none; justify-content: flex-end; width: 96%; max-width: 850px; margin: 10px auto -15px auto; visibility: hidden; }
+        #live-signal-box { display: none; justify-content: flex-end; width: 96%; max-width: 850px; margin: 10px auto -15px auto; }
         #live-signal { background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 5px; font-size: 9px; font-weight: bold; color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); display: flex; align-items: center; }
         .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
+        /* VIDEO WRAPPER */
         .video-wrapper { 
             width: 96%; max-width: 850px; margin: 20px auto; background: #000; border: 1px solid rgba(0, 210, 255, 0.5); 
             border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; position: relative;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
         }
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
         
-        .skeleton {
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite;
-            display: none; position: absolute; top: 0; left: 0; z-index: 5;
-        }
+        /* CROP CLASSES */
+        .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
+        .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); } /* Perfect Fit for CricLife */
+        .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
+
+        .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
         @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        #watermark {
-            position: absolute; top: 8px; left: 8px; z-index: 2147483647; 
-            font-family: 'Orbitron', sans-serif; font-size: 8px; font-weight: 900;
-            color: #ffffff; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
-            padding: 4px 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); 
-            display: none; text-transform: uppercase;
-        }
-
-        .extreme-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
+        #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; }
 
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 10px auto; visibility: hidden; }
-        .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.05); backdrop-filter: blur(5px); padding: 6px; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
+        .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.1); }
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
         @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px) translateX(50px); opacity: 0; } }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
-        .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
+        .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
         
-        .fancode-btn { background: linear-gradient(45deg, #004dff, #00d2ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid rgba(255,255,255,0.3) !important; }
+        .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
+        .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .sa20-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
 
-        #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(5px); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+        #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .wp-share-btn { background: #25D366; color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; margin-left: 5px; }
         
         .social-container { display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 15px auto; width: 90%; max-width: 420px; }
-        .join-btn-base { width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; color: white; backdrop-filter: blur(5px); }
+        .join-btn-base { width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; color: white; }
         .join-wp { background: rgba(37, 211, 102, 0.2); border: 1px solid #25D366; }
         .join-tg { background: rgba(0, 136, 204, 0.2); border: 1px solid #0088cc; }
 
@@ -118,17 +104,18 @@
 
 <div class="reaction-bar" id="reaction-bar">
     <div class="react-btn" onclick="react('🔥')">🔥</div>
-    <div class="react-btn" onclick="react('❤️')">❤️</div>
-    <div class="react-btn" onclick="react('🤩')">🤩</div>
-    <div class="react-btn" onclick="react('🏏🔥')">🏏🔥</div>
+    <div class="react-btn" onclick="react('😂')">😂</div>
+    <div class="react-btn" onclick="react('🎯')">🎯</div>
+    <div class="react-btn" onclick="react('🏏')">🏏</div>
     <div class="react-btn" onclick="react('👏')">👏</div>
 </div>
 
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
-    <button class="channel-button fancode-btn" onclick="loadMatch('fancode_live')">🚀 FANCODE LIVE (AD-FREE)</button>
-    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🚀 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">📺 FOX CRICKET LIVE (FIXED)</button>
+    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">📺 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">📺 CRICLIFE (WILLOW SERVER)</button>
     <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
     <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
@@ -139,25 +126,26 @@
     <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">🚀 SS KHEL VHT</button>
-    <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">🚀 SA20 LIVE</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">📺 SS KHEL VHT</button>
+    <button class="channel-button sa20-btn" onclick="loadMatch('sa20_live')">📺 SA20 LIVE</button>
 </div>
 
-<div class="share-mini" id="share-box" style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
+<div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
     <div id="sharePreview">Select a channel...</div>
     <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY</button>
     <button class="wp-share-btn" onclick="whatsappShare()"><i class="fab fa-whatsapp"></i></button>
 </div>
 
-<div class="social-container" id="social-box">
+<div class="social-container">
     <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="join-btn-base join-wp"><i class="fab fa-whatsapp"></i> Join WhatsApp Channel</a>
     <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="join-btn-base join-tg"><i class="fab fa-telegram"></i> Join Telegram Channel</a>
 </div>
 
 <script>
     const channels = {
-        'fancode_live': 'https://crictos.vercel.app/?url=https%3A%2F%2Fin-mc-fdlive.fancode.com%2Fmumbai%2F138751_english_hls_9494524cbc43118_1ta-di_h264%2Findex.m3u8',
+        'fox_cricket': 'https://match-central.pages.dev/?id=fox',
         'wpl_live': 'https://teamrohittry2.pages.dev/',
+        'criclife': 'https://run-machine.pages.dev/?id=willow',
         'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20',
         'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
         'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
@@ -178,13 +166,17 @@
     function loadMatch(slug) {
         currentChannel = slug;
         const container = document.getElementById('player-container');
-        const skeleton = document.getElementById('loading-skeleton');
-        skeleton.style.display = 'block';
+        document.getElementById('loading-skeleton').style.display = 'block';
         
-        let cropClass = (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow') ? 'class="extreme-crop"' : '';
+        let cropClass = '';
+        if (slug === 'fox_cricket') cropClass = 'class="fox-crop"';
+        else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
+        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow') cropClass = 'class="standard-crop"';
+        
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
+        document.getElementById('watermark').style.display = (slug === 'fox_cricket' || slug === 'criclife') ? 'none' : 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
@@ -192,9 +184,7 @@
 
     function showUIParts() {
         if (currentChannel && popupClosed) {
-            document.getElementById('watermark').style.display = 'inline-block';
             document.getElementById('live-signal-box').style.display = 'flex';
-            document.getElementById('live-signal-box').style.visibility = 'visible';
             document.getElementById('reaction-bar').style.display = 'flex';
             document.getElementById('reaction-bar').style.visibility = 'visible';
         }
@@ -217,7 +207,6 @@
 
     function copyShareMessage() {
         const linkText = document.getElementById('sharePreview').innerText;
-        if (linkText.includes("...")) return;
         navigator.clipboard.writeText(linkText);
         document.getElementById('copyBtn').innerText = "DONE!";
         setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000);
@@ -225,7 +214,6 @@
 
     function whatsappShare() {
         const linkText = document.getElementById('sharePreview').innerText;
-        if (linkText.includes("...")) return;
         window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank');
     }
 
