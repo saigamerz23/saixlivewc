@@ -77,6 +77,7 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
         
         /* BIG BUTTONS */
+        .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
@@ -134,6 +135,7 @@
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
+    <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">🏏 FOX 501 LIVE (NEW)</button>
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
     <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">🏏 HOTSTAR LIVE (HINDI)</button>
     <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
@@ -167,6 +169,7 @@
 
 <script>
     const channels = {
+        'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://teamrocricbuzz.pages.dev/',
         'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
@@ -182,7 +185,7 @@
         'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
         'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
         'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
-        'tnt1': 'https://cinearena.github.io/id/sports.html?id=TNTSports1',
+        'tnt1': 'https://teamrotnt4-7hu.pages.dev/',
         'willow': 'https://teamrowillow.pages.dev/willow',
         'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
     };
@@ -195,19 +198,24 @@
         const container = document.getElementById('player-container');
         document.getElementById('loading-skeleton').style.display = 'block';
         
+        // Popup auto-hide for specific channels
+        const noPopupChannels = ['fox_501', 'tnt1'];
+        if (noPopupChannels.includes(slug)) {
+            closePopup();
+        }
+
         let cropClass = '';
         if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
         else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
-        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow') cropClass = 'class="standard-crop"';
+        // Fox 501 gets WPL style standard crop
+        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow' || slug === 'fox_501') cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
         
-        // Watermark ab sabhi channels par show hoga
         document.getElementById('watermark').style.display = 'inline-block';
-        
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
