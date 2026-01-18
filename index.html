@@ -136,7 +136,6 @@
 <div class="channel-grid" id="main-grid">
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
     <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">🏏 HOTSTAR LIVE (HINDI)</button>
-    
     <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
     <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
     <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
@@ -197,7 +196,6 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        // No crop for Cricbuzz 1 (it stays empty string)
         if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
         else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
@@ -207,9 +205,8 @@
         
         if(popupClosed) showUIParts();
         
-        // Hide watermark for Cricbuzz 1 and others
-        const noWatermark = ['fox_cricket', 'criclife', 'prime_live', 'hotstar_live', 'cricbuzz_1'];
-        document.getElementById('watermark').style.display = noWatermark.includes(slug) ? 'none' : 'inline-block';
+        // Watermark ab sabhi channels par show hoga
+        document.getElementById('watermark').style.display = 'inline-block';
         
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
