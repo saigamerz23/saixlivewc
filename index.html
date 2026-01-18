@@ -45,6 +45,7 @@
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
         .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
+        .cricbuzz2-crop { height: 170% !important; top: -50% !important; transform: scale(1.04); }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
         @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
@@ -53,21 +54,7 @@
 
         /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; visibility: visible; }
-        .react-btn { 
-            font-size: 24px; 
-            cursor: pointer; 
-            transition: 0.2s; 
-            background: rgba(255,255,255,0.1); 
-            padding: 8px; 
-            border-radius: 50%; 
-            width: 45px; 
-            height: 45px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
+        .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
         .react-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
         
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
@@ -80,6 +67,7 @@
         .cl-hindi-btn { background: linear-gradient(45deg, #ff416c, #ff4b2b) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
+        .cricbuzz2-btn { background: linear-gradient(45deg, #0ba360, #3cba92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
@@ -139,6 +127,7 @@
     <button class="channel-button cl-hindi-btn" onclick="loadMatch('cl_hindi')">🏏 CL HINDI (NEW)</button>
     <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">🏏 FOX 501 LIVE (NEW)</button>
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
+    <button class="channel-button cricbuzz2-btn" onclick="loadMatch('cricbuzz_2')">🏏 CRICBUZZ 2 (LIVE)</button>
     <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">🏏 HOTSTAR LIVE (HINDI)</button>
     <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
     <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
@@ -174,6 +163,7 @@
         'cl_hindi': 'https://run-machine.pages.dev/?id=alt',
         'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://teamrocricbuzz.pages.dev/',
+        'cricbuzz_2': 'https://cineplyr.vercel.app/?id=cricbuzz2',
         'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
         'wpl_live': 'https://teamrohittry2.pages.dev/',
@@ -201,61 +191,29 @@
         const container = document.getElementById('player-container');
         document.getElementById('loading-skeleton').style.display = 'block';
         
-        // Popup auto-hide for specific channels
-        const noPopupChannels = ['fox_501', 'tnt1', 'cl_hindi'];
-        if (noPopupChannels.includes(slug)) {
-            closePopup();
-        }
+        const noPopupChannels = ['fox_501', 'tnt1', 'cricbuzz_2', 'cl_hindi'];
+        if (noPopupChannels.includes(slug)) { closePopup(); }
 
         let cropClass = '';
         if (slug === 'fox_cricket' || slug === 'hotstar_live' || slug === 'cl_hindi') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
         else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
+        else if (slug === 'cricbuzz_2') cropClass = 'class="cricbuzz2-crop"';
         else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow' || slug === 'fox_501') cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
-        
         document.getElementById('watermark').style.display = 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
     function hideSkeleton() { document.getElementById('loading-skeleton').style.display = 'none'; }
-
-    function showUIParts() {
-        if (currentChannel && popupClosed) {
-            document.getElementById('live-signal-box').style.display = 'flex';
-            document.getElementById('reaction-bar').style.display = 'flex';
-        }
-    }
-
-    function closePopup() { 
-        document.getElementById('entry-popup').style.display = 'none'; 
-        popupClosed = true;
-        showUIParts(); 
-    }
-
-    function react(emoji) {
-        const el = document.createElement('div');
-        el.className = 'floating-emoji';
-        el.innerText = emoji;
-        el.style.left = (40 + Math.random() * 20) + '%';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 2000);
-    }
-
-    function copyShareMessage() {
-        const linkText = document.getElementById('sharePreview').innerText;
-        navigator.clipboard.writeText(linkText);
-        document.getElementById('copyBtn').innerText = "DONE!";
-        setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000);
-    }
-
-    function whatsappShare() {
-        const linkText = document.getElementById('sharePreview').innerText;
-        window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank');
-    }
+    function showUIParts() { if (currentChannel && popupClosed) { document.getElementById('live-signal-box').style.display = 'flex'; document.getElementById('reaction-bar').style.display = 'flex'; } }
+    function closePopup() { document.getElementById('entry-popup').style.display = 'none'; popupClosed = true; showUIParts(); }
+    function react(emoji) { const el = document.createElement('div'); el.className = 'floating-emoji'; el.innerText = emoji; el.style.left = (40 + Math.random() * 20) + '%'; document.body.appendChild(el); setTimeout(() => el.remove(), 2000); }
+    function copyShareMessage() { const linkText = document.getElementById('sharePreview').innerText; navigator.clipboard.writeText(linkText); document.getElementById('copyBtn').innerText = "DONE!"; setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); }
+    function whatsappShare() { const linkText = document.getElementById('sharePreview').innerText; window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank'); }
 
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
@@ -268,6 +226,5 @@
         }
     };
 </script>
-
 </body>
 </html>
