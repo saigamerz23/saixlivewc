@@ -44,7 +44,6 @@
         .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
-        /* Adjusted Top for Prime Button to move video slightly up */
         .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
@@ -77,6 +76,9 @@
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
         
+        /* BIG BUTTONS */
+        .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
+        .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
@@ -132,6 +134,9 @@
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
+    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
+    <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">🏏 HOTSTAR LIVE (HINDI)</button>
+    
     <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
     <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
     <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
@@ -163,6 +168,8 @@
 
 <script>
     const channels = {
+        'cricbuzz_1': 'https://teamrocricbuzz.pages.dev/',
+        'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
         'wpl_live': 'https://teamrohittry2.pages.dev/',
         'criclife': 'https://run-machine.pages.dev/?id=willow',
@@ -190,15 +197,20 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        if (slug === 'fox_cricket') cropClass = 'class="fox-crop"';
+        // No crop for Cricbuzz 1 (it stays empty string)
+        if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
-        else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; // Custom crop for Prime
+        else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
         else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow') cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
-        document.getElementById('watermark').style.display = (slug === 'fox_cricket' || slug === 'criclife' || slug === 'prime_live') ? 'none' : 'inline-block';
+        
+        // Hide watermark for Cricbuzz 1 and others
+        const noWatermark = ['fox_cricket', 'criclife', 'prime_live', 'hotstar_live', 'cricbuzz_1'];
+        document.getElementById('watermark').style.display = noWatermark.includes(slug) ? 'none' : 'inline-block';
+        
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
