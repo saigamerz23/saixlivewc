@@ -46,7 +46,7 @@
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
         .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
 
-        /* FIXED CLASS FOR QUALITY BUTTONS (Only for Willow/Cricbuzz) */
+        /* FIXED CLASS FOR QUALITY BUTTONS (Only for Willow/Cricbuzz/FanCode) */
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
@@ -86,6 +86,7 @@
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
+        .fancode-btn { background: linear-gradient(45deg, #243b55, #141e30) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
 
         #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
         .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
@@ -154,6 +155,7 @@
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
     <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">🏏 SS KHEL VHT</button>
+    <button class="channel-button fancode-btn" onclick="loadMatch('fancode_live')">🏏 FANCODE LIVE</button>
     <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
     <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
@@ -189,7 +191,8 @@
         'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
         'tnt1': 'https://teamrotnt4-7hu.pages.dev/',
         'willow': 'https://wlo-cricstreamiing.pages.dev/',
-        'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
+        'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel',
+        'fancode_live': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=139298&cdn=fancode_cdn'
     };
 
     let currentChannel = null;
@@ -201,11 +204,10 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        // Willow and Cricbuzz special fix for quality buttons
-        if (slug === 'willow' || slug === 'cricbuzz_1') {
+        // Willow, Cricbuzz aur FanCode ke liye fix controls apply kiya gaya hai
+        if (slug === 'willow' || slug === 'cricbuzz_1' || slug === 'fancode_live') {
             cropClass = 'class="fixed-controls"';
         } 
-        // Baki sab original pehle jaisa
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
             cropClass = 'class="fox-crop"';
         } else if (slug === 'criclife') {
