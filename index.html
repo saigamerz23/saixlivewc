@@ -40,37 +40,34 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
         
+        /* BRAND NAME WATERMARK - CUSTOM FONT & SIMPLE */
+        #brand-watermark { 
+            position: absolute; 
+            top: 15px; 
+            left: 15px; 
+            z-index: 100; 
+            font-family: 'Orbitron', sans-serif; 
+            font-size: 12px; 
+            color: rgba(255, 255, 255, 0.7); 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            pointer-events: none; 
+            display: none; 
+            letter-spacing: 1px;
+        }
+
         /* ORIGINAL CROPS RESTORED */
         .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
         .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
-
-        /* FIXED CLASS FOR QUALITY BUTTONS (Only for Willow/Cricbuzz) */
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
         @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; pointer-events: none; }
-
         /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; }
-        .react-btn { 
-            font-size: 24px; 
-            cursor: pointer; 
-            transition: 0.2s; 
-            background: rgba(255,255,255,0.1); 
-            padding: 8px; 
-            border-radius: 50%; 
-            width: 45px; 
-            height: 45px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
+        .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
         .react-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
         
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
@@ -122,7 +119,7 @@
 
 <div class="video-wrapper">
     <div id="loading-skeleton" class="skeleton"></div>
-    <div id="watermark">CricketLIVE! Official</div>
+    <div id="brand-watermark">CricketLIVE! Official</div>
     <div id="player-container"><div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div></div>
 </div>
 
@@ -201,26 +198,18 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        // Willow and Cricbuzz special fix for quality buttons
-        if (slug === 'willow' || slug === 'cricbuzz_1') {
-            cropClass = 'class="fixed-controls"';
-        } 
-        // Baki sab original pehle jaisa
-        else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
-            cropClass = 'class="fox-crop"';
-        } else if (slug === 'criclife') {
-            cropClass = 'class="criclife-crop"';
-        } else if (slug === 'prime_live') {
-            cropClass = 'class="prime-crop"'; 
-        } else {
-            cropClass = 'class="standard-crop"';
-        }
+        if (slug === 'willow' || slug === 'cricbuzz_1') cropClass = 'class="fixed-controls"';
+        else if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
+        else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
+        else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
+        else cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
         
-        document.getElementById('watermark').style.display = 'inline-block';
+        // Show brand watermark when video starts
+        document.getElementById('brand-watermark').style.display = 'block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
 
