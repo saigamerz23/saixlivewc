@@ -54,26 +54,15 @@
         /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; visibility: visible; }
         .react-btn { 
-            font-size: 24px; 
-            cursor: pointer; 
-            transition: 0.2s; 
-            background: rgba(255,255,255,0.1); 
-            padding: 8px; 
-            border-radius: 50%; 
-            width: 45px; 
-            height: 45px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
+            font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; 
+            border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
+            border: 1px solid rgba(255,255,255,0.2); color: white;
         }
-        .react-btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
         
-        /* BIG BUTTONS */
+        /* COLORS */
         .fancode-btn { background: linear-gradient(45deg, #f57c00, #ff9800) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
@@ -146,11 +135,7 @@
     <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
     <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (HINDI HD)</button>
     <button class="channel-button" onclick="loadMatch('ss2hindisd')">SS 2 (HINDI SD)</button>
-    <button class="channel-button" onclick="loadMatch('ssselect2sd')">SS SELECT 2 SD</button>
-    <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
-    <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
-    <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">🏏 SS KHEL VHT</button>
+    <button class="channel-button" onclick="loadMatch('ss_khel')">🏏 SS KHEL VHT</button>
     <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
     <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
@@ -183,10 +168,6 @@
         'ss2hd': 'https://cricketstan.github.io/Channel-14/',
         'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
         'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
-        'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
-        'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
-        'tnt1': 'https://teamrotnt4-7hu.pages.dev/',
-        'willow': 'https://teamrowillow.pages.dev/willow',
         'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
     };
 
@@ -198,17 +179,11 @@
         const container = document.getElementById('player-container');
         document.getElementById('loading-skeleton').style.display = 'block';
         
-        const noPopupChannels = ['fox_501', 'tnt1', 'fancode_live'];
-        if (noPopupChannels.includes(slug)) {
-            closePopup();
-        }
-
         let cropClass = '';
         if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
         else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
         else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
-        // FIX: FanCode ke liye cropClass empty rakhi hai taaki video upar na bhage
-        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow' || slug === 'fox_501') cropClass = 'class="standard-crop"';
+        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'fox_501') cropClass = 'class="standard-crop"';
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
@@ -257,6 +232,7 @@
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
         if (ch && channels[ch]) {
+            // FIX: Share mode me pehle popup dikhayenge, loadMatch bad me
             loadMatch(ch);
             document.getElementById('site-header').classList.add('hidden-mode');
             document.getElementById('share-header').style.display = 'block';
@@ -265,6 +241,5 @@
         }
     };
 </script>
-
 </body>
 </html>
