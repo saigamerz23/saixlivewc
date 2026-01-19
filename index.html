@@ -40,16 +40,19 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
         
-        /* CROP CLASSES */
+        /* ORIGINAL CROPS RESTORED */
         .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
         .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
 
+        /* FIXED CLASS FOR QUALITY BUTTONS (Only for Willow/Cricbuzz) */
+        .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
+
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
         @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; }
+        #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; pointer-events: none; }
 
         /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; }
@@ -76,7 +79,6 @@
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.3s; }
         
-        /* BIG BUTTONS */
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
@@ -199,12 +201,22 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        if (slug === 'fox_cricket' || slug === 'hotstar_live') cropClass = 'class="fox-crop"';
-        else if (slug === 'criclife') cropClass = 'class="criclife-crop"';
-        else if (slug === 'prime_live') cropClass = 'class="prime-crop"'; 
-        else if (slug === 'wpl_live' || slug === 'sa20_live' || slug === 'willow' || slug === 'fox_501' || slug === 'cricbuzz_1') cropClass = 'class="standard-crop"';
+        // Willow and Cricbuzz special fix for quality buttons
+        if (slug === 'willow' || slug === 'cricbuzz_1') {
+            cropClass = 'class="fixed-controls"';
+        } 
+        // Baki sab original pehle jaisa
+        else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
+            cropClass = 'class="fox-crop"';
+        } else if (slug === 'criclife') {
+            cropClass = 'class="criclife-crop"';
+        } else if (slug === 'prime_live') {
+            cropClass = 'class="prime-crop"'; 
+        } else {
+            cropClass = 'class="standard-crop"';
+        }
         
-        container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
+        container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
         
@@ -250,10 +262,7 @@
 
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
-        
-        // Always show popup first regardless of share mode
         document.getElementById('entry-popup').style.display = 'flex';
-
         if (ch && channels[ch]) {
             loadMatch(ch);
             document.getElementById('site-header').classList.add('hidden-mode');
