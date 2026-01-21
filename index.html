@@ -43,8 +43,8 @@
         /* CROPS */
         .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
-        .standard-crop { height: 160% !important; top: -38% !important; transform: scale(1.05); }
-        .prime-crop { height: 160% !important; top: -45% !important; transform: scale(1.05); }
+        .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
+        .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
 
         /* FIXED CLASS FOR NO CROP */
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
@@ -165,7 +165,7 @@
         'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://paste.fledding.com/~Willo.html',
         'sony_liv': 'https://crickettv.site/sonyliv/sonyliv-1',
-        'fancode': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=138947&cdn=fancode_cdn',
+        'fancode': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=138946&cdn=fancode_cdn',
         'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
         'wpl_live': 'https://teamrohittry2.pages.dev/',
@@ -175,7 +175,7 @@
         'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
         'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
         'ss2sd': 'https://cinearena.github.io/id/sports.html?id=Star2eng',
-        'ss2hd': 'https://cricketstan.github.io/Channel-14/',
+        'ss2hd': 'https://insiderlivehd.pages.dev/Fox', // Link Updated
         'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
         'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
         'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
@@ -204,6 +204,7 @@
         } else if (slug === 'prime_live') {
             cropClass = 'class="prime-crop"'; 
         } else {
+            // "ss2hd" (Star Sports 2 HD) and others will use this crop (Same as WPL)
             cropClass = 'class="standard-crop"';
         }
         
