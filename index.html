@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CRICKETLIVE! OFFICIAL</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -38,15 +38,13 @@
             border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; position: relative;
         }
 
-        #main-player { width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0; z-index: 1; }
+        #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; }
         
         /* CROPS */
-        .fox-crop { height: 175% !important; top: -58% !important; transform: scale(1.02); }
-        .criclife-crop { height: 180% !important; top: -60% !important; transform: scale(1.03); }
-        .standard-crop { height: 160% !important; top: -30% !important; transform: scale(1.05); }
-        .prime-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
-
-        /* FIXED CLASS FOR NO CROP */
+        .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
+        .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
+        .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
+        .prime-sa20-fix { height: 170% !important; top: -50% !important; transform: scale(1.05); }
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
@@ -125,30 +123,19 @@
 <div class="channel-grid" id="main-grid">
     <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">🏏 FOX 501 LIVE (NEW)</button>
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
-    
+    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_2')">🏏 CRICBUZZ 2 (NEW)</button>
     <button class="channel-button" style="background: linear-gradient(45deg, #242424, #585858); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv')">🏏 SONY LIV (NO CROP)</button>
-
     <button class="channel-button" style="background: linear-gradient(45deg, #1a1a1a, #4a4a4a); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv_2')">🏏 SONY LIV 2 (LIVE)</button>
-
     <button class="channel-button" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('prime_event')">🏏 PRIME EVENT (LIVE)</button>
-    
     <button class="channel-button" style="background: linear-gradient(45deg, #004182, #007bff); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('fancode')">🏏 FANCODE LIVE (NO CROP)</button>
-
     <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">🏏 HOTSTAR LIVE (HINDI)</button>
     <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🏏 FOX CRICKET LIVE (FIXED)</button>
     <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
     <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
-    <button class="channel-button" onclick="loadMatch('ss1sdeng')">STAR SPORTS 1 SD</button>
-    <button class="channel-button" onclick="loadMatch('ss1enghd')">SS 1 (ENG HD)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
     <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
-    <button class="channel-button" onclick="loadMatch('ss1hindihd')">SS 1 (HINDI HD)</button>
-    <button class="channel-button" onclick="loadMatch('ss2hindisd')">SS 2 (HINDI SD)</button>
-    <button class="channel-button" onclick="loadMatch('ssselect2sd')">SS SELECT 2 SD</button>
-    <button class="channel-button" onclick="loadMatch('ssselect2hd')">SS SELECT 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #ed1c24, #2e3192); border: 1px solid #fff;" onclick="loadMatch('ss_khel')">🏏 SS KHEL VHT</button>
     <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
     <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
@@ -168,6 +155,7 @@
     const channels = {
         'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://paste.fledding.com/~Willo.html',
+        'cricbuzz_2': 'https://teamrocricbuzz2.pages.dev/',
         'sony_liv': 'https://crickettv.site/sonyliv/sonyliv-1',
         'sony_liv_2': 'https://crickettv.site/sonyliv/sonyliv-5',
         'prime_event': 'https://crickettv.site/world-sports/player?id=prime-tv',
@@ -178,17 +166,10 @@
         'criclife': 'https://run-machine.pages.dev/?id=willow',
         'sa20_live': 'https://skcricweb.pages.dev/ipel?id=sa20',
         'prime_live': 'https://edlios.pages.dev/edid?id=u19',
-        'ss1sdeng': 'https://cinearena.github.io/id/sports.html?id=Star1eng',
-        'ss1enghd': 'https://cinearena.github.io/id/sports.html?id=Star1engHD',
         'ss2sd': 'https://insiderlivehd.pages.dev/English',
         'ss2hd': 'https://insiderlivehd.pages.dev/Fox',
-        'ss1hindihd': 'https://cinearena.github.io/id/sports.html?id=Star1HindiHD',
-        'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
-        'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
-        'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
         'tnt1': 'https://crickettv.site/world-sports/player?id=tnt-sports-1',
-        'willow': 'https://wlo-cricstreamiing.pages.dev/',
-        'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
+        'willow': 'https://wlo-cricstreamiing.pages.dev/'
     };
 
     let currentChannel = null;
@@ -200,16 +181,19 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        if (slug === 'willow' || slug === 'cricbuzz_1' || slug === 'sony_liv' || slug === 'sony_liv_2' || slug === 'fancode' || slug === 'ss2sd' || slug === 'tnt1' || slug === 'prime_event') {
+        if (['willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'prime_event'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
             cropClass = 'class="fox-crop"';
-        } else if (slug === 'criclife') {
+        } 
+        else if (slug === 'criclife') {
             cropClass = 'class="criclife-crop"';
-        } else if (slug === 'prime_live') {
-            cropClass = 'class="prime-crop"'; 
-        } else {
+        } 
+        else if (slug === 'prime_live' || slug === 'sa20_live') {
+            cropClass = 'class="prime-sa20-fix"'; 
+        } 
+        else {
             cropClass = 'class="standard-crop"';
         }
         
@@ -222,40 +206,11 @@
     }
 
     function hideSkeleton() { document.getElementById('loading-skeleton').style.display = 'none'; }
-
-    function showUIParts() {
-        if (currentChannel && popupClosed) {
-            document.getElementById('live-signal-box').style.display = 'flex';
-            document.getElementById('reaction-bar').style.display = 'flex';
-        }
-    }
-
-    function closePopup() { 
-        document.getElementById('entry-popup').style.display = 'none'; 
-        popupClosed = true;
-        showUIParts(); 
-    }
-
-    function react(emoji) {
-        const el = document.createElement('div');
-        el.className = 'floating-emoji';
-        el.innerText = emoji;
-        el.style.left = (40 + Math.random() * 20) + '%';
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 2000);
-    }
-
-    function copyShareMessage() {
-        const linkText = document.getElementById('sharePreview').innerText;
-        navigator.clipboard.writeText(linkText);
-        document.getElementById('copyBtn').innerText = "DONE!";
-        setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000);
-    }
-
-    function whatsappShare() {
-        const linkText = document.getElementById('sharePreview').innerText;
-        window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank');
-    }
+    function showUIParts() { if (currentChannel && popupClosed) { document.getElementById('live-signal-box').style.display = 'flex'; document.getElementById('reaction-bar').style.display = 'flex'; } }
+    function closePopup() { document.getElementById('entry-popup').style.display = 'none'; popupClosed = true; showUIParts(); }
+    function react(emoji) { const el = document.createElement('div'); el.className = 'floating-emoji'; el.innerText = emoji; el.style.left = (40 + Math.random() * 20) + '%'; document.body.appendChild(el); setTimeout(() => el.remove(), 2000); }
+    function copyShareMessage() { const linkText = document.getElementById('sharePreview').innerText; navigator.clipboard.writeText(linkText); document.getElementById('copyBtn').innerText = "DONE!"; setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); }
+    function whatsappShare() { const linkText = document.getElementById('sharePreview').innerText; window.open("https://api.whatsapp.com/send?text=" + linkText, '_blank'); }
 
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
