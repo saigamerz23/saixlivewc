@@ -127,6 +127,10 @@
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
     
     <button class="channel-button" style="background: linear-gradient(45deg, #242424, #585858); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv')">🏏 SONY LIV (NO CROP)</button>
+
+    <button class="channel-button" style="background: linear-gradient(45deg, #1a1a1a, #4a4a4a); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv_2')">🏏 SONY LIV 2 (LIVE)</button>
+
+    <button class="channel-button" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('prime_event')">🏏 PRIME EVENT (LIVE)</button>
     
     <button class="channel-button" style="background: linear-gradient(45deg, #004182, #007bff); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('fancode')">🏏 FANCODE LIVE (NO CROP)</button>
 
@@ -165,6 +169,8 @@
         'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://paste.fledding.com/~Willo.html',
         'sony_liv': 'https://crickettv.site/sonyliv/sonyliv-1',
+        'sony_liv_2': 'https://crickettv.site/sonyliv/sonyliv-5',
+        'prime_event': 'https://crickettv.site/world-sports/player?id=prime-tv',
         'fancode': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=138756&cdn=fancode_cdn',
         'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
@@ -180,7 +186,7 @@
         'ss2hindisd': 'https://cinearena.github.io/id/sports.html?id=Star2HINDISD',
         'ssselect2sd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2',
         'ssselect2hd': 'https://cinearena.github.io/id/sports.html?id=StarSportsSelect2HD',
-        'tnt1': 'https://teamrotnt4-7hu.pages.dev/',
+        'tnt1': 'https://crickettv.site/world-sports/player?id=tnt-sports-1',
         'willow': 'https://wlo-cricstreamiing.pages.dev/',
         'ss_khel': 'https://cinearena.github.io/id/sports.html?id=Sports18Khel'
     };
@@ -194,7 +200,7 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        if (slug === 'willow' || slug === 'cricbuzz_1' || slug === 'sony_liv' || slug === 'fancode' || slug === 'ss2sd') {
+        if (slug === 'willow' || slug === 'cricbuzz_1' || slug === 'sony_liv' || slug === 'sony_liv_2' || slug === 'fancode' || slug === 'ss2sd' || slug === 'tnt1' || slug === 'prime_event') {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
