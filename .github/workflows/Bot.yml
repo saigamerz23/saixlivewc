@@ -1,1 +1,29 @@
+name: Auto Sync Cricket API
 
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout My Repo
+        uses: actions/checkout@v3
+
+      - name: Fetch Latest Files
+        run: |
+          curl -s https://raw.githubusercontent.com/Cricketstan/Allrounder-/main/api/event.json -o event.json
+          curl -s https://raw.githubusercontent.com/Cricketstan/Allrounder-/main/api/wpl.json -o wpl.json
+          curl -s https://raw.githubusercontent.com/Cricketstan/Allrounder-/main/api/today-events.json -o today-events.json
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Auto Update Data" || exit 0
+          git push
