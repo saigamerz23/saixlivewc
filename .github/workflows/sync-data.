@@ -1,5 +1,4 @@
 name: Auto Sync Cricket API
-
 on:
   schedule:
     - cron: '*/15 * * * *'
