@@ -1,0 +1,75 @@
+{
+  "event": [
+
+{
+      "title": "Gujarat Vs Up",
+      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/4094/1769057054094-i",
+      "watch_now": [
+        { "id": "home/wpl", "name": "Play Highlights" }
+      ],
+      "date": "22 Jan 2026",
+      "start_time": "06:00 PM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "Multi",
+      "league": "WPL"
+    },
+{
+      "title": "England Vs Srilanka",
+      "poster_link": "https://images.slivcdn.com/videoasset_images/manage_file/1000013858/176898736563443_SLvsENG26_1odi_21jan_landscape_thumb.jpg",
+      "watch_now": [
+        { "id": "home/england-vs-srilanka", "name": "Play Highlights" }
+      ],
+      "date": "22 Jan 2026",
+      "start_time": "02:00 PM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "English",
+      "league": "ODI"
+    },
+
+{
+      "title": "Rise Of Champions",
+      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/854/1766311040854-i",
+      "watch_now": [
+        { "id": "highlights/rise-of-champion", "name": "Play Highlights" }
+      ],
+      "date": "17 Jan 2026",
+      "start_time": "12:35 PM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "Multi",
+      "league": "Series"
+    },
+
+{
+      "title": "Highlights",
+      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_90,w_1200/sources/r1/cms/prod/8930/1767991858930-h",
+      "watch_now": [
+        { "id": "highlights/wpl", "name": "Play Highlights" }
+      ],
+      "date": "1 Jan 2026",
+      "start_time": "07:45 PM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "Eng",
+      "league": "WPL"
+    },
+
+
+{
+      "title": "Home And Dry: Mini",
+      "poster_link": "https://images.swm.digital/image?u=https://production-mediacms-utility-hsyp63r9v13b.s3-ap-southeast-2.amazonaws.com/media/123758/ashes-mini.jpg&q=95&w=1920",
+      "watch_now": [
+        { "id": "highlights/ashes.html", "name": "All Stream" }
+      ],
+      "date": "8 Jan 2026",
+      "start_time": "04:55 AM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "Eng",
+      "league": "Ashes"
+}
+    
+  ]
+}
