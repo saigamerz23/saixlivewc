@@ -32,7 +32,6 @@
         .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* VIDEO WRAPPER */
         .video-wrapper { 
             width: 96%; max-width: 850px; margin: 20px auto; background: #000; border: 1px solid rgba(0, 210, 255, 0.5); 
             border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -40,7 +39,6 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; transition: opacity 0.5s; }
         
-        /* CROPS */
         .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
@@ -52,17 +50,14 @@
 
         #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; pointer-events: none; }
 
-        /* REACTION BAR */
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; transition: 0.3s; }
         .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
-        .react-btn:active { transform: scale(0.9); background: rgba(0, 210, 255, 0.3); }
         
         .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px) translateX(40px); opacity: 0; } }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
-        .channel-button:active { transform: scale(0.96); }
         
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
@@ -89,7 +84,7 @@
 
 <div id="entry-popup">
     <div class="pop-box">
-        <div class="support-text"> JOIN US</div>
+        <div class="support-text">🚀 JOIN US</div>
         <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WHATSAPP GROUP</a>
         <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> TELEGRAM CHANNEL</a>
         <div style="margin-top:18px; cursor:pointer; font-size:11px; color:#00d2ff; font-weight:bold; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
@@ -112,34 +107,34 @@
 </div>
 
 <div class="reaction-bar" id="reaction-bar">
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('')"></div>
+    <div class="react-btn" onclick="react('😂')">😂</div>
+    <div class="react-btn" onclick="react('🔥')">🔥</div>
+    <div class="react-btn" onclick="react('👏')">👏</div>
+    <div class="react-btn" onclick="react('❤️')">❤️</div>
+    <div class="react-btn" onclick="react('😲')">😲</div>
 </div>
 
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
-    <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')"> FOX 501 LIVE (NEW)</button>
-    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')"> CRICBUZZ 1 (LIVE)</button>
-    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_2')"> CRICBUZZ 2 (NEW)</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #242424, #585858); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv')"> SONY LIV (NO CROP)</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #1a1a1a, #4a4a4a); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv_2')"> SONY LIV 2 (LIVE)</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('prime_event')"> PRIME EVENT (LIVE)</button>
-    <button class="channel-button" style="background: linear-gradient(45deg, #004182, #007bff); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('fancode')"> FANCODE LIVE (NO CROP)</button>
-    <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')"> HOTSTAR LIVE (HINDI)</button>
-    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')"> FOX CRICKET LIVE (FIXED)</button>
-    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')"> WPL LIVE (NEW SERVER)</button>
-    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')"> CRICLIFE (WILLOW SERVER)</button>
+    <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">📺 FOX 501 LIVE (NEW)</button>
+    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
+    <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_2')">🏏 CRICBUZZ 2 (NEW)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #242424, #585858); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv')">📺 SONY LIV (NO CROP)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #1a1a1a, #4a4a4a); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('sony_liv_2')">📺 SONY LIV 2 (LIVE)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('prime_event')">📺 PRIME EVENT (LIVE)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #004182, #007bff); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('fancode')">📺 FANCODE LIVE (NO CROP)</button>
+    <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">📺 HOTSTAR LIVE (HINDI)</button>
+    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">📺 FOX CRICKET LIVE (FIXED)</button>
+    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
     <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button special-btn" onclick="loadMatch('sa20_live')"> SA20 LIVE</button>
-    <button class="channel-button special-btn" onclick="loadMatch('willow_ios')"> WILLOW !OS (LIVE)</button>
-    <button class="channel-button special-btn" onclick="loadMatch('prime_live')"> PRIME</button>
+    <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
+    <button class="channel-button special-btn" onclick="loadMatch('willow_ios')">🏏 WILLOW !OS (LIVE)</button>
+    <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
@@ -175,6 +170,20 @@
         'willow': 'https://wlo-cricstreamiing.pages.dev/'
     };
 
+    // Auto-Sync Data from GitHub JSON files
+    async function syncData() {
+        try {
+            const wplRes = await fetch('wpl.json');
+            const wplData = await wplRes.json();
+            if (wplData && wplData.url) channels['wpl_live'] = wplData.url;
+
+            const eventRes = await fetch('event.json');
+            const eventData = await eventRes.json();
+            if (eventData && eventData.hotstar) channels['hotstar_live'] = eventData.hotstar;
+        } catch (e) { console.log("Sync Error"); }
+    }
+    syncData();
+
     let currentChannel = null;
     let popupClosed = false;
 
@@ -203,11 +212,8 @@
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         showUIParts();
-        
         document.getElementById('watermark').style.display = 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
-        
-        // Auto scroll to player for better UX
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -244,16 +250,14 @@
 
     function whatsappShare() { 
         const linkText = document.getElementById('sharePreview').innerText; 
-        window.open("https://api.whatsapp.com/send?text= Watch Live Cricket Here: " + linkText, '_blank'); 
+        window.open("https://api.whatsapp.com/send?text=🏏 Watch Live Cricket: " + linkText, '_blank'); 
     }
 
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
-        document.getElementById('entry-popup').style.display = 'flex';
         if (ch && channels[ch]) {
             loadMatch(ch);
             document.getElementById('site-header').classList.add('hidden-mode');
-            document.getElementById('share-header').style.display = 'block';
             document.getElementById('main-grid').classList.add('hidden-mode');
             document.getElementById('view-all-btn').style.display = 'block';
         }
