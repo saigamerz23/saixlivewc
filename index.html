@@ -27,62 +27,70 @@
         .header h1, .share-header h1 { font-family: 'Orbitron', sans-serif; background: linear-gradient(90deg, #00d2ff, #f9a8d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 22px; margin: 0; }
         .share-header { display: none; padding: 15px 10px; }
 
-        #live-signal-box { display: none; justify-content: flex-end; width: 96%; max-width: 850px; margin: 10px auto -15px auto; }
-        #live-signal { background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 5px; font-size: 9px; font-weight: bold; color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); display: flex; align-items: center; }
-        .green-dot { height: 7px; width: 7px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 4px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        /* PULSE LIVE SIGNAL */
+        #live-signal-box { display: none; justify-content: flex-end; width: 96%; max-width: 850px; margin: 10px auto -15px auto; position: relative; z-index: 10; }
+        #live-signal { background: rgba(255, 0, 0, 0.8); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+        .red-dot { height: 8px; width: 8px; background-color: #fff; border-radius: 50%; display: inline-block; margin-right: 6px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* VIDEO WRAPPER */
+        /* VIDEO WRAPPER & CYBER FRAME */
         .video-wrapper { 
             width: 96%; max-width: 850px; margin: 20px auto; background: #000; border: 1px solid rgba(0, 210, 255, 0.5); 
             border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        .share-mode-active .video-wrapper {
+            outline: 4px solid #00d2ff;
+            outline-offset: -2px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6), 0 0 50px rgba(249, 168, 212, 0.3);
+            border: 2px solid #f9a8d4;
+            animation: cyber-glow 3s linear infinite;
+        }
+        @keyframes cyber-glow { 0%, 100% { outline-color: #00d2ff; } 50% { outline-color: #f9a8d4; } }
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; transition: opacity 0.5s; }
         
-        /* CROPS */
+        /* CROPS (UNTOUCHED) */
         .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
         .prime-sa20-fix { height: 170% !important; top: -50% !important; transform: scale(1.05); }
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
 
-        .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
-        @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        /* CUSTOM LOADER */
+        .skeleton { 
+            width: 100%; height: 100%; background: #050810; display: none; position: absolute; top: 0; left: 0; z-index: 5; 
+            flex-direction: column; justify-content: center; align-items: center; 
+        }
+        .loader-spin { width: 40px; height: 40px; border: 3px solid rgba(0,210,255,0.2); border-top: 3px solid #00d2ff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* MODERN OFFLINE UI */
+        .offline-ui { width: 100%; height: 100%; background: radial-gradient(circle, #1e293b 0%, #050810 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; color: #64748b; }
 
         #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; pointer-events: none; }
 
-        /* REACTION BAR */
-        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; transition: 0.3s; }
-        .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
-        .react-btn:active { transform: scale(0.9); background: rgba(0, 210, 255, 0.3); }
+        /* REACTION BAR (FROSTED GLASS) */
+        .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; transition: 0.3s; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); width: fit-content; }
+        .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; padding: 8px; display: flex; align-items: center; justify-content: center; }
+        .react-btn:active { transform: scale(0.8); }
         
-        .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-        @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px) translateX(40px); opacity: 0; } }
+        .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s forwards; }
+        @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px); opacity: 0; } }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
-        .channel-button:active { transform: scale(0.96); }
         
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
-        .fox-btn { background: linear-gradient(45deg, #ff9900, #ff5500) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
-        .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
-        .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
-        .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
 
-        #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-        .copy-btn { background: linear-gradient(90deg, #00d2ff, #0072ff); color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .wp-share-btn { background: #25D366; color: white; border: none; padding: 10px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; margin-left: 5px; }
-        
         .social-container { display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 15px auto; width: 90%; max-width: 420px; }
         .join-btn-base { width: 100%; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; color: white; transition: 0.3s; }
         .join-wp { background: rgba(37, 211, 102, 0.15); border: 1px solid #25D366; }
         .join-tg { background: rgba(0, 136, 204, 0.15); border: 1px solid #0088cc; }
 
         .hidden-mode { display: none !important; }
-        #view-all-btn { display: none; margin: 10px auto; background: #ffffff; color: #000; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; width: fit-content; border: 2px solid #00d2ff; box-shadow: 0 4px 15px rgba(0,210,255,0.3); }
+        #view-all-btn { display: none; margin: 10px auto; background: #ffffff; color: #000; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; width: fit-content; border: 2px solid #00d2ff; }
     </style>
 </head>
 <body>
@@ -103,20 +111,29 @@
 
 <header class="header" id="site-header"><h1>CRICKETLIVE! OFFICIAL</h1></header>
 <div class="share-header" id="share-header"><h1>CRICKETLIVE! OFFICIAL</h1></div>
-<div id="live-signal-box"><div id="live-signal"><span class="green-dot"></span>LIVE</div></div>
 
-<div class="video-wrapper">
-    <div id="loading-skeleton" class="skeleton"></div>
+<div id="live-signal-box">
+    <div id="live-signal"><span class="red-dot"></span>LIVE</div>
+</div>
+
+<div class="video-wrapper" id="video-wrapper">
+    <div id="loading-skeleton" class="skeleton">
+        <div class="loader-spin"></div>
+        <div style="margin-top:10px; font-size:10px; color:#00d2ff; letter-spacing:1px;">LOADING STREAM...</div>
+    </div>
     <div id="watermark">CricketLIVE! Official</div>
-    <div id="player-container"><div style="color: #64748b; padding-top: 20%; font-size: 13px;">Channel Select Karein...</div></div>
+    <div id="player-container" class="offline-ui">
+        <i class="fas fa-play-circle" style="font-size: 40px; margin-bottom: 10px; opacity: 0.3;"></i>
+        <div style="font-size: 12px;">SELECT A CHANNEL TO START</div>
+    </div>
 </div>
 
 <div class="reaction-bar" id="reaction-bar">
+    <div class="react-btn" onclick="react('6️⃣')">6️⃣</div>
+    <div class="react-btn" onclick="react('4️⃣')">4️⃣</div>
     <div class="react-btn" onclick="react('🔥')">🔥</div>
-    <div class="react-btn" onclick="react('❤️')">❤️</div>
-    <div class="react-btn" onclick="react('👏')">👏</div>
-    <div class="react-btn" onclick="react('😂')">😂</div>
-    <div class="react-btn" onclick="react('😮')">😮</div>
+    <div class="react-btn" onclick="react('⚡')">⚡</div>
+    <div class="react-btn" onclick="react('🤩')">🤩</div>
 </div>
 
 <a href="/" id="view-all-btn">Show All Channels</a>
@@ -130,22 +147,21 @@
     <button class="channel-button" style="background: linear-gradient(45deg, #000000, #333333); border: 1px solid #00d2ff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('prime_event')">📺 PRIME EVENT (LIVE)</button>
     <button class="channel-button" style="background: linear-gradient(45deg, #004182, #007bff); border: 1px solid #fff; grid-column: span 2; font-size: 14px;" onclick="loadMatch('fancode')">📺 FANCODE LIVE (NO CROP)</button>
     <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">📺 HOTSTAR LIVE (HINDI)</button>
-    <button class="channel-button fox-btn" onclick="loadMatch('fox_cricket')">🦊 FOX CRICKET LIVE (FIXED)</button>
-    <button class="channel-button wpl-btn" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
-    <button class="channel-button criclife-btn" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #ff9900, #ff5500); grid-column: span 2;" onclick="loadMatch('fox_cricket')">🦊 FOX CRICKET LIVE (FIXED)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #ff0080, #7928ca); grid-column: span 2;" onclick="loadMatch('wpl_live')">🏏 WPL LIVE (NEW SERVER)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #f44336, #ff9800); grid-column: span 2;" onclick="loadMatch('criclife')">🏏 CRICLIFE (WILLOW SERVER)</button>
     <button class="channel-button" onclick="loadMatch('ss2sd')">STAR SPORTS 2 SD</button>
     <button class="channel-button" onclick="loadMatch('ss2hd')">STAR SPORTS 2 HD</button>
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
-    <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
-    <button class="channel-button special-btn" onclick="loadMatch('willow_ios')">🏏 WILLOW !OS (LIVE)</button>
-    <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #f9a8d4, #00d2ff); color:#000;" onclick="loadMatch('sa20_live')">🏏 SA20 LIVE</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #f9a8d4, #00d2ff); color:#000;" onclick="loadMatch('willow_ios')">🏏 WILLOW !OS (LIVE)</button>
+    <button class="channel-button" style="background: linear-gradient(45deg, #f9a8d4, #00d2ff); color:#000;" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 15px auto; width: 94%;">
-    <div id="sharePreview">Select a channel...</div>
-    <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()">COPY</button>
-    <button class="wp-share-btn" onclick="whatsappShare()"><i class="fab fa-whatsapp"></i></button>
+    <div id="sharePreview" style="font-size: 10px; color: #00d2ff; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; white-space: nowrap;">Select a channel...</div>
+    <button class="copy-btn" id="copyBtn" onclick="copyShareMessage()" style="background: #00d2ff; color: #000; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer;">COPY</button>
 </div>
 
 <div class="social-container">
@@ -181,33 +197,22 @@
     function loadMatch(slug) {
         currentChannel = slug;
         const container = document.getElementById('player-container');
-        document.getElementById('loading-skeleton').style.display = 'block';
+        document.getElementById('loading-skeleton').style.display = 'flex';
         
         let cropClass = '';
         if (['willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'prime_event'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
-        else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
-            cropClass = 'class="fox-crop"';
-        } 
-        else if (slug === 'criclife') {
-            cropClass = 'class="criclife-crop"';
-        } 
-        else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') {
-            cropClass = 'class="prime-sa20-fix"'; 
-        } 
-        else {
-            cropClass = 'class="standard-crop"';
-        }
+        else if (slug === 'fox_cricket' || slug === 'hotstar_live') { cropClass = 'class="fox-crop"'; } 
+        else if (slug === 'criclife') { cropClass = 'class="criclife-crop"'; } 
+        else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') { cropClass = 'class="prime-sa20-fix"'; } 
+        else { cropClass = 'class="standard-crop"'; }
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         showUIParts();
-        
         document.getElementById('watermark').style.display = 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function hideSkeleton() { document.getElementById('loading-skeleton').style.display = 'none'; }
@@ -241,15 +246,11 @@
         setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); 
     }
 
-    function whatsappShare() { 
-        const linkText = document.getElementById('sharePreview').innerText; 
-        window.open("https://api.whatsapp.com/send?text=🏏 Watch Live Cricket Here: " + linkText, '_blank'); 
-    }
-
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
         document.getElementById('entry-popup').style.display = 'flex';
         if (ch && channels[ch]) {
+            document.body.classList.add('share-mode-active');
             loadMatch(ch);
             document.getElementById('site-header').classList.add('hidden-mode');
             document.getElementById('share-header').style.display = 'block';
