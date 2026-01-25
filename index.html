@@ -64,6 +64,8 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
         .channel-button:active { transform: scale(0.96); }
         
+        /* Button Styles */
+        .jiohotstar-btn { background: linear-gradient(45deg, #00104b, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
@@ -72,7 +74,6 @@
         .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
         .hindi-btn { background: linear-gradient(45deg, #001f3f, #ff4136) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
-        /* Style for TNT Sports 2 */
         .tnt-btn { background: linear-gradient(45deg, #ff00ff, #7000ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
 
         #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -125,6 +126,8 @@
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
+    <button class="channel-button jiohotstar-btn" onclick="loadMatch('jiohotstar')">📺 JIOHOTSTAR (NO CROP)</button>
+    
     <button class="channel-button tnt-btn" onclick="loadMatch('tnt2')">📺 TNT SPORTS 2 (LIVE)</button>
     <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">📺 FOX 501 LIVE (NEW)</button>
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
@@ -159,6 +162,7 @@
 
 <script>
     const channels = {
+        'jiohotstar': 'https://allrounderlive.pages.dev/player2?url=https://dillzyserver.dillzycreations.workers.dev/live/hotstar.m3u8',
         'tnt2': 'https://allrounderlive.pages.dev/world-sports/player?id=tnt-sports-2',
         'fox_501': 'https://teamroiframe07.pages.dev/',
         'cricbuzz_1': 'https://paste.fledding.com/~Willo.html',
@@ -189,7 +193,8 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        if (['willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event'].includes(slug)) {
+        // Added 'jiohotstar' to fixed-controls (No Crop)
+        if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
