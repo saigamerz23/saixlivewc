@@ -9,20 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
+        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; position: relative; }
         
-        /* REPUBLIC DAY SPECIAL BACKGROUND */
+        /* PREMIUM REPUBLIC DAY MESH BACKGROUND (BLUR) */
         .republic-day-bg {
-            background: linear-gradient(180deg, #FF9933 0%, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #128807 66%, #128807 100%) !important;
+            background-color: #050810 !important;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 153, 51, 0.15) 0px, transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(255, 255, 255, 0.1) 0px, transparent 50%), 
+                radial-gradient(at 50% 100%, rgba(18, 136, 7, 0.15) 0px, transparent 50%) !important;
             background-attachment: fixed !important;
-        }
-        .republic-day-bg #share-header h1 {
-            -webkit-text-fill-color: #000 !important; /* Black text for visibility on tricolor */
-            text-shadow: 0px 0px 10px rgba(255,255,255,0.5);
-        }
-        .republic-day-bg #sharePreview {
-            background: rgba(255, 255, 255, 0.9) !important;
-            color: #000 !important;
         }
 
         /* POPUP */
@@ -279,7 +275,7 @@
             document.getElementById('main-grid').classList.add('hidden-mode');
             document.getElementById('view-all-btn').style.display = 'block';
             
-            // Apply Republic Day Background only in Share Mode
+            // Activate Premium Republic Day Mesh Glow
             document.body.classList.add('republic-day-bg');
         }
     };
