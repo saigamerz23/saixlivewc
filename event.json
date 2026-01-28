@@ -2,32 +2,46 @@
   "event": [
 
 {
-      "title": "Gujarat Vs Up",
-      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/4094/1769057054094-i",
+      "title": "Africa Vs Westindies",
+      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/7615/1769523767615-i",
+      "watch_now": [
+        { "id": "home/south-africa-vs-westindies", "name": "Play Highlights" }
+      ],
+      "date": "27 Jan 2026",
+      "start_time": "09:05 PM",
+      "category": "Cricket",
+      "year": "2025",
+      "language": "Multi",
+      "league": "T20"
+    },
+    
+{
+      "title": "Gujrat Vs Delhi",
+      "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_90,w_1920/sources/r1/cms/prod/191/1769484720191-i",
       "watch_now": [
         { "id": "home/wpl", "name": "Play Highlights" }
       ],
-      "date": "22 Jan 2026",
-      "start_time": "06:00 PM",
+      "date": "27 Jan 2026",
+      "start_time": "06:45 PM",
       "category": "Cricket",
       "year": "2025",
       "language": "Multi",
       "league": "WPL"
     },
+    
 {
       "title": "England Vs Srilanka",
-      "poster_link": "https://images.slivcdn.com/videoasset_images/manage_file/1000013858/176898736563443_SLvsENG26_1odi_21jan_landscape_thumb.jpg",
+      "poster_link": "https://ik.imagekit.io/sexoqkirx/quality_restoration_20260127101335891.jpg",
       "watch_now": [
         { "id": "home/england-vs-srilanka", "name": "Play Highlights" }
       ],
-      "date": "22 Jan 2026",
+      "date": "27 Jan 2026",
       "start_time": "02:00 PM",
       "category": "Cricket",
       "year": "2025",
       "language": "English",
       "league": "ODI"
     },
-
 {
       "title": "Rise Of Champions",
       "poster_link": "https://img10.hotstar.com/image/upload/f_auto,q_auto/sources/r1/cms/prod/854/1766311040854-i",
