@@ -40,7 +40,6 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; transition: opacity 0.5s; }
         
-        /* CROPS */
         .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
@@ -64,7 +63,6 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
         .channel-button:active { transform: scale(0.96); }
         
-        /* Button Styles */
         .jiohotstar-btn { background: linear-gradient(45deg, #00104b, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
@@ -127,7 +125,6 @@
 
 <div class="channel-grid" id="main-grid">
     <button class="channel-button jiohotstar-btn" onclick="loadMatch('jiohotstar')">📺 JIOHOTSTAR (NO CROP)</button>
-    
     <button class="channel-button tnt-btn" onclick="loadMatch('tnt2')">📺 TNT SPORTS 2 (LIVE)</button>
     <button class="channel-button fox501-btn" onclick="loadMatch('fox_501')">📺 FOX 501 LIVE (NEW)</button>
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">🏏 CRICBUZZ 1 (LIVE)</button>
@@ -193,7 +190,6 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        // Added 'jiohotstar' to fixed-controls (No Crop)
         if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
@@ -251,9 +247,14 @@
         setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); 
     }
 
+    // UPDATED: WhatsApp pe ab sirf direct link share hogi
     function whatsappShare() { 
         const linkText = document.getElementById('sharePreview').innerText; 
-        window.open("https://api.whatsapp.com/send?text=🏏 Watch Live Cricket Here: " + linkText, '_blank'); 
+        if(currentChannel) {
+            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(linkText), '_blank'); 
+        } else {
+            alert("Pehle koi channel select karein!");
+        }
     }
 
     window.onload = function() {
