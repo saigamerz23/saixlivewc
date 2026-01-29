@@ -40,6 +40,9 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; transition: opacity 0.5s; }
         
+        /* NEW ZOOM & POSITION FIX FOR NEW CHANNELS */
+        .new-channel-fix { height: 120% !important; top: -10% !important; transform: scale(1.1); }
+        
         .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
@@ -127,6 +130,9 @@
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
+    <button class="channel-button cricbuzz-btn" onclick="loadMatch('willow_cricbuzz')">🏏 WILLOW CRICBUZZ</button>
+    <button class="channel-button wpl-btn" onclick="loadMatch('clife_women')">🏏 CRICLIFE WOMEN</button>
+
     <button class="channel-button" onclick="loadMatch('ss1_sd')">STAR SPORTS 1 SD</button>
     <button class="channel-button" onclick="loadMatch('ss1_hd')">STAR SPORTS 1 HD</button>
     
@@ -193,7 +199,10 @@
 
 <script>
     const channels = {
-        // NEW CHANNELS DATA
+        // Naye Links
+        'willow_cricbuzz': 'https://allinonereborn.xyz/mpd/willo2.html',
+        'clife_women': 'https://allinonereborn2238.github.io/allinone/clife-women.html',
+
         'ss1_sd': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=1142',
         'ss1_hd': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=4470',
         'ss1_sd_hindi': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=148',
@@ -213,8 +222,6 @@
         'ss_khel_all': 'https://mini.allinonereborn.fun/jiotv-inn/app/play_53706f72747331385f4b68656c3d3f3d31393938',
         'ss2_sd_hindi_v2': 'https://mini.allinonereborn.fun/jiotv-inn/app/play_53706f72747331385f315f53443d3f3d31393835',
         'ss2_hd_hindi_v2': 'https://mini.allinonereborn.fun/jiotv-inn/app/play_53706f72747331385f315f48443d3f3d31393834',
-        
-        // PREVIOUS CHANNELS
         'jiohotstar': 'https://allrounderlive.pages.dev/player2?url=https://dillzyserver.dillzycreations.workers.dev/live/hotstar.m3u8',
         'tnt2': 'https://allrounderlive.pages.dev/world-sports/player?id=tnt-sports-2',
         'fox_501': 'https://teamroiframe07.pages.dev/',
@@ -246,8 +253,12 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        // New channels use fixed controls style as they are from jiotv-plus player
-        if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) {
+        
+        // ONLY NEW CHANNELS GET ZOOM AND POSITION FIX
+        if (['willow_cricbuzz', 'clife_women'].includes(slug)) {
+            cropClass = 'class="new-channel-fix"';
+        } 
+        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
@@ -266,52 +277,17 @@
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         showUIParts();
-        
         document.getElementById('watermark').style.display = 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function hideSkeleton() { document.getElementById('loading-skeleton').style.display = 'none'; }
-    
-    function showUIParts() { 
-        if (currentChannel && popupClosed) { 
-            document.getElementById('live-signal-box').style.display = 'flex'; 
-            document.getElementById('reaction-bar').style.display = 'flex'; 
-        } 
-    }
-
-    function closePopup() { 
-        document.getElementById('entry-popup').style.display = 'none'; 
-        popupClosed = true; 
-        showUIParts(); 
-    }
-
-    function react(emoji) { 
-        const el = document.createElement('div'); 
-        el.className = 'floating-emoji'; 
-        el.innerText = emoji; 
-        el.style.left = (Math.random() * 60 + 20) + '%'; 
-        document.body.appendChild(el); 
-        setTimeout(() => el.remove(), 2000); 
-    }
-
-    function copyShareMessage() { 
-        const linkText = document.getElementById('sharePreview').innerText; 
-        navigator.clipboard.writeText(linkText); 
-        document.getElementById('copyBtn').innerText = "DONE!"; 
-        setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); 
-    }
-
-    function whatsappShare() { 
-        const linkText = document.getElementById('sharePreview').innerText; 
-        if(currentChannel) {
-            window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(linkText), '_blank'); 
-        } else {
-            alert("Pehle koi channel select karein!");
-        }
-    }
+    function showUIParts() { if (currentChannel && popupClosed) { document.getElementById('live-signal-box').style.display = 'flex'; document.getElementById('reaction-bar').style.display = 'flex'; } }
+    function closePopup() { document.getElementById('entry-popup').style.display = 'none'; popupClosed = true; showUIParts(); }
+    function react(emoji) { const el = document.createElement('div'); el.className = 'floating-emoji'; el.innerText = emoji; el.style.left = (Math.random() * 60 + 20) + '%'; document.body.appendChild(el); setTimeout(() => el.remove(), 2000); }
+    function copyShareMessage() { const linkText = document.getElementById('sharePreview').innerText; navigator.clipboard.writeText(linkText); document.getElementById('copyBtn').innerText = "DONE!"; setTimeout(() => { document.getElementById('copyBtn').innerText = "COPY"; }, 2000); }
+    function whatsappShare() { const linkText = document.getElementById('sharePreview').innerText; if(currentChannel) { window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(linkText), '_blank'); } else { alert("Pehle koi channel select karein!"); } }
 
     window.onload = function() {
         const ch = new URLSearchParams(window.location.search).get('ch');
@@ -325,6 +301,5 @@
         }
     };
 </script>
-
 </body>
 </html>
