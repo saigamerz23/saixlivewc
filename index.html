@@ -254,10 +254,13 @@
         
         let cropClass = '';
         let scrollingAttr = 'no';
+        let sandboxAttr = 'allow-scripts allow-same-origin allow-forms allow-presentation';
         
         if (slug === 'fancode_web') { 
             cropClass = 'class="fc-scroll-mode"'; 
-            scrollingAttr = 'yes'; // Allow scrolling for matches list
+            scrollingAttr = 'yes';
+            // Fully open sandbox for navigation inside the app
+            sandboxAttr = 'allow-scripts allow-same-origin allow-forms allow-presentation allow-popups allow-top-navigation';
         } 
         else if (['willow_cricbuzz', 'clife_women'].includes(slug)) { cropClass = 'class="new-channel-fix"'; } 
         else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
@@ -266,7 +269,7 @@
         else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') { cropClass = 'class="prime-sa20-fix"'; } 
         else { cropClass = 'class="standard-crop"'; }
         
-        container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="${scrollingAttr}" onload="hideSkeleton()"></iframe>`;
+        container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="${sandboxAttr}" allow="autoplay; encrypted-media; fullscreen" scrolling="${scrollingAttr}" onload="hideSkeleton()"></iframe>`;
         
         showUIParts();
         document.getElementById('watermark').style.display = 'inline-block';
