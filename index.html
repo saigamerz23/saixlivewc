@@ -64,9 +64,9 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
         .channel-button:active { transform: scale(0.96); }
         
-        /* THEMES */
-        .mi-tv-btn { background: linear-gradient(45deg, #004ba0, #002d5c) !important; color: #fcc52c !important; border: 2px solid #fcc52c !important; }
+        .mi-tv-btn { background: linear-gradient(45deg, #004ba0, #002d5c) !important; color: #fcc52c !important; border: 2px solid #fcc52c !important; box-shadow: 0 0 10px rgba(0, 75, 160, 0.6); }
         .jiohotstar-btn { background: linear-gradient(45deg, #00104b, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
+        .fc-web-btn { background: linear-gradient(45deg, #004182, #007bff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; box-shadow: 0 0 15px rgba(0, 123, 255, 0.4); }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .hotstar-btn { background: linear-gradient(45deg, #001524, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
@@ -126,6 +126,8 @@
 <a href="/" id="view-all-btn">Show All Channels</a>
 
 <div class="channel-grid" id="main-grid">
+    <button class="channel-button fc-web-btn" onclick="loadMatch('fancode_web')">📺 FANCODE WEB (ALL MATCHES)</button>
+    
     <button class="channel-button cricbuzz-btn" onclick="loadMatch('willow_cricbuzz')">🏏 WILLOW CRICBUZZ</button>
     <button class="channel-button wpl-btn" onclick="loadMatch('clife_women')">🏏 CRICLIFE WOMEN</button>
 
@@ -195,6 +197,7 @@
 
 <script>
     const channels = {
+        'fancode_web': 'https://allinonereborn2238.github.io/fcw/',
         'willow_cricbuzz': 'https://allinonereborn.xyz/mpd/willo2.html',
         'clife_women': 'https://allinonereborn2238.github.io/allinone/clife-women.html',
         'ss1_sd': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=1142',
@@ -248,7 +251,7 @@
         
         let cropClass = '';
         if (['willow_cricbuzz', 'clife_women'].includes(slug)) { cropClass = 'class="new-channel-fix"'; } 
-        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
+        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2', 'fancode_web'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') { cropClass = 'class="fox-crop"'; } 
         else if (slug === 'criclife') { cropClass = 'class="criclife-crop"'; } 
         else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') { cropClass = 'class="prime-sa20-fix"'; } 
