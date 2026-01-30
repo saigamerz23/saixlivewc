@@ -40,9 +40,7 @@
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; transition: opacity 0.5s; }
         
-        /* NEW ZOOM & POSITION FIX FOR NEW CHANNELS */
         .new-channel-fix { height: 120% !important; top: -10% !important; transform: scale(1.1); }
-        
         .fox-crop { height: 175% !important; top: -65% !important; transform: scale(1.02); }
         .criclife-crop { height: 180% !important; top: -63% !important; transform: scale(1.03); }
         .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
@@ -66,9 +64,8 @@
         .channel-button { border: none; padding: 12px 5px; font-size: 11px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; color: white; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(0, 210, 255, 0.3); transition: 0.2s; }
         .channel-button:active { transform: scale(0.96); }
         
-        /* NEW BUTTONS STYLE */
-        .mi-tv-btn { background: linear-gradient(45deg, #004ba0, #002d5c) !important; color: #fcc52c !important; border: 2px solid #fcc52c !important; box-shadow: 0 0 10px rgba(0, 75, 160, 0.6); }
-
+        /* THEMES */
+        .mi-tv-btn { background: linear-gradient(45deg, #004ba0, #002d5c) !important; color: #fcc52c !important; border: 2px solid #fcc52c !important; }
         .jiohotstar-btn { background: linear-gradient(45deg, #00104b, #004e92) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #00d2ff !important; }
         .fox501-btn { background: linear-gradient(45deg, #00c6ff, #0072ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .cricbuzz-btn { background: linear-gradient(45deg, #1d976c, #93f9b9) !important; color: #000 !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
@@ -77,7 +74,6 @@
         .wpl-btn { background: linear-gradient(45deg, #ff0080, #7928ca) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .criclife-btn { background: linear-gradient(45deg, #f44336, #ff9800) !important; color: #fff !important; grid-column: span 2; font-size: 14px; }
         .special-btn { background: linear-gradient(45deg, #f9a8d4, #00d2ff) !important; color: #000 !important; }
-        .hindi-btn { background: linear-gradient(45deg, #001f3f, #ff4136) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
         .tnt-btn { background: linear-gradient(45deg, #ff00ff, #7000ff) !important; color: #fff !important; grid-column: span 2; font-size: 14px; border: 1px solid #fff !important; }
 
         #sharePreview { font-size: 10px; color: #00d2ff; background: rgba(17, 24, 39, 0.8); padding: 10px; border-radius: 4px; flex-grow: 1; border: 1px solid rgba(51, 65, 85, 0.5); text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -90,7 +86,7 @@
         .join-tg { background: rgba(0, 136, 204, 0.15); border: 1px solid #0088cc; }
 
         .hidden-mode { display: none !important; }
-        #view-all-btn { display: none; margin: 10px auto; background: #ffffff; color: #000; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; width: fit-content; border: 2px solid #00d2ff; box-shadow: 0 4px 15px rgba(0,210,255,0.3); }
+        #view-all-btn { display: none; margin: 10px auto; background: #ffffff; color: #000; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; width: fit-content; border: 2px solid #00d2ff; }
     </style>
 </head>
 <body>
@@ -199,10 +195,8 @@
 
 <script>
     const channels = {
-        // Naye Links
         'willow_cricbuzz': 'https://allinonereborn.xyz/mpd/willo2.html',
         'clife_women': 'https://allinonereborn2238.github.io/allinone/clife-women.html',
-
         'ss1_sd': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=1142',
         'ss1_hd': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=4470',
         'ss1_sd_hindi': 'https://allinonereborn2238.github.io/jiotv-plus/player.html?id=148',
@@ -230,7 +224,7 @@
         'sony_liv': 'https://crickettv.site/sonyliv/sonyliv-1',
         'sony_liv_2': 'https://crickettv.site/sonyliv/sonyliv-5',
         'prime_event': 'https://crickettv.site/world-sports/player?id=prime-tv',
-        'fancode': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=138758&cdn=fancode_cdn',
+        'fancode': 'https://teamrofemcodeplyr2.pages.dev/match.html?id=133973&cdn=fancode_cdn',
         'hotstar_live': 'https://run-machine.pages.dev/?id=hindi',
         'fox_cricket': 'https://match-central.pages.dev/?id=fox',
         'wpl_live': 'https://teamrohittry2.pages.dev/',
@@ -253,26 +247,12 @@
         document.getElementById('loading-skeleton').style.display = 'block';
         
         let cropClass = '';
-        
-        // ONLY NEW CHANNELS GET ZOOM AND POSITION FIX
-        if (['willow_cricbuzz', 'clife_women'].includes(slug)) {
-            cropClass = 'class="new-channel-fix"';
-        } 
-        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) {
-            cropClass = 'class="fixed-controls"';
-        } 
-        else if (slug === 'fox_cricket' || slug === 'hotstar_live') {
-            cropClass = 'class="fox-crop"';
-        } 
-        else if (slug === 'criclife') {
-            cropClass = 'class="criclife-crop"';
-        } 
-        else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') {
-            cropClass = 'class="prime-sa20-fix"'; 
-        } 
-        else {
-            cropClass = 'class="standard-crop"';
-        }
+        if (['willow_cricbuzz', 'clife_women'].includes(slug)) { cropClass = 'class="new-channel-fix"'; } 
+        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
+        else if (slug === 'fox_cricket' || slug === 'hotstar_live') { cropClass = 'class="fox-crop"'; } 
+        else if (slug === 'criclife') { cropClass = 'class="criclife-crop"'; } 
+        else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') { cropClass = 'class="prime-sa20-fix"'; } 
+        else { cropClass = 'class="standard-crop"'; }
         
         container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
