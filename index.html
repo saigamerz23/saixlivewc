@@ -116,9 +116,9 @@
 </div>
 
 <div class="reaction-bar" id="reaction-bar">
-    <div class="react-btn" onclick="react('6️⃣')">6️⃣</div>
     <div class="react-btn" onclick="react('🔥')">🔥</div>
-    <div class="react-btn" onclick="react('❤️')">❤️</div>
+    <div class="react-btn" onclick="react('6️⃣')">6️⃣</div>
+    <div class="react-btn" onclick="react('🤩')">🤩</div>
     <div class="react-btn" onclick="react('4️⃣')">4️⃣</div>
     <div class="react-btn" onclick="react('👏')">👏</div>
 </div>
@@ -178,6 +178,7 @@
     <button class="channel-button" onclick="loadMatch('tnt1')">TNT SPORTS 1</button>
     <button class="channel-button" onclick="loadMatch('willow')">WILLOW SPORTS</button>
     <button class="channel-button special-btn" onclick="loadMatch('sa20_live')">🏏 WILLOW CRICBUZZ</button>
+    <button class="channel-button special-btn" onclick="loadMatch('willow_cricbuzz_2')">🏏 WILLOW CRICBUZZ 2</button>
     <button class="channel-button special-btn" onclick="loadMatch('willow_ios')">🏏 WILLOW !OS (LIVE)</button>
     <button class="channel-button special-btn" onclick="loadMatch('prime_live')">🏏 PRIME</button>
 </div>
@@ -230,6 +231,7 @@
         'wpl_live': 'https://teamrohittry2.pages.dev/',
         'criclife': 'https://run-machine.pages.dev/?id=willow',
         'sa20_live': 'https://skcricweb.pages.dev/ipel?id=t20wc',
+        'willow_cricbuzz_2': 'https://crickettv.site/willow',
         'willow_ios': 'https://skcricweb.pages.dev/ipel?id=willowios',
         'prime_live': 'https://edlios.pages.dev/edid?id=u19',
         'ss2sd': 'https://insiderlivehd.pages.dev/English',
@@ -248,7 +250,7 @@
         
         let cropClass = '';
         if (['willow_cricbuzz', 'clife_women'].includes(slug)) { cropClass = 'class="new-channel-fix"'; } 
-        else if (['jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
+        else if (['willow_cricbuzz_2', 'jiohotstar', 'willow', 'cricbuzz_1', 'cricbuzz_2', 'sony_liv', 'sony_liv_2', 'fancode', 'ss2sd', 'tnt1', 'tnt2', 'prime_event', 'ss1_sd', 'ss1_hd', 'ss1_sd_hindi', 'ss1_hd_hindi', 'ss_sel1_sd', 'ss_sel1_hd', 'ss2_sd_new', 'ss2_hd_new', 'ss2_sd_hindi', 'ss2_hd_hindi', 'ss_sel2_sd', 'ss_sel2_hd', 'ss3', 'ss_khel', 'sd_sports', 'mi_tv', 'ss_khel_all', 'ss2_sd_hindi_v2', 'ss2_hd_hindi_v2'].includes(slug)) { cropClass = 'class="fixed-controls"'; } 
         else if (slug === 'fox_cricket' || slug === 'hotstar_live') { cropClass = 'class="fox-crop"'; } 
         else if (slug === 'criclife') { cropClass = 'class="criclife-crop"'; } 
         else if (slug === 'prime_live' || slug === 'sa20_live' || slug === 'willow_ios') { cropClass = 'class="prime-sa20-fix"'; } 
