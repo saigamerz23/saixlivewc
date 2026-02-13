@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI Emoji", sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
+        body { margin: 0; background-color: #050810; color: white; font-family: 'Poppins', sans-serif; text-align: center; padding-bottom: 20px; overflow-x: hidden; }
         
         /* POPUP */
         #entry-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 16, 0.85); backdrop-filter: blur(12px); display: flex; justify-content: center; align-items: center; z-index: 99999; }
@@ -39,9 +39,6 @@
         }
 
         #main-player { width: 100%; height: 100%; border: 0; position: absolute; left: 0; z-index: 1; transform-origin: top center; }
-        
-        .standard-crop { height: 160% !important; top: -35% !important; transform: scale(1.05); }
-        .ss2-custom-crop { height: 165% !important; top: -38% !important; transform: scale(1.05); }
         .fixed-controls { height: 100% !important; top: 0 !important; transform: scale(1) !important; }
 
         .skeleton { width: 100%; height: 100%; background: linear-gradient(90deg, #0f172a 25%, #1e293b 50%, #0f172a 75%); background-size: 200% 100%; animation: skeleton-loading 1.5s infinite; display: none; position: absolute; top: 0; left: 0; z-index: 5; }
@@ -50,9 +47,9 @@
         #watermark { position: absolute; top: 8px; left: 8px; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 8px; color: #ffffff; background: rgba(0, 0, 0, 0.6); padding: 4px 8px; border-radius: 4px; display: none; text-transform: uppercase; pointer-events: none; }
 
         .reaction-bar { display: none; justify-content: center; gap: 12px; margin: 15px auto; }
-        .react-btn { font-size: 24px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
+        .react-btn { font-size: 20px; cursor: pointer; transition: 0.2s; background: rgba(255,255,255,0.1); padding: 8px; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); color: white; }
         
-        .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+        .floating-emoji { position: fixed; bottom: 100px; left: 50%; pointer-events: none; font-size: 35px; z-index: 10000; animation: popBounce 2s ease-out forwards; }
         @keyframes popBounce { 0% { transform: translateY(0) scale(0); opacity: 0; } 15% { transform: translateY(-30px) scale(1.5); opacity: 1; } 100% { transform: translateY(-400px) translateX(50px); opacity: 0; } }
 
         .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px auto; max-width: 94%; }
@@ -78,7 +75,7 @@
 
 <div id="entry-popup">
     <div class="pop-box">
-        <div class="support-text"> JOIN US</div>
+        <div class="support-text">&#128640; JOIN US</div>
         <a href="https://whatsapp.com/channel/0029Vb9sfuABA1eqJmiFc91q" target="_blank" class="pop-btn" style="background:#25D366;"><i class="fab fa-whatsapp"></i> WHATSAPP GROUP</a>
         <a href="https://t.me/TheCricketLIVEOfficial" target="_blank" class="pop-btn" style="background:#0088cc;"><i class="fab fa-telegram"></i> TELEGRAM CHANNEL</a>
         <div style="margin-top:18px; cursor:pointer; font-size:11px; color:#00d2ff; font-weight:bold; text-decoration:underline;" onclick="closePopup()">CONTINUE TO STREAM</div>
@@ -101,11 +98,11 @@
 </div>
 
 <div class="reaction-bar" id="reaction-bar">
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('6')">6</div>
-    <div class="react-btn" onclick="react('')"></div>
-    <div class="react-btn" onclick="react('4')">4</div>
-    <div class="react-btn" onclick="react('')"></div>
+    <div class="react-btn" onclick="react('&#128293;')">&#128293;</div>
+    <div class="react-btn" onclick="react('6️⃣')">6️⃣</div>
+    <div class="react-btn" onclick="react('&#129321;')">&#129321;</div>
+    <div class="react-btn" onclick="react('4️⃣')">4️⃣</div>
+    <div class="react-btn" onclick="react('&#128079;')">&#128079;</div>
 </div>
 
 <div class="channel-grid" id="main-grid">
@@ -140,8 +137,8 @@
         'hotstar_live': 'https://allinonereborntg.github.io/jtv-plus/player.html?id=174',
         'prime_live': 'https://paste.fledding.com/~Hin.html',
         'sky_nz_4k': 'https://allinonereborn.xyz/mpd/nz1.html',
-        'prime_event': 'https://paste.fledding.com/~Prime.html',
-        'hub_sports': 'https://allinonereborn.xyz/mpd/hub_sprts.html',
+        'prime_event': 'https://allinonereborn.xyz/mpd/prime-eng.html',
+        'hub_sports': 'https://allinonereborn.xyz/mpd/hub-sports.html',
         'ss2sd': 'https://insiderlivehd.pages.dev/English',
         'ss2hd': 'https://insiderlivehd.pages.dev/Fox',
         'ss2hd_hindi': 'https://teamroiframe11.pages.dev/',
@@ -158,21 +155,9 @@
         const container = document.getElementById('player-container');
         document.getElementById('loading-skeleton').style.display = 'block';
         
-        let cropClass = '';
-        if (['hub_sports', 'prime_event', 'hotstar_live', 'willow', 'ss2sd', 'ss1_tamil', 'ss1_telugu', 'sky_nz_4k', 'prime_live', 'cricbuzz_2'].includes(slug)) {
-            cropClass = 'class="fixed-controls"';
-        } 
-        else if (slug === 'ss2hd' || slug === 'ss2hd_hindi') {
-            cropClass = 'class="ss2-custom-crop"';
-        }
-        else {
-            cropClass = 'class="standard-crop"';
-        }
-        
-        container.innerHTML = `<iframe id="main-player" ${cropClass} src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
+        container.innerHTML = `<iframe id="main-player" class="fixed-controls" src="${channels[slug]}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" allow="autoplay; encrypted-media; fullscreen" scrolling="no" onload="hideSkeleton()"></iframe>`;
         
         if(popupClosed) showUIParts();
-        
         document.getElementById('watermark').style.display = 'inline-block';
         document.getElementById('sharePreview').innerText = window.location.href.split('?')[0] + "?ch=" + slug;
     }
@@ -184,7 +169,7 @@
     function react(emoji) { 
         const el = document.createElement('div'); 
         el.className = 'floating-emoji'; 
-        el.innerText = emoji; 
+        el.innerHTML = emoji; 
         el.style.left = (40 + Math.random() * 20) + '%'; 
         document.body.appendChild(el); 
         setTimeout(() => el.remove(), 2000); 
