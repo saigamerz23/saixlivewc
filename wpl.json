@@ -1,15 +1,7 @@
 {
-  "updated_at": "2026-02-16T12:02:43.244Z",
+  "updated_at": "2026-02-16T13:40:50.883Z",
   "count": 100,
   "items": [
-    {
-      "title": "All 13 Sixes by Harmanpreet Kaur in TATA WPL 2026",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/9b/49/e9/0/image-e81b3a2d-73f1-451a-816d-4ec136582a1f.jpg",
-      "video_id": "6389072689112",
-      "duration": 94,
-      "published_iso": "2026-02-11T13:35:03",
-      "url": "https://crickettv.site/wpl/6389072689112.html"
-    },
     {
       "title": "All 17 Wickets of Sophie Devine in TATA WPL 2026",
       "thumbnail": "https://www.wplt20.com/static-assets/waf-images/46/a4/2c/0/image-9caac889-9a01-44e0-a33e-488db92174aa.jpg",
@@ -17,6 +9,14 @@
       "duration": 157,
       "published_iso": "2026-02-11T13:35:03",
       "url": "https://crickettv.site/wpl/6389072398112.html"
+    },
+    {
+      "title": "All 13 Sixes by Harmanpreet Kaur in TATA WPL 2026",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/9b/49/e9/0/image-e81b3a2d-73f1-451a-816d-4ec136582a1f.jpg",
+      "video_id": "6389072689112",
+      "duration": 94,
+      "published_iso": "2026-02-11T13:35:03",
+      "url": "https://crickettv.site/wpl/6389072689112.html"
     },
     {
       "title": "Top Moments of TATA WPL 2026",
@@ -139,20 +139,20 @@
       "url": "https://crickettv.site/wpl/6388836352112.html"
     },
     {
-      "title": "Herbalife Active Catches of Week 4",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/2c/7e/35/0/image-9c999bf6-b202-4845-aff4-97fb8e7cd3bb.jpg",
-      "video_id": "6388836518112",
-      "duration": 71,
-      "published_iso": "2026-02-05T21:30:55",
-      "url": "https://crickettv.site/wpl/6388836518112.html"
-    },
-    {
       "title": "TATA WPL Green Dot Balls of Week 4",
       "thumbnail": "https://www.wplt20.com/static-assets/waf-images/81/d0/3c/0/image-9d28c940-680d-4b97-93a5-12aa609cee6c.jpg",
       "video_id": "6388834777112",
       "duration": 37,
       "published_iso": "2026-02-05T21:30:55",
       "url": "https://crickettv.site/wpl/6388834777112.html"
+    },
+    {
+      "title": "Herbalife Active Catches of Week 4",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/2c/7e/35/0/image-9c999bf6-b202-4845-aff4-97fb8e7cd3bb.jpg",
+      "video_id": "6388836518112",
+      "duration": 71,
+      "published_iso": "2026-02-05T21:30:55",
+      "url": "https://crickettv.site/wpl/6388836518112.html"
     },
     {
       "title": "Jemimah Rodrigues made outstanding decisions as captain throughout the whole tournament: Jonathan Batty",
@@ -171,22 +171,6 @@
       "url": "https://crickettv.site/wpl/6388836216112.html"
     },
     {
-      "title": "TATA WPL 2026 - Emerging Player of the Season: Nandni Sharma",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/25/fb/19/0/image-4f57f945-fd91-4e29-bd80-a060e6986df1.jpg",
-      "video_id": "6388832667112",
-      "duration": 55,
-      "published_iso": "2026-02-05T21:01:11",
-      "url": "https://crickettv.site/wpl/6388832667112.html"
-    },
-    {
-      "title": "TATA WPL 2026 - Dr. Fixt Fair Play Award: Mumbai Indians",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/dd/fe/17/0/image-e378bf8f-d961-42ac-bb0e-e9bb7e589b6d.jpg",
-      "video_id": "6388833825112",
-      "duration": 30,
-      "published_iso": "2026-02-05T21:01:11",
-      "url": "https://crickettv.site/wpl/6388833825112.html"
-    },
-    {
       "title": "TATA WPL 2026 - Orange Cap - Most Runs of the Season: Smriti Mandhana",
       "thumbnail": "https://www.wplt20.com/static-assets/waf-images/c7/36/10/0/image-49cc2f59-2b40-414d-9979-6e6f7b385255.jpg",
       "video_id": "6388833264112",
@@ -201,6 +185,22 @@
       "duration": 81,
       "published_iso": "2026-02-05T21:01:11",
       "url": "https://crickettv.site/wpl/6388834993112.html"
+    },
+    {
+      "title": "TATA WPL 2026 - Emerging Player of the Season: Nandni Sharma",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/25/fb/19/0/image-4f57f945-fd91-4e29-bd80-a060e6986df1.jpg",
+      "video_id": "6388832667112",
+      "duration": 55,
+      "published_iso": "2026-02-05T21:01:11",
+      "url": "https://crickettv.site/wpl/6388832667112.html"
+    },
+    {
+      "title": "TATA WPL 2026 - Dr. Fixt Fair Play Award: Mumbai Indians",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/dd/fe/17/0/image-e378bf8f-d961-42ac-bb0e-e9bb7e589b6d.jpg",
+      "video_id": "6388833825112",
+      "duration": 30,
+      "published_iso": "2026-02-05T21:01:11",
+      "url": "https://crickettv.site/wpl/6388833825112.html"
     },
     {
       "title": "Presentation: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026",
@@ -219,12 +219,12 @@
       "url": "https://crickettv.site/wpl/6388831044112.html"
     },
     {
-      "title": "TATA WPL Green Dot Balls of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Lauren Bell",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/bb/8a/32/0/image-6392a13a-93bb-49b0-a501-551e364a8ab1.jpg",
-      "video_id": "6388828372112",
-      "duration": 39,
+      "title": "Sierra Super Striker of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Chinelle Henry",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/56/f1/bb/0/image-9c71b7fd-ca36-4d8f-831a-3849ffdb86f7.jpg",
+      "video_id": "6388828187112",
+      "duration": 50,
       "published_iso": "2026-02-05T19:14:41",
-      "url": "https://crickettv.site/wpl/6388828372112.html"
+      "url": "https://crickettv.site/wpl/6388828187112.html"
     },
     {
       "title": "Kingfisher Good Times Sixes of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Smriti Mandhana",
@@ -243,12 +243,12 @@
       "url": "https://crickettv.site/wpl/6388826608112.html"
     },
     {
-      "title": "Herbalife Active Catch of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Richa Ghosh",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/85/44/eb/0/image-099d7d6f-e8e0-43b8-9e72-9de10eb69277.jpg",
-      "video_id": "6388828011112",
-      "duration": 41,
+      "title": "TATA WPL Green Dot Balls of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Lauren Bell",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/bb/8a/32/0/image-6392a13a-93bb-49b0-a501-551e364a8ab1.jpg",
+      "video_id": "6388828372112",
+      "duration": 39,
       "published_iso": "2026-02-05T19:14:41",
-      "url": "https://crickettv.site/wpl/6388828011112.html"
+      "url": "https://crickettv.site/wpl/6388828372112.html"
     },
     {
       "title": "ChatGPT Match IQ Award: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Georgia Voll",
@@ -259,12 +259,12 @@
       "url": "https://crickettv.site/wpl/6388827198112.html"
     },
     {
-      "title": "Sierra Super Striker of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Chinelle Henry",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/56/f1/bb/0/image-9c71b7fd-ca36-4d8f-831a-3849ffdb86f7.jpg",
-      "video_id": "6388828187112",
-      "duration": 50,
+      "title": "Herbalife Active Catch of the Match: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Richa Ghosh",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/85/44/eb/0/image-099d7d6f-e8e0-43b8-9e72-9de10eb69277.jpg",
+      "video_id": "6388828011112",
+      "duration": 41,
       "published_iso": "2026-02-05T19:14:41",
-      "url": "https://crickettv.site/wpl/6388828187112.html"
+      "url": "https://crickettv.site/wpl/6388828011112.html"
     },
     {
       "title": "Joy. Jubilation. 2nd Title ft. Royal Challengers Bengaluru",
@@ -659,20 +659,20 @@
       "url": "https://crickettv.site/wpl/6388805338112.html"
     },
     {
-      "title": "Pitch Report: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026",
-      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/11/44/03/0/image-d0dd16e6-7a28-4009-9a36-32d41eaed33f.jpg",
-      "video_id": "6388804061112",
-      "duration": 101,
-      "published_iso": "2026-02-05T12:43:41",
-      "url": "https://crickettv.site/wpl/6388804061112.html"
-    },
-    {
       "title": "Pre Match Interview: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026: Marizanne Kapp Interview",
       "thumbnail": "https://www.wplt20.com/static-assets/waf-images/b5/fa/cf/0/image-1ccc3ba4-053a-4471-a93e-63a1bf5baf72.jpg",
       "video_id": "6388804343112",
       "duration": 146,
       "published_iso": "2026-02-05T12:43:41",
       "url": "https://crickettv.site/wpl/6388804343112.html"
+    },
+    {
+      "title": "Pitch Report: Final, Royal Challengers Bengaluru vs Delhi Capitals, WPL 2026",
+      "thumbnail": "https://www.wplt20.com/static-assets/waf-images/11/44/03/0/image-d0dd16e6-7a28-4009-9a36-32d41eaed33f.jpg",
+      "video_id": "6388804061112",
+      "duration": 101,
+      "published_iso": "2026-02-05T12:43:41",
+      "url": "https://crickettv.site/wpl/6388804061112.html"
     },
     {
       "title": "TATA WPL 2026 Road to Final, ft. Delhi Capitals ",
