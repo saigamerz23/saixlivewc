@@ -123,6 +123,7 @@
 
     <div class="section-title">GLOBAL CHANNELS</div>
     <div class="channel-grid">
+        <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_1')">CRICBUZZ 1</button>
         <button class="channel-button cricbuzz-btn" onclick="loadMatch('cricbuzz_2')">CRICBUZZ 2</button>
         <button class="channel-button hotstar-btn" onclick="loadMatch('hotstar_live')">Star Sports 1 HD Hindi (Alt)</button>
         <button class="channel-button special-btn" onclick="loadMatch('prime_live')">PRIME LIVE</button>
@@ -159,6 +160,7 @@
         'prime_live': 'https://allinonereborn.online/mpd/prime2.html',
         
         // Previous Channels updated with your specific links
+        'cricbuzz_1': 'https://teamrocricbuzz.pages.dev/',
         'cricbuzz_2': 'https://teamrocricbuzz2.pages.dev/',
         'hotstar_live': 'https://allinonereborn.online/jio-plusede/a/new/player_india.html?id=174',
         'sky_nz_4k': 'https://allinonereborn.xyz/mpd/nz1.html',
@@ -182,7 +184,7 @@
         
         let cropClass = '';
         // Adjusted logic to include new links in fixed-controls view
-        if (slug.startsWith('in_') || ['hub_sports', 'prime_event', 'hotstar_live', 'willow', 'ss2sd', 'ss1_tamil', 'ss1_telugu', 'sky_nz_4k', 'prime_live', 'cricbuzz_2'].includes(slug)) {
+        if (slug.startsWith('in_') || ['hub_sports', 'prime_event', 'hotstar_live', 'willow', 'ss2sd', 'ss1_tamil', 'ss1_telugu', 'sky_nz_4k', 'prime_live', 'cricbuzz_1', 'cricbuzz_2'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'ss2hd' || slug === 'ss2hd_hindi') {
