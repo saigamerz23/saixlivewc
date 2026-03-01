@@ -130,7 +130,7 @@
         <button class="channel-button" style="background: linear-gradient(45deg, #1a1a1a, #000); border: 1px solid #00d2ff;" onclick="loadMatch('sky_nz_4k')">Sky Sports NZ 4k</button>
         <button class="channel-button" style="background: linear-gradient(45deg, #00, #333); border: 1px solid #00d2ff;" onclick="loadMatch('prime_event')">PRIME EVENT</button>
         <button class="channel-button" style="background: linear-gradient(45deg, #8b0000, #ff0000); border: 1px solid #fff;" onclick="loadMatch('hub_sports')">HUB SPORTS</button>
-        <button class="channel-button" onclick="loadMatch('ss2sd')">SS 2 SD</button>
+        <button class="channel-button" onclick="loadMatch('ss_select_1_hd')">SS Select 1 HD</button>
         <button class="channel-button" onclick="loadMatch('ss2hd')">SS 2 HD</button>
         <button class="channel-button" style="background: linear-gradient(45deg, #1f4068, #1b1b2f); border: 1px solid #00d2ff;" onclick="loadMatch('ss2hd_hindi')">STAR SPORTS 2 HD HINDI</button>
         <button class="channel-button" style="grid-column: span 1;" onclick="loadMatch('willow')">WILLOW SPORTS</button>
@@ -166,7 +166,7 @@
         'sky_nz_4k': 'https://allinonereborn.xyz/mpd/nz1.html',
         'prime_event': 'https://allinonereborn.online/mpd/prime1.html',
         'hub_sports': 'https://allinonereborn.xyz/mpd/hub-sports.html',
-        'ss2sd': 'https://insiderlivehd.pages.dev/English',
+        'ss_select_1_hd': 'https://allinonereborn.online/jio-plusede/a/new/player_india.html?id=300',
         'ss2hd': 'https://insiderlivehd.pages.dev/Fox',
         'ss2hd_hindi': 'https://teamroiframe11.pages.dev/',
         'willow': 'https://allinonereborn.online/mpd/willo.html',
@@ -184,7 +184,7 @@
         
         let cropClass = '';
         // Adjusted logic to include new links in fixed-controls view
-        if (slug.startsWith('in_') || ['hub_sports', 'prime_event', 'hotstar_live', 'willow', 'ss2sd', 'ss1_tamil', 'ss1_telugu', 'sky_nz_4k', 'prime_live', 'cricbuzz_1', 'cricbuzz_2'].includes(slug)) {
+        if (slug.startsWith('in_') || ['hub_sports', 'prime_event', 'hotstar_live', 'willow', 'ss_select_1_hd', 'ss1_tamil', 'ss1_telugu', 'sky_nz_4k', 'prime_live', 'cricbuzz_1', 'cricbuzz_2'].includes(slug)) {
             cropClass = 'class="fixed-controls"';
         } 
         else if (slug === 'ss2hd' || slug === 'ss2hd_hindi') {
